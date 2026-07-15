@@ -149,3 +149,31 @@ export type Language = 'en' | 'ha' | 'yo' | 'ig';
 export interface Translation {
   [key: string]: string | Translation;
 }
+
+// AI Chat Types
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+}
+
+export interface Conversation {
+  id: string;
+  title: string;
+  messages: ChatMessage[];
+  createdAt: string;
+  updatedAt: string;
+  language: Language;
+}
+
+export interface ChatRequest {
+  message: string;
+  history: ChatMessage[];
+  language: Language;
+}
+
+export interface ChatResponse {
+  reply: string;
+  conversationId: string;
+}

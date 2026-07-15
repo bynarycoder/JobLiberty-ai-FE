@@ -6,11 +6,12 @@ import { usePathname } from 'next/navigation';
 import { useI18n } from '@/providers/I18nProvider';
 import { 
   LayoutDashboard, Upload, Target, BarChart3, TrendingUp, 
-  BookOpen, Users, FileText, Settings, Award 
+  BookOpen, Users, FileText, Settings, Award, MessageCircle 
 } from 'lucide-react';
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, labelKey: 'nav.dashboard' },
+  { href: '/chat', icon: MessageCircle, labelKey: 'nav.chat' },
   { href: '/upload', icon: Upload, labelKey: 'nav.upload' },
   { href: '/jobs', icon: Target, labelKey: 'nav.jobs' },
   { href: '/analysis', icon: BarChart3, labelKey: 'nav.analysis' },
