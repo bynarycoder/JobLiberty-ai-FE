@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/services/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Progress } from '@/components/ui/Progress';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 export default function ATSAnalysisPage() {
   const { t } = useI18n();
@@ -40,8 +39,8 @@ export default function ATSAnalysisPage() {
         <Card>
           <CardHeader><CardTitle>Category Breakdown</CardTitle></CardHeader>
           <CardContent className="space-y-5 pt-2">
-            {scoreData.map((item, idx) => (
-              <div key={idx}>
+            {scoreData.map((item) => (
+              <div key={item.name}>
                 <div className="flex justify-between text-sm mb-1.5">
                   <span>{item.name}</span>
                   <span className="font-semibold">{item.value}%</span>
@@ -58,7 +57,7 @@ export default function ATSAnalysisPage() {
           <CardHeader><CardTitle>{t('analysis.suggestions')}</CardTitle></CardHeader>
           <CardContent>
             <ul className="space-y-3 text-sm">
-              {ats.suggestions.map((sug, i) => <li key={i} className="pl-5 relative before:absolute before:left-0 before:top-1.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-blue-600">• {sug}</li>)}
+              {ats.suggestions.map((sug) => <li key={sug} className="pl-5 relative before:absolute before:left-0 before:top-1.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-blue-600">• {sug}</li>)}
             </ul>
           </CardContent>
         </Card>
@@ -68,11 +67,11 @@ export default function ATSAnalysisPage() {
           <CardContent className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <div className="font-medium mb-2 text-emerald-600">Strengths</div>
-              <ul className="space-y-1.5">{ats.strengths.map((s, i) => <li key={i}>✓ {s}</li>)}</ul>
+              <ul className="space-y-1.5">{ats.strengths.map((s) => <li key={s}>✓ {s}</li>)}</ul>
             </div>
             <div>
               <div className="font-medium mb-2 text-red-600">Areas to improve</div>
-              <ul className="space-y-1.5">{ats.weaknesses.map((w, i) => <li key={i}>– {w}</li>)}</ul>
+              <ul className="space-y-1.5">{ats.weaknesses.map((w) => <li key={w}>– {w}</li>)}</ul>
             </div>
           </CardContent>
         </Card>

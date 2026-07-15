@@ -12,8 +12,6 @@ export default function CareerResources() {
   const { t } = useI18n();
   const { data: resources = [] } = useQuery({ queryKey: ['resources'], queryFn: () => api.fetchCareerResources() });
 
-  const categories = ['courses', 'videos', 'projects', 'certifications'];
-
   return (
     <div>
       <div className="mb-8">
@@ -22,8 +20,8 @@ export default function CareerResources() {
       </div>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {resources.map((res, idx) => (
-          <Card key={idx} className="flex flex-col">
+        {resources.map((res) => (
+          <Card key={res.id} className="flex flex-col">
             <CardHeader>
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg leading-tight">{res.title}</CardTitle>

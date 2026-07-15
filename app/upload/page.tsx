@@ -7,7 +7,6 @@ import { useMutation } from '@tanstack/react-query';
 import { api } from '@/lib/services/api';
 import { Button } from '@/components/ui/Button';
 import { useRouter } from 'next/navigation';
-import { Card } from '@/components/ui/Card';
 import { toast } from 'sonner';
 
 export default function UploadPage() {
@@ -71,8 +70,8 @@ export default function UploadPage() {
       <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
         {[
           "ATS-optimized parsing", "Skill extraction", "AI-powered insights"
-        ].map((txt, i) => (
-          <div key={i} className="flex items-center gap-2 text-muted-foreground justify-center">
+        ].map((txt) => (
+          <div key={txt} className="flex items-center gap-2 text-muted-foreground justify-center">
             <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {txt}
           </div>
         ))}

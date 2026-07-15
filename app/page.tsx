@@ -7,10 +7,8 @@ import { Navbar } from '@/components/landing/Navbar';
 import { Footer } from '@/components/landing/Footer';
 import { useI18n } from '@/providers/I18nProvider';
 import { 
-  Upload, Target, Users, TrendingUp, Star, ArrowRight, 
-  CheckCircle, BookOpen, Award 
+  Upload, Target, TrendingUp, Star, BookOpen, Award 
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export default function LandingPage() {
   const { t } = useI18n();
@@ -98,8 +96,8 @@ export default function LandingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <div key={index} className="group card p-7 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all">
+          {features.map((feature) => (
+            <div key={feature.title} className="group card p-7 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all">
               <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-zinc-800 flex items-center justify-center mb-6 group-hover:bg-blue-100 dark:group-hover:bg-zinc-700 transition-colors">
                 <feature.icon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
@@ -118,8 +116,8 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
-            {steps.map((step, i) => (
-              <div key={i} className="flex flex-col">
+            {steps.map((step) => (
+              <div key={step.num} className="flex flex-col">
                 <div className="text-6xl font-semibold tracking-tighter text-zinc-200 dark:text-zinc-800 mb-3">{step.num}</div>
                 <div className="font-semibold text-xl tracking-tight mb-3">{step.title}</div>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{step.desc}</p>
@@ -136,8 +134,8 @@ export default function LandingPage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((tstm, idx) => (
-            <div key={idx} className="card p-8">
+          {testimonials.map((tstm) => (
+            <div key={tstm.name} className="card p-8">
               <div className="flex mb-6">
                 {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />)}
               </div>
@@ -159,8 +157,8 @@ export default function LandingPage() {
             { value: "192k", label: "Successful Matches" },
             { value: "4", label: "Languages Supported" },
             { value: "87%", label: "User Satisfaction" },
-          ].map((stat, idx) => (
-            <div key={idx} className="p-4">
+          ].map((stat) => (
+            <div key={stat.label} className="p-4">
               <div className="text-5xl font-semibold tracking-tighter mb-1">{stat.value}</div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
@@ -172,8 +170,8 @@ export default function LandingPage() {
       <div id="faq" className="max-w-3xl mx-auto px-6 py-20">
         <h2 className="text-center text-4xl font-semibold tracking-tighter mb-12">{t('landing.faq.title')}</h2>
         <div className="space-y-4">
-          {faqs.map((faq, i) => (
-            <div key={i} className="card border p-6">
+          {faqs.map((faq) => (
+            <div key={faq.q} className="card border p-6">
               <div className="font-semibold mb-1.5 tracking-tight">{faq.q}</div>
               <p className="text-[15px] text-muted-foreground">{faq.a}</p>
             </div>

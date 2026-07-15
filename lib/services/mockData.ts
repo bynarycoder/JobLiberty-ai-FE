@@ -1,9 +1,9 @@
 import type { 
   Resume, Job, ATSAnalysis, SkillGap, CareerResource, 
-  InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification 
+  InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification, User, RecentActivity 
 } from '@/lib/types';
 
-export const MOCK_USER = {
+export const MOCK_USER: User = {
   id: "user_1",
   name: "Chinedu Okoro",
   email: "chinedu.okoro@email.com",
@@ -199,7 +199,7 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
   { id: "n3", title: "Learning Reminder", message: "You've completed 60% of your Kubernetes roadmap.", type: "info", timestamp: "2026-07-13T08:00:00Z", read: false },
 ];
 
-export const MOCK_RECENT_ACTIVITY = [
+export const MOCK_RECENT_ACTIVITY: RecentActivity[] = [
   { id: 1, action: "Uploaded new resume", time: "2 hours ago" },
   { id: 2, action: "Applied to Flutterwave role", time: "Yesterday" },
   { id: 3, action: "Completed Docker course", time: "3 days ago" },

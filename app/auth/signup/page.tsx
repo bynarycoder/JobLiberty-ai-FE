@@ -21,7 +21,7 @@ export default function SignUp() {
       await api.signUp(formData);
       toast.success("Account created! Welcome to JobLiberty.");
       router.push('/auth/verify-email');
-    } catch (err) {
+    } catch {
       toast.error("Signup failed.");
     } finally {
       setLoading(false);

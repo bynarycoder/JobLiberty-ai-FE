@@ -5,7 +5,6 @@ import { useI18n } from '@/providers/I18nProvider';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/services/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Progress } from '@/components/ui/Progress';
 import { Badge } from '@/components/ui/Badge';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -50,8 +49,8 @@ export default function SkillGapPage() {
           <CardHeader><CardTitle>{t('skills.youHave')}</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {skillGap.currentSkills.map((skill, idx) => (
-                <div key={idx} className="flex justify-between items-center">
+              {skillGap.currentSkills.map((skill) => (
+                <div key={skill.id} className="flex justify-between items-center">
                   <div>
                     <div className="font-medium">{skill.name}</div>
                     <div className="text-xs text-muted-foreground">{skill.level} • {skill.yearsExperience} years</div>
@@ -68,8 +67,8 @@ export default function SkillGapPage() {
           <CardHeader><CardTitle>{t('skills.missing')}</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {skillGap.missingSkills.map((skill, idx) => (
-                <div key={idx} className="flex justify-between border-b pb-3 last:border-none last:pb-0">
+              {skillGap.missingSkills.map((skill) => (
+                <div key={skill.name} className="flex justify-between border-b pb-3 last:border-none last:pb-0">
                   <div>
                     <div className="font-semibold">{skill.name}</div>
                     <div className="text-xs text-muted-foreground">Priority: {skill.priority}</div>

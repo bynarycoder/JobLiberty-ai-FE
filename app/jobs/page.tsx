@@ -5,9 +5,7 @@ import { useI18n } from '@/providers/I18nProvider';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/services/api';
 import { JobCard } from '@/components/ui/JobCard';
-import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Job } from '@/lib/types';
 
 export default function JobsPage() {
   const { t } = useI18n();
@@ -20,7 +18,7 @@ export default function JobsPage() {
   });
 
   const sortedJobs = React.useMemo(() => {
-    let result = [...jobs];
+    const result = [...jobs];
     if (sort === 'match') {
       result.sort((a, b) => b.matchPercentage - a.matchPercentage);
     } else if (sort === 'recent') {

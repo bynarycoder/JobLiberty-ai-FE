@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useSyncExternalStore } from 'react';
 import type { Language, Translation } from '@/lib/types';
 
 // Import all translation files
@@ -25,63 +25,93 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
-const LANGUAGE_OPTIONS = [
-  { code: 'en' as const, label: 'English', flag: '🇬🇧' },
-  { code: 'ha' as const, label: 'Hausa', flag: '🇳🇬' },
-  { code: 'yo' as const, label: 'Yoruba', flag: '🇳🇬' },
-  { code: 'ig' as const, label: 'Igbo', flag: '🇳🇬' },
+const LANGUAGE_STORAGE_KEY = 'jobliberty-language';
+const LANGUAGE_CHANGE_EVENT = 'jobliberty-language-change';
+const SUPPORTED_LANGUAGES = ['en', 'ha', 'yo', 'ig'] as const;
+
+type TranslationValue = string | Translation;
+
+const LANGUAGE_OPTIONS: I18nContextType['languages'] = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'ha', label: 'Hausa', flag: '🇳🇬' },
+  { code: 'yo', label: 'Yoruba', flag: '🇳🇬' },
+  { code: 'ig', label: 'Igbo', flag: '🇳🇬' },
 ];
 
+function isLanguage(value: string | null): value is Language {
+  return SUPPORTED_LANGUAGES.includes(value as Language);
+}
+
+function getStoredLanguage(): Language {
+  if (typeof window === 'undefined') return 'en';
+
+  const savedLang = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  return isLanguage(savedLang) ? savedLang : 'en';
+}
+
+function subscribeToLanguageChanges(onStoreChange: () => void) {
+  if (typeof window === 'undefined') return () => undefined;
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === LANGUAGE_STORAGE_KEY) onStoreChange();
+  };
+
+  window.addEventListener('storage', handleStorage);
+  window.addEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange);
+
+  return () => {
+    window.removeEventListener('storage', handleStorage);
+    window.removeEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange);
+  };
+}
+
+function resolveTranslationValue(source: Translation, keys: string[]): TranslationValue | undefined {
+  let result: TranslationValue = source;
+
+  for (const key of keys) {
+    if (typeof result === 'object' && result !== null && key in result) {
+      result = result[key];
+    } else {
+      return undefined;
+    }
+  }
+
+  return result;
+}
+
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
+  const language = useSyncExternalStore<Language>(subscribeToLanguageChanges, getStoredLanguage, () => 'en');
 
-  // Load saved language preference
   useEffect(() => {
-    const savedLang = localStorage.getItem('jobliberty-language') as Language;
-    if (savedLang && ['en', 'ha', 'yo', 'ig'].includes(savedLang)) {
-      setLanguageState(savedLang);
-      document.documentElement.lang = savedLang;
-    }
-  }, []);
+    document.documentElement.lang = language;
+  }, [language]);
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem('jobliberty-language', lang);
-    document.documentElement.lang = lang;
-  };
+  const contextValue = useMemo<I18nContextType>(() => {
+    const setLanguage = (lang: Language) => {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+      document.documentElement.lang = lang;
+      window.dispatchEvent(new Event(LANGUAGE_CHANGE_EVENT));
+    };
 
-  // Translation function with dot notation support (e.g. "nav.home")
-  const t = (key: string): string => {
-    const keys = key.split('.');
-    let result: any = translations[language];
+    const t = (key: string): string => {
+      const keys = key.split('.');
+      const translatedValue = resolveTranslationValue(translations[language], keys);
+      if (typeof translatedValue === 'string') return translatedValue;
 
-    for (const k of keys) {
-      if (result && typeof result === 'object' && k in result) {
-        result = result[k];
-      } else {
-        // Fallback to English
-        let fallback: any = translations['en'];
-        for (const fk of keys) {
-          if (fallback && typeof fallback === 'object' && fk in fallback) {
-            fallback = fallback[fk];
-          } else {
-            return key; // Return key if no fallback
-          }
-        }
-        return typeof fallback === 'string' ? fallback : key;
-      }
-    }
+      const fallbackValue = resolveTranslationValue(translations.en, keys);
+      return typeof fallbackValue === 'string' ? fallbackValue : key;
+    };
 
-    return typeof result === 'string' ? result : key;
-  };
+    return {
+      language,
+      setLanguage,
+      t,
+      languages: LANGUAGE_OPTIONS,
+    };
+  }, [language]);
 
   return (
-    <I18nContext.Provider value={{ 
-      language, 
-      setLanguage, 
-      t, 
-      languages: LANGUAGE_OPTIONS 
-    }}>
+    <I18nContext.Provider value={contextValue}>
       {children}
     </I18nContext.Provider>
   );
