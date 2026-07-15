@@ -1,0 +1,339 @@
+{
+  "app": {
+    "name": "JobLiberty",
+    "tagline": "Chọta ọrụ ziri ezi na ntụkwasị obi AI.",
+    "altTagline": "Onye enyemaka ọrụ AI gị.",
+    "mission": "Inyere ndị na-achọ ọrụ na Naịjirịa na Africa aka ka ha mepee ohere ọrụ site na AI.",
+    "vision": "Ime ka ndụmọdụ ọrụ nwere ọgụgụ isi dịrị onye ọ bụla."
+  },
+  "nav": {
+    "home": "Ụlọ",
+    "dashboard": "Dashboard",
+    "upload": "Bulite Resume",
+    "jobs": "Ọrụ nke Na-adaba",
+    "analysis": "Ntụle ATS",
+    "skills": "Oghere Nkà",
+    "resources": "Ihe Ndị Na-enyere Aka",
+    "interview": "Nkwadebe Ajụjụ",
+    "reports": "Akụkọ",
+    "settings": "Ntọala",
+    "about": "Banyere",
+    "signIn": "Banye",
+    "signUp": "Malite",
+    "logout": "Pụọ"
+  },
+  "auth": {
+    "signIn": "Banye",
+    "signUp": "Mepụta Akaụntụ",
+    "forgotPassword": "Chefuo Okwu Nzuzo",
+    "resetPassword": "Tọgharịa Okwu Nzuzo",
+    "email": "Adreesị Email",
+    "password": "Okwu Nzuzo",
+    "confirmPassword": "Kwenye Okwu Nzuzo",
+    "fullName": "Aha Zuru Ezu",
+    "location": "Ebe",
+    "rememberMe": "Chetara m",
+    "forgotPasswordLink": "I chefuo okwu nzuzo gị?",
+    "noAccount": "Ị nweghị akaụntụ?",
+    "hasAccount": "Ị nwere akaụntụ?",
+    "signInWith": "Banye na",
+    "signUpWith": "Mepụta na",
+    "google": "Google",
+    "github": "GitHub",
+    "continue": "Gaa n'ihu",
+    "createAccount": "Mepụta Akaụntụ",
+    "verifyEmail": "Kwenye email gị",
+    "verifyEmailDesc": "Anyị ezigala njikọ nkwenye na email gị. Biko lelee igbe mbata gị.",
+    "resendLink": "Zighachi njikọ nkwenye",
+    "backToSignIn": "Laghachi na Banye",
+    "resetInstructions": "Tinye email gị na anyị ga-eziga gị ntụziaka iji tọgharịa okwu nzuzo gị."
+  },
+  "landing": {
+    "heroTitle": "Onye enyemaka ọrụ AI gị",
+    "heroSubtitle": "Na-enye ndị na-achọ ọrụ Naịjirịa na Africa ike site na nyocha resume AI, ijikọ ọrụ na ndụmọdụ ọrụ nkeonwe.",
+    "ctaPrimary": "Bulite Resume Gị",
+    "ctaSecondary": "Chọpụta Atụmatụ",
+    "stats": {
+      "users": "47,000+",
+      "jobsMatched": "192,000",
+      "successRate": "87%",
+      "languages": "4"
+    },
+    "features": {
+      "title": "Ihe niile ịchọrọ iji nweta ọrụ nrọ gị",
+      "resumeAnalysis": {
+        "title": "Nyocha Resume AI",
+        "desc": "Nweta nghọta ngwa ngwa banyere nkà gị, ahụmịhe na ndakọrịta ATS."
+      },
+      "jobMatching": {
+        "title": "Ijikọ ọrụ nwere ọgụgụ isi",
+        "desc": "Chọta ọrụ ndị dabara nke ọma na ahụmịhe na ebumnuche gị."
+      },
+      "skillGap": {
+        "title": "Nyocha Oghere Nkà",
+        "desc": "Chọpụta nkà ndị na-efu ma nweta ndụmọdụ mmụta nkeonwe."
+      },
+      "interviewPrep": {
+        "title": "Nkwadebe Ajụjụ",
+        "desc": "Mee mmemme na ajụjụ ezi ezi ma nweta nzaghachi AI."
+      },
+      "careerRoadmap": {
+        "title": "Map ọrụ",
+        "desc": "Hụ usoro doro anya iji rute ọrụ ndị ị chọrọ."
+      },
+      "opportunityMode": {
+        "title": "Ụdị Ohere",
+        "desc": "Hụ ka obere mmelite nwere ike ime ka ọkwa ịdị n'otu gị dị elu."
+      }
+    },
+    "howItWorks": {
+      "title": "Otu JobLiberty si arụ ọrụ",
+      "step1": {
+        "title": "Bulite resume gị",
+        "desc": "Bulite CV gị n'ụdị PDF. AI anyị ga-enyocha ya n'ime sekọnd."
+      },
+      "step2": {
+        "title": "Nweta nyocha zuru oke",
+        "desc": "Nweta akara ATS zuru oke, nkesa nkà na ndụmọdụ."
+      },
+      "step3": {
+        "title": "Chọta ohere ndị dabara",
+        "desc": "Lelee ọrụ ndị e mere na akara ndakọrịta na nkesa nkà."
+      },
+      "step4": {
+        "title": "Mee ihe & tolite",
+        "desc": "Soro atụmatụ mmụta nkeonwe, kwadebe maka ajụjụ, na soro ọganihu."
+      }
+    },
+    "testimonials": {
+      "title": "Ndị na-achọ ọrụ n'ofe Africa hụrụ ya n'anya",
+      "t1": {
+        "quote": "JobLiberty nyeere m aka ịchọta oghere na resume m nke m na-amaghị. M nwetara ọrụ mbụ m na ụlọ ọrụ fintech n'ime izu isii.",
+        "name": "Aisha Bello",
+        "role": "Onye na-ese ihe, Lagos"
+      },
+      "t2": {
+        "quote": "Dịka onye otu NYSC, ngwa a nyere m obi ike na data m chọrọ iji tinye akwụkwọ maka ọrụ. Enwetara m ajụjụ atọ n'otu izu.",
+        "name": "Chinedu Okoro",
+        "role": "Onye na-emepụta Software, Abuja"
+      },
+      "t3": {
+        "quote": "Ụdị Ohere bụ ihe amamihe. Ọ gosiri m kpọmkwem nkà m ga-agbakwunye iji si na 63% ruo 91% ndakọrịta.",
+        "name": "Fatima Ibrahim",
+        "role": "Onye nyocha data, Kano"
+      }
+    },
+    "faq": {
+      "title": "Ajụjụ ndị a na-ajụkarị",
+      "q1": "Ọ bụ JobLiberty bụ n'efu?",
+      "a1": "Ee, atụmatụ ndị bụ isi gụnyere nyocha resume na ijikọ ọrụ bụ n'efu. Atụmatụ ndị ọzọ ga-adị n'oge na-adịghị anya.",
+      "q2": "Kedu asụsụ a na-akwado?",
+      "a2": "Anyị na-akwado Bekee, Hausa, Yoruba na Igbo nke ọma. Ị nwere ike gbanwee asụsụ mgbe ọ bụla na ntọala ma ọ bụ navbar.",
+      "q3": "Ọ bụ data resume m dị nzuzo na nchekwa?",
+      "a3": "Ee. Resume gị ka a na-enyocha na mpaghara na ọ dịghị mgbe echekwara ya na-enweghị ikike gị. Data niile bụ nke a na-echebe na ị nwere ike ihichapụ ya mgbe ọ bụla.",
+      "q4": "Kedu ka ọ dị mma ka ijikọ ọrụ si dị?",
+      "a4": "A zụrụ ụdị AI anyị na data ahịa Naịjirịa na Africa. Ndakọrịta dabere na nkà, ahụmịhe na mkpa ebe. Afọ ojuju nke onye ọrụ karịrị 87%."
+    },
+    "cta": {
+      "title": "Ị dịla njikere imeghe ike ọrụ gị?",
+      "subtitle": "Jikọọ na ọtụtụ puku ndị na-achọ ọrụ Africa na-eji AI iji nweta ọrụ ka mma ngwa ngwa.",
+      "button": "Malite N'efu"
+    }
+  },
+  "dashboard": {
+    "welcome": "Nabata ọzọ",
+    "subtitle": "Lee otu ị si eme taa",
+    "stats": {
+      "resumeScore": "Akara Resume",
+      "atsScore": "Akara ATS",
+      "jobMatches": "Ọrụ ndị Na-adaba",
+      "applications": "Ngwa",
+      "careerReadiness": "Nkwadebe Ọrụ",
+      "learningProgress": "Ọganihu Mmụta"
+    },
+    "recentActivity": "Ọrụ N'oge Na-adịbeghị Anya",
+    "aiRecommendations": "Ndụmọdụ AI",
+    "opportunityMode": "Ụdị Ohere",
+    "upcomingGoals": "Ebumnuche Na-abịa",
+    "quickActions": "Ọrụ Ngwa ngwa",
+    "viewAll": "Lee Ha Niile"
+  },
+  "upload": {
+    "title": "Bulite Resume Gị",
+    "subtitle": "Bulite CV gị na PDF. AI anyị ga-enyocha ya ozugbo.",
+    "dragDrop": "Dọọ ma dobe resume gị ebe a",
+    "or": "ma ọ bụ",
+    "browse": "Chọọ faịlụ",
+    "supported": "Na-akwado PDF, DOCX (Max 5MB)",
+    "analyzing": "Na-enyocha resume gị...",
+    "success": "Ebulitere resume nke ọma!",
+    "analyze": "Nyochaa Resume",
+    "uploadAnother": "Bulite resume ọzọ"
+  },
+  "resume": {
+    "title": "Nyocha Resume",
+    "professionalSummary": "Nchịkọta Ọkachamara",
+    "skills": "Nkà",
+    "experience": "Ahụmịhe",
+    "education": "Agụmakwụkwọ",
+    "projects": "Ọrụ",
+    "certifications": "Asambodo",
+    "achievements": "Ihe Nwere Ihe",
+    "languages": "Asụsụ",
+    "softSkills": "Nkà Dị Nro",
+    "resumeScore": "Akara Resume",
+    "aiSummary": "Nchịkọta AI",
+    "download": "Budata Akụkọ"
+  },
+  "jobs": {
+    "title": "Ọrụ ndị Na-adaba",
+    "subtitle": "Ohere nke e mere maka profaịlụ gị",
+    "searchPlaceholder": "Chọọ ọrụ...",
+    "filter": "Nzacha",
+    "sort": "Hazie",
+    "match": "Nkwekọrịta",
+    "remote": "N'ime",
+    "apply": "Tinye akwụkwọ",
+    "bookmark": "Tinye akara",
+    "viewDetails": "Lee nkọwa",
+    "noJobs": "Ọ dịghị ọrụ na-adaba. Gbalịa imelite resume gị.",
+    "salary": "Ụgwọ",
+    "posted": "E biputere"
+  },
+  "analysis": {
+    "title": "Ntụle Ndakọrịta ATS",
+    "overallScore": "Akara N'ozuzu",
+    "keywordMatch": "Nkwekọrịta Okwu",
+    "formatting": "Nhazi",
+    "readability": "Ike Ọgụgụ",
+    "education": "Agụmakwụkwọ",
+    "experience": "Ahụmịhe",
+    "skills": "Nkà",
+    "suggestions": "Ndụmọdụ Nkwalite",
+    "strengths": "Ike",
+    "weaknesses": "Ebe ka mma"
+  },
+  "skills": {
+    "title": "Nyocha Oghere Nkà",
+    "subtitle": "Hụ ebe ị nọ na otu ị ga-esi mechie oghere",
+    "youHave": "Nkà nke ị nwere",
+    "missing": "Nkà ndị na-efu",
+    "priority": "Nkà Ndị Dị Mkpa",
+    "opportunityScore": "Akara Ohere",
+    "careerReadiness": "Nkwadebe Ọrụ",
+    "estimatedTime": "Est. Oge Mmụta",
+    "potentialMatch": "Nwere ike Na-adaba Mgbe Mmụta",
+    "opportunityMode": "Ụdị Ohere"
+  },
+  "resources": {
+    "title": "Ihe Ndị Na-enyere Aka",
+    "subtitle": "Ihe mmụta e mere iji mee ka ị ga n'ihu ngwa ngwa",
+    "courses": "Ọmụmụ",
+    "videos": "Nkuzi & Vidiyo",
+    "projects": "Ọrụ",
+    "communities": "Obodo",
+    "certifications": "Asambodo",
+    "documentation": "Akwụkwọ",
+    "free": "N'efu",
+    "paid": "Ịkwụ ụgwọ",
+    "startLearning": "Malite Mmụta"
+  },
+  "interview": {
+    "title": "Nkwadebe Ajụjụ",
+    "subtitle": "Mee mmemme na ajụjụ na ndụmọdụ AI",
+    "behavioral": "Ajụjụ Omume",
+    "technical": "Ajụjụ Nkà na ụzụ",
+    "starMethod": "Ụzọ STAR",
+    "aiTips": "Ndụmọdụ AI",
+    "checklist": "Ndepụta Nkwadebe",
+    "practice": "Mee mmemme na Ajụjụ AI Mock",
+    "mock": "Malite Ajụjụ Mock"
+  },
+  "reports": {
+    "title": "Akụkọ Ọrụ",
+    "subtitle": "Budata akụkọ ndị ọkachamara maka ndekọ gị",
+    "executiveSummary": "Nchịkọta Onye isi",
+    "generate": "Mepụta Akụkọ",
+    "downloadPDF": "Budata PDF",
+    "share": "Kesaa",
+    "print": "Bipụta"
+  },
+  "opportunity": {
+    "title": "Ụdị Ohere",
+    "currentReadiness": "Nkwadebe Ọrụ Ugbu a",
+    "targetRole": "Ọrụ Ebumnuche",
+    "missingSkills": "Nkà ndị na-efu",
+    "estimatedTime": "Est. Oge Mmụta",
+    "potentialMatch": "Nwere ike Na-adaba Mgbe Mmụta",
+    "roadmap": "Map Ọrụ AI",
+    "current": "Ọnọdụ Ugbu a",
+    "recommendedSkills": "Nkà ndị a Na-atụ aro",
+    "projects": "Ọrụ Iji Wuo",
+    "certifications": "Asambodo ndị a Na-atụ aro",
+    "target": "Ọrụ Ebumnuche"
+  },
+  "settings": {
+    "title": "Ntọala",
+    "theme": "Isiokwu",
+    "language": "Asụsụ",
+    "notifications": "Ngosi",
+    "account": "Akaụntụ",
+    "preferences": "Mmasị",
+    "accessibility": "Ịnweta",
+    "darkMode": "Ọnọdụ Gbara Ọchịchịrị",
+    "lightMode": "Ọnọdụ Ìhè",
+    "system": "Sistemu",
+    "emailNotifications": "Ngosi Email",
+    "jobAlerts": "Ngosi Ọrụ",
+    "weeklyReports": "Akụkọ Ọrụ Kwa Izu",
+    "deleteAccount": "Hichapụ Akaụntụ"
+  },
+  "about": {
+    "title": "Banyere JobLiberty",
+    "mission": "Ebumnuche Anyị",
+    "vision": "Ọhụụ Anyị",
+    "stack": "Ngwa Teknụzụ",
+    "openSource": "Open Source",
+    "roadmap": "Map Ụzọ",
+    "community": "Obodo",
+    "developer": {
+      "title": "Onye Mepụtara",
+      "name": "Abdulwahab Abdulyekeen",
+      "role": "3MTT NextGen Fellow",
+      "bio": "Onye nwere mmasị n'ịrụ ngwọta AI nke na-agbasa ohere ọrụ ma na-enye obodo ike site na teknụzụ.",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "portfolio": "Portfolio"
+    }
+  },
+  "common": {
+    "loading": "Na-ebupụta...",
+    "error": "Ọ nwere ihe na-adịghị mma",
+    "retry": "Gbalịa ọzọ",
+    "cancel": "Kagbuo",
+    "save": "Chekwaa",
+    "continue": "Gaa n'ihu",
+    "back": "Azụ",
+    "next": "Ọzọ",
+    "done": "Emechaala",
+    "search": "Chọọ",
+    "filter": "Nzacha",
+    "sort": "Hazie",
+    "apply": "Tinye akwụkwọ",
+    "close": "Mechie",
+    "empty": "Ọ nweghị ihe ebe a ugbu a",
+    "success": "Ọ gara nke ọma"
+  },
+  "footer": {
+    "copyright": "© 2026 JobLiberty",
+    "developedBy": "Emepụtara site n'aka Abdulwahab Abdulyekeen",
+    "fellow": "3MTT NextGen Fellow",
+    "links": {
+      "about": "Banyere",
+      "privacy": "Nzuzo",
+      "terms": "Usoro",
+      "contact": "Kpọtụrụ",
+      "github": "GitHub"
+    }
+  }
+}

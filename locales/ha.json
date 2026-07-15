@@ -1,0 +1,339 @@
+{
+  "app": {
+    "name": "JobLiberty",
+    "tagline": "Samu aikin da ya dace tare da AI-powered amincewa.",
+    "altTagline": "Abokin Taimakon Aikin AI naka.",
+    "mission": "Taimaka wa masu neman aikin Afirka su buɗe damar aiki ta hanyar AI.",
+    "vision": "Yin jagora na aikin hankali a ga kowa."
+  },
+  "nav": {
+    "home": "Gida",
+    "dashboard": "Dashboard",
+    "upload": "Ɗauki Resume",
+    "jobs": "Aikin da ya dace",
+    "analysis": "Binciken ATS",
+    "skills": "Rago na Fasaha",
+    "resources": "Albarkatun Aiki",
+    "interview": "Shirye-shiryen Hira",
+    "reports": "Rahotanni",
+    "settings": "Saituna",
+    "about": "Game da",
+    "signIn": "Shiga",
+    "signUp": "Fara",
+    "logout": "Fita"
+  },
+  "auth": {
+    "signIn": "Shiga",
+    "signUp": "Ƙirƙiri Asusu",
+    "forgotPassword": "Manta da Kalmar Sirri",
+    "resetPassword": "Sake Sanya Kalmar Sirri",
+    "email": "Adireshin Imel",
+    "password": "Kalmar Sirri",
+    "confirmPassword": "Tabbatar da Kalmar Sirri",
+    "fullName": "Cikakken Suna",
+    "location": "Wuri",
+    "rememberMe": "Tuna ni",
+    "forgotPasswordLink": "Ka manta da kalmar sirrinka?",
+    "noAccount": "Ba ka da asusu?",
+    "hasAccount": "Tuni kana da asusu?",
+    "signInWith": "Shiga tare da",
+    "signUpWith": "Shiga tare da",
+    "google": "Google",
+    "github": "GitHub",
+    "continue": "Ci gaba",
+    "createAccount": "Ƙirƙiri Asusu",
+    "verifyEmail": "Tabbatar da imel ɗinka",
+    "verifyEmailDesc": "Mun aika muku da hanyar tabbatarwa zuwa imel ɗinku. Don Allah duba akwatin saƙonku.",
+    "resendLink": "Sake aika hanyar tabbatarwa",
+    "backToSignIn": "Komo zuwa Shiga",
+    "resetInstructions": "Shigar da imel ɗinka kuma za mu aika muku umarnin sake saita kalmar sirri."
+  },
+  "landing": {
+    "heroTitle": "Abokin Taimakon Aikin AI naka",
+    "heroSubtitle": "Ƙarfafa masu neman aikin Najeriya da Afirka tare da binciken resume na AI, daidaita aiki, da jagorar aiki na musamman.",
+    "ctaPrimary": "Ɗauki Resume ɗinka",
+    "ctaSecondary": "Bincika Fasali",
+    "stats": {
+      "users": "47,000+",
+      "jobsMatched": "192,000",
+      "successRate": "87%",
+      "languages": "4"
+    },
+    "features": {
+      "title": "Duk abin da kuke buƙata don samun matsayin mafarki",
+      "resumeAnalysis": {
+        "title": "Binciken Resume na AI",
+        "desc": "Samu bayani nan take game da ƙwarewa, gogewa, da dacewar ATS."
+      },
+      "jobMatching": {
+        "title": "Daidaita Aikin Mai Hankali",
+        "desc": "Gano ayyukan da suka dace sosai tare da gogewa da burin ku."
+      },
+      "skillGap": {
+        "title": "Binciken Rago na Fasaha",
+        "desc": "Gano ƙwarewar da aka rasa kuma sami shawarwari na koyo na musamman."
+      },
+      "interviewPrep": {
+        "title": "Shirye-shiryen Hira",
+        "desc": "Yi aiki tare da tambayoyi masu dacewa kuma sami ra'ayin AI."
+      },
+      "careerRoadmap": {
+        "title": "Hanyar Aiki",
+        "desc": "Gano matakai masu bayyana don isa ga matsayin da kuke so."
+      },
+      "opportunityMode": {
+        "title": "Yanayin Damar",
+        "desc": "Duba yadda ƙananan gyare-gyare za su iya ƙara yawan dacewar ku."
+      }
+    },
+    "howItWorks": {
+      "title": "Yadda JobLiberty ke Aiki",
+      "step1": {
+        "title": "Ɗauki resume ɗinka",
+        "desc": "Ɗauki CV ɗinka a cikin tsarin PDF. AI ɗinmu zai bincike shi a cikin daƙiƙa."
+      },
+      "step2": {
+        "title": "Samu cikakken bincike",
+        "desc": "Samu cikakkun bayanan ATS, rarrabuwar ƙwarewa, da shawarwari."
+      },
+      "step3": {
+        "title": "Gano damar da suka dace",
+        "desc": "Bincika ayyukan da aka tsara tare da adadin dacewa da bayanan ƙwarewa."
+      },
+      "step4": {
+        "title": "Ɗauki mataki & girma",
+        "desc": "Biya tsare-tsaren koyo na musamman, shirya don hirarraki, da bin diddigin ci gaba."
+      }
+    },
+    "testimonials": {
+      "title": "An ƙaunace shi da masu neman aikin a duk faɗin Afirka",
+      "t1": {
+        "quote": "JobLiberty ya taimaka mini gano rago a resume na da ban sani ba. Na samu aikin farko a kamfanin fintech a cikin makonni 6.",
+        "name": "Aisha Bello",
+        "role": "Mai Zane na Samfuri, Lagos"
+      },
+      "t2": {
+        "quote": "A matsayina na memba na NYSC, wannan kayan aikin ya ba ni ƙarfin zuciya da bayanan da na buƙata don neman ayyuka. Na samu hirarraki 3 a cikin mako ɗaya.",
+        "name": "Chinedu Okoro",
+        "role": "Mashawarcin Software, Abuja"
+      },
+      "t3": {
+        "quote": "Yanayin Damar yana da hikima. Ya nuna mini ainihin ƙwarewar da zan ƙara don daga 63% zuwa 91% dacewa.",
+        "name": "Fatima Ibrahim",
+        "role": "Mai Binciken Bayanai, Kano"
+      }
+    },
+    "faq": {
+      "title": "Tambayoyin da aka fi yawan yi",
+      "q1": "JobLiberty kyauta ne?",
+      "a1": "Ee, fasaloli na asali ciki har da binciken resume da daidaita aiki na asali kyauta ne. Fasaloli na musamman za su kasance ba da jimawa ba.",
+      "q2": "Wadanne harsuna ne aka goyi baya?",
+      "a2": "Mun goyi bayan Ingilishi, Hausa, Yoruba, da Igbo cikakke. Za ku iya canza harshe a kowane lokaci a cikin saituna ko navbar.",
+      "q3": "Bayanan resume na sirri ne da amintacce?",
+      "a3": "Hakika. Ana binciken resume ɗinku a gida kuma ba a adana shi ba tare da izinin ku ba. Duk bayanai an ɓoye su kuma za ku iya share su a kowane lokaci.",
+      "q4": "Yaya daidaitattun daidaita aiki suke?",
+      "a4": "An horar da samfuran AI ɗinmu akan bayanan kasuwar Najeriya da Afirka. Daidaito ya dogara da ƙwarewa, gogewa, da mahimmancin wuri. Matsakaicin gamsuwar mai amfani ya wuce 87%."
+    },
+    "cta": {
+      "title": "Shirya don buɗe damar aikinku?",
+      "subtitle": "Haɗu da dubunnan masu neman aikin Afirka suna amfani da AI don samun ayyuka mafi kyau cikin sauri.",
+      "button": "Fara Kyauta"
+    }
+  },
+  "dashboard": {
+    "welcome": "Barka da dawowa",
+    "subtitle": "Ga yadda kuke a yau",
+    "stats": {
+      "resumeScore": "Matakin Resume",
+      "atsScore": "Matakin ATS",
+      "jobMatches": "Ayyukan da suka dace",
+      "applications": "Ayyukan da aka nema",
+      "careerReadiness": "Shirye-shiryen Aiki",
+      "learningProgress": "Ci gaban Koyo"
+    },
+    "recentActivity": "Ayyukan Kwanan nan",
+    "aiRecommendations": "Shawarwari na AI",
+    "opportunityMode": "Yanayin Damar",
+    "upcomingGoals": "Maƙasudin da ke zuwa",
+    "quickActions": "Ayyukan Gaggawa",
+    "viewAll": "Duba Duka"
+  },
+  "upload": {
+    "title": "Ɗauki Resume ɗinka",
+    "subtitle": "Ɗauki CV ɗinka a cikin tsarin PDF. AI ɗinmu zai bincike shi nan take.",
+    "dragDrop": "Ja da saka resume ɗinka a nan",
+    "or": "ko",
+    "browse": "Bincika fayiloli",
+    "supported": "Yana goyan bayan PDF, DOCX (Max 5MB)",
+    "analyzing": "Ana binciken resume ɗinka...",
+    "success": "An ɗauki resume cikin nasara!",
+    "analyze": "Bincike Resume",
+    "uploadAnother": "Ɗauki resume ɗaya"
+  },
+  "resume": {
+    "title": "Binciken Resume",
+    "professionalSummary": "Taƙaitaccen Ƙwararru",
+    "skills": "Ƙwarewa",
+    "experience": "Gogewa",
+    "education": "Ilimi",
+    "projects": "Ayyuka",
+    "certifications": "Takaddun Shaida",
+    "achievements": "Nasarori Masu Muhimmanci",
+    "languages": "Harsuna",
+    "softSkills": "Ƙwarewa Mai Laushi",
+    "resumeScore": "Matakin Resume",
+    "aiSummary": "Taƙaitaccen AI",
+    "download": "Sauke Rahoto"
+  },
+  "jobs": {
+    "title": "Ayyukan da suka dace",
+    "subtitle": "Damar da aka keɓance bisa ga bayanan ku",
+    "searchPlaceholder": "Nemo ayyuka...",
+    "filter": "Tace",
+    "sort": "Tsara",
+    "match": "Dacewa",
+    "remote": "Nesa",
+    "apply": "Nema",
+    "bookmark": "Alama",
+    "viewDetails": "Duba Cikakkun Bayanai",
+    "noJobs": "Ba a samu ayyuka masu dacewa ba. Gwada sabunta resume ɗinku.",
+    "salary": "Albashi",
+    "posted": "An buga"
+  },
+  "analysis": {
+    "title": "Binciken Dacewar ATS",
+    "overallScore": "Jimillar Mataki",
+    "keywordMatch": "Dacewar Kalma",
+    "formatting": "Tsarin",
+    "readability": "Iya Karantawa",
+    "education": "Ilimi",
+    "experience": "Gogewa",
+    "skills": "Ƙwarewa",
+    "suggestions": "Shawarwari na Ingantawa",
+    "strengths": "Ƙarfi",
+    "weaknesses": "Wuraren da za a inganta"
+  },
+  "skills": {
+    "title": "Binciken Rago na Ƙwarewa",
+    "subtitle": "Duba inda kuke da yadda za ku rufe rago",
+    "youHave": "Ƙwarewar da kuke da su",
+    "missing": "Ƙwarewar da aka rasa",
+    "priority": "Ƙwarewar Masu Muhimmanci",
+    "opportunityScore": "Matakin Damar",
+    "careerReadiness": "Shirye-shiryen Aiki",
+    "estimatedTime": "Est. Lokacin Koyo",
+    "potentialMatch": "Dacewa Mai Yiwuwa Bayan Koyo",
+    "opportunityMode": "Yanayin Damar"
+  },
+  "resources": {
+    "title": "Albarkatun Aiki",
+    "subtitle": "Albarkatun koyo da aka tsara don hanzarta ci gaban ku",
+    "courses": "Darussan",
+    "videos": "Darussan & Bidiyo",
+    "projects": "Ayyuka",
+    "communities": "Al'ummomi",
+    "certifications": "Takaddun Shaida",
+    "documentation": "Takardu",
+    "free": "Kyauta",
+    "paid": "Biya",
+    "startLearning": "Fara Koyo"
+  },
+  "interview": {
+    "title": "Shirye-shiryen Hira",
+    "subtitle": "Yi aiki tare da tambayoyin da AI ke ƙarfafawa da shawarwari",
+    "behavioral": "Tambayoyi na Hali",
+    "technical": "Tambayoyi na Fasaha",
+    "starMethod": "Hanyar STAR",
+    "aiTips": "Shawarwarin AI",
+    "checklist": "Jerin Shirye-shiryen",
+    "practice": "Yi aiki tare da AI Mock Interview",
+    "mock": "Fara Mock Interview"
+  },
+  "reports": {
+    "title": "Rahotannin Aiki",
+    "subtitle": "Sauke rahotanni na ƙwararru don bayanan ku",
+    "executiveSummary": "Taƙaitaccen Babban Jami'in",
+    "generate": "Ƙirƙiri Rahoto",
+    "downloadPDF": "Sauke PDF",
+    "share": "Raba",
+    "print": "Bugawa"
+  },
+  "opportunity": {
+    "title": "Yanayin Damar",
+    "currentReadiness": "Shirye-shiryen Aiki na Yanzu",
+    "targetRole": "Matsayi da aka nufa",
+    "missingSkills": "Ƙwarewar da aka rasa",
+    "estimatedTime": "Est. Lokacin Koyo",
+    "potentialMatch": "Dacewa Mai Yiwuwa Bayan Koyo",
+    "roadmap": "Hanyar Aiki ta AI",
+    "current": "Matsayi na Yanzu",
+    "recommendedSkills": "Ƙwarewar da aka ba da shawarar",
+    "projects": "Ayyuka don Gina",
+    "certifications": "Takaddun Shaida da aka ba da shawarar",
+    "target": "Matsayin Aiki na Nufi"
+  },
+  "settings": {
+    "title": "Saituna",
+    "theme": "Jigo",
+    "language": "Harshe",
+    "notifications": "Sanarwa",
+    "account": "Asusu",
+    "preferences": "Fifiko",
+    "accessibility": "Samun Damar",
+    "darkMode": "Yanayin Dark",
+    "lightMode": "Yanayin Haske",
+    "system": "Tsarin",
+    "emailNotifications": "Sanarwar Imel",
+    "jobAlerts": "Sanarwar Aiki",
+    "weeklyReports": "Rahotannin Aiki na Mako",
+    "deleteAccount": "Share Asusu"
+  },
+  "about": {
+    "title": "Game da JobLiberty",
+    "mission": "Manufar Mu",
+    "vision": "Hangen Nesa",
+    "stack": "Tsarin Fasaha",
+    "openSource": "Buɗe Tushen",
+    "roadmap": "Hanyar Tafiya",
+    "community": "Al'umma",
+    "developer": {
+      "title": "Mai Ƙirƙira",
+      "name": "Abdulwahab Abdulyekeen",
+      "role": "3MTT NextGen Fellow",
+      "bio": "Mai sha'awar gina mafita na AI wanda ke faɗaɗa damar aiki da ƙarfafa al'ummomi ta hanyar fasaha.",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "portfolio": "Portfoli"
+    }
+  },
+  "common": {
+    "loading": "Ana lodawa...",
+    "error": "Wani abu ya faru ba daidai ba",
+    "retry": "Sake gwadawa",
+    "cancel": "Soke",
+    "save": "Ajiye",
+    "continue": "Ci gaba",
+    "back": "Baya",
+    "next": "Na gaba",
+    "done": "An gama",
+    "search": "Nemo",
+    "filter": "Tace",
+    "sort": "Tsara",
+    "apply": "Aiki",
+    "close": "Rufe",
+    "empty": "Babu wani abu a nan tukuna",
+    "success": "Nasara"
+  },
+  "footer": {
+    "copyright": "© 2026 JobLiberty",
+    "developedBy": "An haɓaka ta Abdulwahab Abdulyekeen",
+    "fellow": "3MTT NextGen Fellow",
+    "links": {
+      "about": "Game da",
+      "privacy": "Sirri",
+      "terms": "Sharuɗɗa",
+      "contact": "Tuntuɓi",
+      "github": "GitHub"
+    }
+  }
+}

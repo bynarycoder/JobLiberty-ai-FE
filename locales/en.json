@@ -1,0 +1,339 @@
+{
+  "app": {
+    "name": "JobLiberty",
+    "tagline": "Find the right job with AI-powered confidence.",
+    "altTagline": "Your AI Career Companion.",
+    "mission": "Helping African job seekers unlock career opportunities through AI.",
+    "vision": "Making intelligent career guidance accessible to everyone."
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "upload": "Upload Resume",
+    "jobs": "Job Matches",
+    "analysis": "ATS Analysis",
+    "skills": "Skill Gap",
+    "resources": "Career Resources",
+    "interview": "Interview Prep",
+    "reports": "Reports",
+    "settings": "Settings",
+    "about": "About",
+    "signIn": "Sign In",
+    "signUp": "Get Started",
+    "logout": "Log out"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Create Account",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "location": "Location",
+    "rememberMe": "Remember me",
+    "forgotPasswordLink": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWith": "Sign in with",
+    "signUpWith": "Sign up with",
+    "google": "Google",
+    "github": "GitHub",
+    "continue": "Continue",
+    "createAccount": "Create Account",
+    "verifyEmail": "Verify your email",
+    "verifyEmailDesc": "We've sent a verification link to your email. Please check your inbox.",
+    "resendLink": "Resend verification link",
+    "backToSignIn": "Back to Sign In",
+    "resetInstructions": "Enter your email and we'll send you instructions to reset your password."
+  },
+  "landing": {
+    "heroTitle": "Your AI-Powered Career Companion",
+    "heroSubtitle": "Empowering Nigerian and African job seekers with intelligent resume analysis, job matching, and personalized career guidance.",
+    "ctaPrimary": "Upload Your Resume",
+    "ctaSecondary": "Explore Features",
+    "stats": {
+      "users": "47,000+",
+      "jobsMatched": "192,000",
+      "successRate": "87%",
+      "languages": "4"
+    },
+    "features": {
+      "title": "Everything you need to land your dream role",
+      "resumeAnalysis": {
+        "title": "AI Resume Analysis",
+        "desc": "Get instant insights into your skills, experience, and ATS compatibility."
+      },
+      "jobMatching": {
+        "title": "Smart Job Matching",
+        "desc": "Discover jobs that perfectly align with your experience and aspirations."
+      },
+      "skillGap": {
+        "title": "Skill Gap Analysis",
+        "desc": "Identify missing skills and get personalized learning recommendations."
+      },
+      "interviewPrep": {
+        "title": "Interview Preparation",
+        "desc": "Practice with realistic questions and receive AI-generated feedback."
+      },
+      "careerRoadmap": {
+        "title": "Career Roadmaps",
+        "desc": "Visualize clear steps to reach your target roles."
+      },
+      "opportunityMode": {
+        "title": "Opportunity Mode",
+        "desc": "See how small improvements can dramatically increase your match rate."
+      }
+    },
+    "howItWorks": {
+      "title": "How JobLiberty Works",
+      "step1": {
+        "title": "Upload your resume",
+        "desc": "Upload your CV in PDF format. Our AI will analyze it in seconds."
+      },
+      "step2": {
+        "title": "Get comprehensive analysis",
+        "desc": "Receive detailed ATS scores, skill breakdowns, and improvement recommendations."
+      },
+      "step3": {
+        "title": "Discover matching opportunities",
+        "desc": "Browse curated job matches with match percentages and skill breakdowns."
+      },
+      "step4": {
+        "title": "Take action & grow",
+        "desc": "Follow personalized learning plans, prepare for interviews, and track progress."
+      }
+    },
+    "testimonials": {
+      "title": "Loved by job seekers across Africa",
+      "t1": {
+        "quote": "JobLiberty helped me identify gaps in my resume I didn't even know existed. I landed my first role at a fintech company within 6 weeks.",
+        "name": "Aisha Bello",
+        "role": "Product Designer, Lagos"
+      },
+      "t2": {
+        "quote": "As an NYSC member, this tool gave me the confidence and data I needed to apply for roles. I got 3 interviews in one week.",
+        "name": "Chinedu Okoro",
+        "role": "Software Engineer, Abuja"
+      },
+      "t3": {
+        "quote": "The Opportunity Mode is genius. It showed me exactly what skills to add to go from 63% to 91% match. Incredible.",
+        "name": "Fatima Ibrahim",
+        "role": "Data Analyst, Kano"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is JobLiberty free to use?",
+      "a1": "Yes, the core features including resume analysis and basic job matching are completely free. Premium features like unlimited reports and interview simulations will be available soon.",
+      "q2": "What languages are supported?",
+      "a2": "We fully support English, Hausa, Yoruba, and Igbo. You can switch languages anytime in the settings or navbar.",
+      "q3": "Is my resume data private and secure?",
+      "a3": "Absolutely. Your resume is analyzed locally and never stored without your explicit consent. All data is encrypted and you can delete it anytime.",
+      "q4": "How accurate are the job matches?",
+      "a4": "Our AI models are trained on Nigerian and African market data. Matches are based on skills, experience, and location relevance. Average user satisfaction is over 87%."
+    },
+    "cta": {
+      "title": "Ready to unlock your career potential?",
+      "subtitle": "Join thousands of African job seekers using AI to land better roles faster.",
+      "button": "Get Started for Free"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Here's how you're doing today",
+    "stats": {
+      "resumeScore": "Resume Score",
+      "atsScore": "ATS Score",
+      "jobMatches": "Job Matches",
+      "applications": "Applications",
+      "careerReadiness": "Career Readiness",
+      "learningProgress": "Learning Progress"
+    },
+    "recentActivity": "Recent Activity",
+    "aiRecommendations": "AI Recommendations",
+    "opportunityMode": "Opportunity Mode",
+    "upcomingGoals": "Upcoming Goals",
+    "quickActions": "Quick Actions",
+    "viewAll": "View All"
+  },
+  "upload": {
+    "title": "Upload Your Resume",
+    "subtitle": "Upload your CV in PDF format. Our AI will analyze it instantly.",
+    "dragDrop": "Drag and drop your resume here",
+    "or": "or",
+    "browse": "Browse files",
+    "supported": "Supports PDF, DOCX (Max 5MB)",
+    "analyzing": "Analyzing your resume...",
+    "success": "Resume uploaded successfully!",
+    "analyze": "Analyze Resume",
+    "uploadAnother": "Upload another resume"
+  },
+  "resume": {
+    "title": "Resume Analysis",
+    "professionalSummary": "Professional Summary",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "certifications": "Certifications",
+    "achievements": "Key Achievements",
+    "languages": "Languages",
+    "softSkills": "Soft Skills",
+    "resumeScore": "Resume Score",
+    "aiSummary": "AI Summary",
+    "download": "Download Report"
+  },
+  "jobs": {
+    "title": "Job Matches",
+    "subtitle": "Personalized opportunities based on your profile",
+    "searchPlaceholder": "Search jobs...",
+    "filter": "Filter",
+    "sort": "Sort",
+    "match": "Match",
+    "remote": "Remote",
+    "apply": "Apply",
+    "bookmark": "Bookmark",
+    "viewDetails": "View Details",
+    "noJobs": "No matching jobs found. Try updating your resume.",
+    "salary": "Salary",
+    "posted": "Posted"
+  },
+  "analysis": {
+    "title": "ATS Compatibility Analysis",
+    "overallScore": "Overall Score",
+    "keywordMatch": "Keyword Match",
+    "formatting": "Formatting",
+    "readability": "Readability",
+    "education": "Education",
+    "experience": "Experience",
+    "skills": "Skills",
+    "suggestions": "Improvement Suggestions",
+    "strengths": "Strengths",
+    "weaknesses": "Areas to Improve"
+  },
+  "skills": {
+    "title": "Skill Gap Analysis",
+    "subtitle": "See where you stand and how to bridge the gap",
+    "youHave": "Skills You Have",
+    "missing": "Missing Skills",
+    "priority": "Priority Skills",
+    "opportunityScore": "Opportunity Score",
+    "careerReadiness": "Career Readiness",
+    "estimatedTime": "Est. Learning Time",
+    "potentialMatch": "Potential Match After Learning",
+    "opportunityMode": "Opportunity Mode"
+  },
+  "resources": {
+    "title": "Career Resources",
+    "subtitle": "Curated learning resources to accelerate your growth",
+    "courses": "Courses",
+    "videos": "Tutorials & Videos",
+    "projects": "Projects",
+    "communities": "Communities",
+    "certifications": "Certifications",
+    "documentation": "Documentation",
+    "free": "Free",
+    "paid": "Paid",
+    "startLearning": "Start Learning"
+  },
+  "interview": {
+    "title": "Interview Preparation",
+    "subtitle": "Practice with AI-powered questions and tips",
+    "behavioral": "Behavioral Questions",
+    "technical": "Technical Questions",
+    "starMethod": "STAR Method",
+    "aiTips": "AI Tips",
+    "checklist": "Preparation Checklist",
+    "practice": "Practice with AI Mock Interview",
+    "mock": "Start Mock Interview"
+  },
+  "reports": {
+    "title": "Career Reports",
+    "subtitle": "Download professional reports for your records",
+    "executiveSummary": "Executive Summary",
+    "generate": "Generate Report",
+    "downloadPDF": "Download PDF",
+    "share": "Share",
+    "print": "Print"
+  },
+  "opportunity": {
+    "title": "Opportunity Mode",
+    "currentReadiness": "Current Career Readiness",
+    "targetRole": "Target Role",
+    "missingSkills": "Missing Skills",
+    "estimatedTime": "Estimated Learning Time",
+    "potentialMatch": "Potential Match After Learning",
+    "roadmap": "AI Career Roadmap",
+    "current": "Current Position",
+    "recommendedSkills": "Recommended Skills",
+    "projects": "Projects to Build",
+    "certifications": "Recommended Certifications",
+    "target": "Target Career Role"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "notifications": "Notifications",
+    "account": "Account",
+    "preferences": "Preferences",
+    "accessibility": "Accessibility",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "system": "System",
+    "emailNotifications": "Email Notifications",
+    "jobAlerts": "Job Alerts",
+    "weeklyReports": "Weekly Career Reports",
+    "deleteAccount": "Delete Account"
+  },
+  "about": {
+    "title": "About JobLiberty",
+    "mission": "Our Mission",
+    "vision": "Our Vision",
+    "stack": "Technology Stack",
+    "openSource": "Open Source",
+    "roadmap": "Roadmap",
+    "community": "Community",
+    "developer": {
+      "title": "Developer",
+      "name": "Abdulwahab Abdulyekeen",
+      "role": "3MTT NextGen Fellow",
+      "bio": "Passionate about building AI-powered solutions that expand career opportunities and empower communities through technology.",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "portfolio": "Portfolio"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "apply": "Apply",
+    "close": "Close",
+    "empty": "Nothing here yet",
+    "success": "Success"
+  },
+  "footer": {
+    "copyright": "© 2026 JobLiberty",
+    "developedBy": "Developed by Abdulwahab Abdulyekeen",
+    "fellow": "3MTT NextGen Fellow",
+    "links": {
+      "about": "About",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact",
+      "github": "GitHub"
+    }
+  }
+}

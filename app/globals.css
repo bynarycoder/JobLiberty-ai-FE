@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+:root {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* Premium Color Palette - Zinc/Slate + Blue/Emarald */
+  --background: #fafafa;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #171717;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #2563eb;
+  --radius: 0.75rem;
+  
+  /* Glass & Premium Effects */
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --shadow-soft: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-medium: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --card: #18181b;
+  --card-foreground: #f4f4f5;
+  --popover: #18181b;
+  --popover-foreground: #f4f4f5;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #f4f4f5;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #3b82f6;
+  
+  --glass-bg: rgba(24, 24, 27, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Premium Typography */
+h1, h2, h3, h4 {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+body {
+  font-family: var(--font-geist-sans);
+}
+
+/* Glassmorphism & Premium Components */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Beautiful Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.23, 1.0, 0.32, 1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgb(37 99 235 / 0.3), 0 4px 6px -4px rgb(37 99 235 / 0.3);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #059669 100%);
+  color: white;
+}
+
+/* Smooth Animations */
+.motion-safe {
+  transition-property: transform, opacity, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.23, 1.0, 0.32, 1);
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 2px dashed var(--border);
+  transition: all 0.2s ease;
+}
+
+.upload-zone.dragover,
+.upload-zone:hover {
+  border-color: var(--primary);
+  background: var(--primary) / 0.03;
+}
+
+/* Job Cards */
+.job-card {
+  transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Progress Bars */
+.progress-bar {
+  transition: width 800ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Charts */
+.recharts-wrapper text {
+  font-family: var(--font-geist-sans);
+  font-size: 12px;
+}
+
+/* Sidebar */
+.sidebar-link {
+  transition: all 0.15s ease;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  border-radius: 0.5rem;
+}
+
+.sidebar-link.active {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Language Switcher */
+.lang-switcher button {
+  transition: all 0.15s ease;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Empty States */
+.empty-state {
+  border: 1px dashed var(--border);
+}
+
+/* Beautiful Form Inputs */
+.input {
+  transition: all 0.15s ease;
+}
+
+.input:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Premium Tabs */
+.tabs-list {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Score Rings */
+.score-ring {
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Opportunity Mode Roadmap */
+.roadmap-step {
+  transition: all 0.3s ease;
+}
+
+.roadmap-step.completed .roadmap-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.roadmap-step.current .roadmap-dot {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+/* Footer & Navbar */
+.navbar {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85);
+}
+
+.dark .navbar {
+  background: rgba(9,9,11,0.85);
+}
+
+/* Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Toast Styling */
+.sonner-toast {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+}

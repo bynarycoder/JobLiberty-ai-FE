@@ -1,0 +1,339 @@
+{
+  "app": {
+    "name": "JobLiberty",
+    "tagline": "Wa iṣẹ ti o tọ pẹlu igbẹkẹle AI.",
+    "altTagline": "Alabaṣiṣẹpọ Iṣẹ AI Rẹ.",
+    "mission": "Ṣe iranlọwọ fun awọn oluwadi iṣẹ ni Afirika lati ṣii awọn aye iṣẹ nipasẹ AI.",
+    "vision": "Ṣiṣe itọsọna iṣẹ ọgbọn ti o wa fun gbogbo eniyan."
+  },
+  "nav": {
+    "home": "Ile",
+    "dashboard": "Dashboard",
+    "upload": "Gbe Resume",
+    "jobs": "Awọn Iṣẹ Ti o Baamu",
+    "analysis": "Itupalẹ ATS",
+    "skills": "Aafo Ọgbọn",
+    "resources": "Awọn Ohun-elo Iṣẹ",
+    "interview": "Igbimọ Iṣẹ",
+    "reports": "Awọn Iroyin",
+    "settings": "Awọn Eto",
+    "about": "Nipa",
+    "signIn": "Wọle",
+    "signUp": "Bẹrẹ",
+    "logout": "Jade"
+  },
+  "auth": {
+    "signIn": "Wọle",
+    "signUp": "Ṣẹda Akọọlẹ",
+    "forgotPassword": "Gbagbe Ọrọigbaniwọle",
+    "resetPassword": "Tun Ṣeto Ọrọigbaniwọle",
+    "email": "Adirẹsi Imẹli",
+    "password": "Ọrọigbaniwọle",
+    "confirmPassword": "Jẹrisi Ọrọigbaniwọle",
+    "fullName": "Orukọ Kikun",
+    "location": "Ipo",
+    "rememberMe": "Ranti mi",
+    "forgotPasswordLink": "O gbagbe ọrọigbaniwọle rẹ?",
+    "noAccount": "Ṣe o ko ni akọọlẹ?",
+    "hasAccount": "O ti ni akọọlẹ tẹlẹ?",
+    "signInWith": "Wọle pẹlu",
+    "signUpWith": "Ṣẹda pẹlu",
+    "google": "Google",
+    "github": "GitHub",
+    "continue": "Tẹsiwaju",
+    "createAccount": "Ṣẹda Akọọlẹ",
+    "verifyEmail": "Ṣe idaniloju imẹli rẹ",
+    "verifyEmailDesc": "A ti firanṣẹ ọna asopọ idaniloju si imẹli rẹ. Jọwọ ṣayẹwo apo-iwọle rẹ.",
+    "resendLink": "Tun fi ọna asopọ ranṣẹ",
+    "backToSignIn": "Pada si Wọle",
+    "resetInstructions": "Tẹ imẹli rẹ sii ati pe a yoo firanṣẹ awọn itọnisọna lati tun ṣeto ọrọigbaniwọle rẹ."
+  },
+  "landing": {
+    "heroTitle": "Alabaṣiṣẹpọ Iṣẹ AI Rẹ",
+    "heroSubtitle": "Fifun agbara fun awọn oluwadi iṣẹ ni Nigeria ati Afirika pẹlu itupalẹ resume AI, ibamu iṣẹ, ati itọsọna iṣẹ ti ara ẹni.",
+    "ctaPrimary": "Gbe Resume Rẹ",
+    "ctaSecondary": "Ṣawari Awọn Ẹya",
+    "stats": {
+      "users": "47,000+",
+      "jobsMatched": "192,000",
+      "successRate": "87%",
+      "languages": "4"
+    },
+    "features": {
+      "title": "Ohun gbogbo ti o nilo lati gba ipo ala rẹ",
+      "resumeAnalysis": {
+        "title": "Itupalẹ Resume AI",
+        "desc": "Gba awọn iwoye lẹsẹkẹsẹ sinu awọn ọgbọn rẹ, iriri, ati ibamu ATS."
+      },
+      "jobMatching": {
+        "title": "Ibamu Iṣẹ Smart",
+        "desc": "Ṣawari awọn iṣẹ ti o baamu daradara pẹlu iriri ati awọn ireti rẹ."
+      },
+      "skillGap": {
+        "title": "Itupalẹ Aafo Ọgbọn",
+        "desc": "Ṣe idanimọ awọn ọgbọn ti o padanu ati gba awọn iṣeduro ẹkọ ti ara ẹni."
+      },
+      "interviewPrep": {
+        "title": "Igbimọ Iṣẹ",
+        "desc": "Ṣe adaṣe pẹlu awọn ibeere gidi ati gba esi AI."
+      },
+      "careerRoadmap": {
+        "title": "Awọn ọna Iṣẹ",
+        "desc": "Wo awọn igbesẹ ti o han gbangba lati de awọn ipo ti o fẹ."
+      },
+      "opportunityMode": {
+        "title": "Ipo Anfani",
+        "desc": "Wo bi awọn ilọsiwaju kekere ṣe le pọ si ipin ibamu rẹ."
+      }
+    },
+    "howItWorks": {
+      "title": "Bii JobLiberty Ṣe N Ṣiṣẹ",
+      "step1": {
+        "title": "Gbe resume rẹ",
+        "desc": "Gbe CV rẹ ni ọna PDF. AI wa yoo ṣe itupalẹ rẹ ni iṣẹju."
+      },
+      "step2": {
+        "title": "Gba itupalẹ pipe",
+        "desc": "Gba awọn iṣiro ATS pipe, pipin ọgbọn, ati awọn iṣeduro."
+      },
+      "step3": {
+        "title": "Ṣawari awọn anfani ti o baamu",
+        "desc": "Ṣawari awọn iṣẹ ti a ti ṣe pẹlu awọn ipin ibamu ati awọn pipin ọgbọn."
+      },
+      "step4": {
+        "title": "Gbe igbesẹ & dagba",
+        "desc": "Tẹle awọn eto ẹkọ ti ara ẹni, mura fun ibeere, ati tọpa ilọsiwaju."
+      }
+    },
+    "testimonials": {
+      "title": "A nifẹ nipasẹ awọn oluwadi iṣẹ kọja Afirika",
+      "t1": {
+        "quote": "JobLiberty ṣe iranlọwọ fun mi lati ṣe idanimọ awọn aafo ninu resume mi ti Emi ko mọ. Mo gba iṣẹ akọkọ mi ni ile-iṣẹ fintech laarin ọsẹ mẹfa.",
+        "name": "Aisha Bello",
+        "role": "Apẹẹrẹ Apẹẹrẹ, Lagos"
+      },
+      "t2": {
+        "quote": "Gẹgẹbi ọmọ ẹgbẹ NYSC, irinṣẹ yii fun mi ni igboya ati data ti Mo nilo lati lo fun awọn ipo. Mo ni ibeere mẹta ni ọsẹ kan.",
+        "name": "Chinedu Okoro",
+        "role": "Onimọ-ẹrọ Software, Abuja"
+      },
+      "t3": {
+        "quote": "Ipo Anfani jẹ ọgbọn. O fi han mi ni pato awọn ọgbọn lati ṣafikun lati 63% si 91% ibamu.",
+        "name": "Fatima Ibrahim",
+        "role": "Onínọmbà Data, Kano"
+      }
+    },
+    "faq": {
+      "title": "Awọn ibeere ti a beere nigbagbogbo",
+      "q1": "Ṣe JobLiberty jẹ ọfẹ?",
+      "a1": "Bẹẹni, awọn ẹya akọkọ pẹlu itupalẹ resume ati ibamu iṣẹ ipilẹ jẹ ọfẹ patapata. Awọn ẹya iṣẹ pataki yoo wa laipẹ.",
+      "q2": "Awọn ede wo ni a ṣe atilẹyin?",
+      "a2": "A ṣe atilẹyin ni kikun fun Gẹẹsi, Hausa, Yoruba, ati Igbo. O le yipada ede nigbakugba ni awọn eto tabi navbar.",
+      "q3": "Ṣe data resume mi jẹ ikọkọ ati aabo?",
+      "a3": "Dajudaju. Resume rẹ ni a ṣe itupalẹ ni agbegbe ati pe ko ti fipamọ laisi igbanilaaye rẹ. Gbogbo data ti wa ni ṣiṣi ati o le paarẹ nigbakugba.",
+      "q4": "Bawo ni deede awọn ibamu iṣẹ ṣe?",
+      "a4": "A ti kọ awọn awoṣe AI wa lori data ọja Nigeria ati Afirika. Ibamu da lori ọgbọn, iriri, ati ibamu ipo. Iwọn itẹlọrun olumulo wa ju 87% lọ."
+    },
+    "cta": {
+      "title": "Ṣetan lati ṣii agbara iṣẹ rẹ?",
+      "subtitle": "Darapọ mọ ẹgbẹẹgbẹrun awọn oluwadi iṣẹ Afirika ti o nlo AI lati gba awọn ipo to dara julọ ni iyara.",
+      "button": "Bẹrẹ Fun Ọfẹ"
+    }
+  },
+  "dashboard": {
+    "welcome": "Kaabo pada",
+    "subtitle": "Eyi ni bi o ṣe n ṣe loni",
+    "stats": {
+      "resumeScore": "Dimeji Resume",
+      "atsScore": "Dimeji ATS",
+      "jobMatches": "Awọn Iṣẹ Ti o Baamu",
+      "applications": "Awọn ohun elo",
+      "careerReadiness": "Iṣeto Iṣẹ",
+      "learningProgress": "Ilọsiwaju Ẹkọ"
+    },
+    "recentActivity": "Iṣẹ Aipẹ",
+    "aiRecommendations": "Awọn iṣeduro AI",
+    "opportunityMode": "Ipo Anfani",
+    "upcomingGoals": "Awọn ibi-afẹde ti nbọ",
+    "quickActions": "Awọn Iṣẹ Iyara",
+    "viewAll": "Wo Gbogbo"
+  },
+  "upload": {
+    "title": "Gbe Resume Rẹ",
+    "subtitle": "Gbe CV rẹ ni ọna PDF. AI wa yoo ṣe itupalẹ rẹ ni kiakia.",
+    "dragDrop": "Fa ati ju resume rẹ si ibi",
+    "or": "tabi",
+    "browse": "Wa awọn faili",
+    "supported": "Ṣe atilẹyin PDF, DOCX (Max 5MB)",
+    "analyzing": "N ṣe itupalẹ resume rẹ...",
+    "success": "A gbe resume ni aṣeyọri!",
+    "analyze": "Ṣe Itupalẹ Resume",
+    "uploadAnother": "Gbe resume miiran"
+  },
+  "resume": {
+    "title": "Itupalẹ Resume",
+    "professionalSummary": "Akopọ Ọjọgbọn",
+    "skills": "Awọn ọgbọn",
+    "experience": "Iriri",
+    "education": "Ẹkọ",
+    "projects": "Awọn iṣẹ",
+    "certifications": "Awọn iwe-ẹri",
+    "achievements": "Awọn Aṣeyọri Pataki",
+    "languages": "Awọn ede",
+    "softSkills": "Awọn ọgbọn rirọ",
+    "resumeScore": "Dimeji Resume",
+    "aiSummary": "Akopọ AI",
+    "download": "Gba Iroyin"
+  },
+  "jobs": {
+    "title": "Awọn Iṣẹ Ti o Baamu",
+    "subtitle": "Awọn anfani ti a ṣe ni pato da lori profaili rẹ",
+    "searchPlaceholder": "Wa awọn iṣẹ...",
+    "filter": "Àlẹmọ",
+    "sort": "Tọ",
+    "match": "Ibamu",
+    "remote": "Jinna",
+    "apply": "Waye",
+    "bookmark": "Ami",
+    "viewDetails": "Wo Awọn alaye",
+    "noJobs": "Ko si awọn iṣẹ ti o baamu. Gbiyanju lati ṣe imudojuiwọn resume rẹ.",
+    "salary": "Owo oya",
+    "posted": "Ti gbejade"
+  },
+  "analysis": {
+    "title": "Itupalẹ Ibamu ATS",
+    "overallScore": "Dimeji Gbogbogbo",
+    "keywordMatch": "Ibamu Ọrọ",
+    "formatting": "Iṣeto",
+    "readability": "Iṣe kika",
+    "education": "Ẹkọ",
+    "experience": "Iriri",
+    "skills": "Awọn ọgbọn",
+    "suggestions": "Awọn iṣeduro Ilọsiwaju",
+    "strengths": "Agbara",
+    "weaknesses": "Awọn agbegbe lati Mu dara"
+  },
+  "skills": {
+    "title": "Itupalẹ Aafo Ọgbọn",
+    "subtitle": "Wo ibi ti o wa ati bi o ṣe le ṣe pipade aafo naa",
+    "youHave": "Awọn ọgbọn ti o ni",
+    "missing": "Awọn ọgbọn ti o padanu",
+    "priority": "Awọn ọgbọn Pataki",
+    "opportunityScore": "Dimeji Anfani",
+    "careerReadiness": "Iṣeto Iṣẹ",
+    "estimatedTime": "Est. Akoko Ẹkọ",
+    "potentialMatch": "Ibamu Ti o ṣee ṣe Lẹhin Ẹkọ",
+    "opportunityMode": "Ipo Anfani"
+  },
+  "resources": {
+    "title": "Awọn Ohun-elo Iṣẹ",
+    "subtitle": "Awọn ohun-elo ẹkọ ti a ṣe fun lati mu idagbasoke rẹ pọ si",
+    "courses": "Awọn ẹkọ",
+    "videos": "Awọn ẹkọ & Awọn fidio",
+    "projects": "Awọn iṣẹ",
+    "communities": "Awọn agbegbe",
+    "certifications": "Awọn iwe-ẹri",
+    "documentation": "Awọn iwe",
+    "free": "Ọfẹ",
+    "paid": "Sanwo",
+    "startLearning": "Bẹrẹ Ẹkọ"
+  },
+  "interview": {
+    "title": "Igbimọ Iṣẹ",
+    "subtitle": "Ṣe adaṣe pẹlu awọn ibeere ati awọn imọran AI",
+    "behavioral": "Awọn ibeere ihuwasi",
+    "technical": "Awọn ibeere imọ-ẹrọ",
+    "starMethod": "Ọna STAR",
+    "aiTips": "Awọn imọran AI",
+    "checklist": "Iwe-akọọlẹ Iṣeto",
+    "practice": "Ṣe adaṣe pẹlu Iṣẹ Iṣe AI",
+    "mock": "Bẹrẹ Iṣe Iṣe"
+  },
+  "reports": {
+    "title": "Awọn Iroyin Iṣẹ",
+    "subtitle": "Gba awọn iroyin alamọdaju fun awọn igbasilẹ rẹ",
+    "executiveSummary": "Akopọ Alakoso",
+    "generate": "Ṣe Iroyin",
+    "downloadPDF": "Gba PDF",
+    "share": "Pin",
+    "print": "Tẹjade"
+  },
+  "opportunity": {
+    "title": "Ipo Anfani",
+    "currentReadiness": "Iṣeto Iṣẹ Lọwọlọwọ",
+    "targetRole": "Ipo Ti a fẹ",
+    "missingSkills": "Awọn ọgbọn ti o padanu",
+    "estimatedTime": "Est. Akoko Ẹkọ",
+    "potentialMatch": "Ibamu Ti o ṣee ṣe Lẹhin Ẹkọ",
+    "roadmap": "Ọna Iṣẹ AI",
+    "current": "Ipo Lọwọlọwọ",
+    "recommendedSkills": "Awọn ọgbọn Ti a Ṣe Iṣeduro",
+    "projects": "Awọn Iṣẹ Lati Kọ",
+    "certifications": "Awọn iwe-ẹri Ti a Ṣe Iṣeduro",
+    "target": "Ipo Iṣẹ Ti a fẹ"
+  },
+  "settings": {
+    "title": "Awọn Eto",
+    "theme": "Akori",
+    "language": "Ede",
+    "notifications": "Awọn iwifunni",
+    "account": "Akọọlẹ",
+    "preferences": "Awọn ayanfẹ",
+    "accessibility": "Wiwọle",
+    "darkMode": "Ipo Dudu",
+    "lightMode": "Ipo Imọlẹ",
+    "system": "Eto",
+    "emailNotifications": "Awọn iwifunni Imẹli",
+    "jobAlerts": "Awọn iwifunni Iṣẹ",
+    "weeklyReports": "Awọn Iroyin Iṣẹ Ọsẹ",
+    "deleteAccount": "Pa Akọọlẹ"
+  },
+  "about": {
+    "title": "Nipa JobLiberty",
+    "mission": "Iṣẹ Wa",
+    "vision": "Iran Wa",
+    "stack": "Akopọ Imọ-ẹrọ",
+    "openSource": "Orisun-ṣiṣi",
+    "roadmap": "Ọna-ọna",
+    "community": "Agbegbe",
+    "developer": {
+      "title": "Olùṣe",
+      "name": "Abdulwahab Abdulyekeen",
+      "role": "3MTT NextGen Fellow",
+      "bio": "O ni itara fun ṣiṣe awọn ojutu AI ti o ṣe afikun awọn aye iṣẹ ati fun agbara awọn agbegbe nipasẹ imọ-ẹrọ.",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "portfolio": "Portfolio"
+    }
+  },
+  "common": {
+    "loading": "N gbe...",
+    "error": "Nkan kan ṣẹlẹ",
+    "retry": "Gbiyanju lẹẹkansi",
+    "cancel": "Fagilee",
+    "save": "Fi pamọ",
+    "continue": "Tẹsiwaju",
+    "back": "Pada",
+    "next": "Tẹle",
+    "done": "Ti pari",
+    "search": "Wa",
+    "filter": "Àlẹmọ",
+    "sort": "Tọ",
+    "apply": "Waye",
+    "close": "Pa",
+    "empty": "Ko si nkan kan nibi sibẹsibẹ",
+    "success": "Aṣeyọri"
+  },
+  "footer": {
+    "copyright": "© 2026 JobLiberty",
+    "developedBy": "Ti ṣe nipasẹ Abdulwahab Abdulyekeen",
+    "fellow": "3MTT NextGen Fellow",
+    "links": {
+      "about": "Nipa",
+      "privacy": "Asiri",
+      "terms": "Awọn ofin",
+      "contact": "Olubasọrọ",
+      "github": "GitHub"
+    }
+  }
+}
