@@ -14,6 +14,7 @@
     "analysis": "Ntụle ATS",
     "skills": "Oghere Nkà",
     "resources": "Ihe Ndị Na-enyere Aka",
+    "chat": "Onye Enyemaka AI",
     "interview": "Nkwadebe Ajụjụ",
     "reports": "Akụkọ",
     "settings": "Ntọala",
@@ -323,6 +324,62 @@
     "close": "Mechie",
     "empty": "Ọ nweghị ihe ebe a ugbu a",
     "success": "Ọ gara nke ọma"
+  },
+  "chat": {
+    "title": "Onye Enyemaka Ọrụ AI",
+    "subtitle": "Onye enyemaka ọrụ AI gị",
+    "assistantName": "Liberty AI",
+    "assistantDescription": "Onye enyemaka ọrụ AI gị",
+    "placeholder": "Jụọ m ihe ọ bụla gbasara ọrụ gị...",
+    "send": "Zipu",
+    "sendAria": "Zipu ozi",
+    "clearConversation": "Hichapụ mkparịta ụka",
+    "clearConfirm": "Ị ji n'aka na ị chọrọ ihichapụ mkparịta ụka a?",
+    "newConversation": "Mkparịta ụka ọhụrụ",
+    "noConversations": "Enweghị mkparịta ụka ọ bụla",
+    "regenerate": "Mepụtaghachi nzaghachi",
+    "regenerating": "Na-emepụtaghachi...",
+    "copyResponse": "Detuo nzaghachi",
+    "copied": "E detuola!",
+    "copyFailed": "Detuo dara",
+    "thinking": "Liberty AI na-eche echiche...",
+    "typing": "Liberty AI na-ede...",
+    "errorTitle": "Njehie Njikọ",
+    "errorMessage": "Enweghị m ike ịbịaru ọrụ AI. Biko gbalịa ọzọ.",
+    "retry": "Gbalịa ọzọ",
+    "emptyTitle": "Ndewo 👋",
+    "emptySubtitle": "Abụ m Liberty AI.",
+    "emptyDescription": "Anọ m ebe a iji nyere gị aka imeziwanye resume gị, kwadebe maka ajụjụ, chọpụta ihe mmụta, na hazie ọrụ gị.",
+    "emptyPrompt": "Kedu ka m ga-esi nyere gị aka taa?",
+    "languageLabel": "Na-aza na",
+    "suggestions": {
+      "reviewResume": "Nyochaa resume m",
+      "skillsToLearn": "Kedu nkà m kwesịrị ịmụ?",
+      "careerPath": "Chọta ụzọ ọrụ m",
+      "interviewPrep": "Kedu ka m ga-esi kwadebe maka ajụjụ?",
+      "improveCV": "Mezie CV m",
+      "freeCourses": "Tụọ aro ọmụmụ n'efu"
+    },
+    "skeleton": {
+      "loading1": "Na-enyocha ajụjụ gị...",
+      "loading2": "Na-emepụta nzaghachi nwere echiche...",
+      "loading3": "Na-achịkọta nghọta ọrụ..."
+    },
+    "sidebar": {
+      "title": "Mkparịta ụka",
+      "searchPlaceholder": "Chọọ mkparịta ụka...",
+      "deleteConversation": "Hichapụ mkparịta ụka",
+      "today": "Taa",
+      "yesterday": "Ụnyaahụ",
+      "thisWeek": "Izu A",
+      "older": "Ochie"
+    },
+    "emptyState": {
+      "tip1": "Enwere m ike inyocha resume gị ma tụọ aro maka imeziwanye",
+      "tip2": "Jụọ m gbasara ndụmọdụ nkwadebe ajụjụ",
+      "tip3": "Enwere m ike inyere gị aka ịhazi map ọrụ gị",
+      "tip4": "Nweta ndụmọdụ maka nkà na ọmụmụ"
+    }
   },
   "footer": {
     "copyright": "© 2026 JobLiberty",

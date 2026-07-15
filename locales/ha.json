@@ -14,6 +14,7 @@
     "analysis": "Binciken ATS",
     "skills": "Rago na Fasaha",
     "resources": "Albarkatun Aiki",
+    "chat": "Mataimakin AI",
     "interview": "Shirye-shiryen Hira",
     "reports": "Rahotanni",
     "settings": "Saituna",
@@ -323,6 +324,62 @@
     "close": "Rufe",
     "empty": "Babu wani abu a nan tukuna",
     "success": "Nasara"
+  },
+  "chat": {
+    "title": "Mataimakin Aiki na AI",
+    "subtitle": "Abokin Taimakon Aikin AI naka",
+    "assistantName": "Liberty AI",
+    "assistantDescription": "Abokin Taimakon Aikin AI naka",
+    "placeholder": "Tambaye ni komai game da aikin ka...",
+    "send": "Aika",
+    "sendAria": "Aika saƙo",
+    "clearConversation": "Share tattaunawa",
+    "clearConfirm": "Ka tabbata kana son share wannan tattaunawar?",
+    "newConversation": "Sabuwar tattaunawa",
+    "noConversations": "Babu tattaunawa tukuna",
+    "regenerate": "Sake samar da amsa",
+    "regenerating": "Ana sake samarwa...",
+    "copyResponse": "Kwafi amsa",
+    "copied": "An kwafa!",
+    "copyFailed": "An kasa kwafa",
+    "thinking": "Liberty AI na tunani...",
+    "typing": "Liberty AI na rubutu...",
+    "errorTitle": "Kuskuren Haɗi",
+    "errorMessage": "Ban iya saduwa da sabis ɗin AI ba. Don Allah a sake gwadawa.",
+    "retry": "Sake gwadawa",
+    "emptyTitle": "Sannu 👋",
+    "emptySubtitle": "Ni Liberty AI ne.",
+    "emptyDescription": "Ina nan don taimaka maka inganta resume ɗinka, shirya don hirarraki, gano albarkatun koyo, da tsara aikin ka.",
+    "emptyPrompt": "Yaya zan iya taimaka a yau?",
+    "languageLabel": "Amsa a cikin",
+    "suggestions": {
+      "reviewResume": "Duba resume na",
+      "skillsToLearn": "Wadanne ƙwarewa zan koya?",
+      "careerPath": "Nemo hanyar aiki na",
+      "interviewPrep": "Yaya zan shirya don hirarraki?",
+      "improveCV": "Inganta CV na",
+      "freeCourses": "Ba da shawarar darussan kyauta"
+    },
+    "skeleton": {
+      "loading1": "Ana nazarin tambayar ka...",
+      "loading2": "Ana ƙirƙirar amsa mai ma'ana...",
+      "loading3": "Ana tattara bayanan aiki..."
+    },
+    "sidebar": {
+      "title": "Tattaunawa",
+      "searchPlaceholder": "Nemo tattaunawa...",
+      "deleteConversation": "Share tattaunawa",
+      "today": "Yau",
+      "yesterday": "Jiya",
+      "thisWeek": "Wannan Mako",
+      "older": "Tsoho"
+    },
+    "emptyState": {
+      "tip1": "Zan iya duba resume ɗinka kuma in ba da shawarar ingantawa",
+      "tip2": "Tambaye ni game da shawarwarin shirye-shiryen hira",
+      "tip3": "Zan iya taimaka maka tsara hanyar aikin ka",
+      "tip4": "Samu shawarwari don ƙwarewa da darussan"
+    }
   },
   "footer": {
     "copyright": "© 2026 JobLiberty",

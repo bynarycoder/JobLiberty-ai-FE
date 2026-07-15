@@ -14,6 +14,7 @@
     "analysis": "ATS Analysis",
     "skills": "Skill Gap",
     "resources": "Career Resources",
+    "chat": "AI Assistant",
     "interview": "Interview Prep",
     "reports": "Reports",
     "settings": "Settings",
@@ -323,6 +324,62 @@
     "close": "Close",
     "empty": "Nothing here yet",
     "success": "Success"
+  },
+  "chat": {
+    "title": "AI Career Assistant",
+    "subtitle": "Your AI Career Companion",
+    "assistantName": "Liberty AI",
+    "assistantDescription": "Your AI Career Companion",
+    "placeholder": "Ask me anything about your career...",
+    "send": "Send",
+    "sendAria": "Send message",
+    "clearConversation": "Clear conversation",
+    "clearConfirm": "Are you sure you want to clear this conversation?",
+    "newConversation": "New conversation",
+    "noConversations": "No conversations yet",
+    "regenerate": "Regenerate response",
+    "regenerating": "Regenerating...",
+    "copyResponse": "Copy response",
+    "copied": "Copied!",
+    "copyFailed": "Failed to copy",
+    "thinking": "Liberty AI is thinking...",
+    "typing": "Liberty AI is typing...",
+    "errorTitle": "Connection Error",
+    "errorMessage": "I couldn't reach the AI service. Please try again.",
+    "retry": "Try again",
+    "emptyTitle": "Hi 👋",
+    "emptySubtitle": "I'm Liberty AI.",
+    "emptyDescription": "I'm here to help you improve your resume, prepare for interviews, discover learning resources, and plan your career.",
+    "emptyPrompt": "How can I help today?",
+    "languageLabel": "Responding in",
+    "suggestions": {
+      "reviewResume": "Review my resume",
+      "skillsToLearn": "What skills should I learn?",
+      "careerPath": "Find my career path",
+      "interviewPrep": "How do I prepare for interviews?",
+      "improveCV": "Improve my CV",
+      "freeCourses": "Recommend free courses"
+    },
+    "skeleton": {
+      "loading1": "Analyzing your question...",
+      "loading2": "Crafting a thoughtful response...",
+      "loading3": "Gathering career insights..."
+    },
+    "sidebar": {
+      "title": "Conversations",
+      "searchPlaceholder": "Search conversations...",
+      "deleteConversation": "Delete conversation",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This Week",
+      "older": "Older"
+    },
+    "emptyState": {
+      "tip1": "I can review your resume and suggest improvements",
+      "tip2": "Ask me about interview preparation tips",
+      "tip3": "I can help you plan your career roadmap",
+      "tip4": "Get recommendations for skills and courses"
+    }
   },
   "footer": {
     "copyright": "© 2026 JobLiberty",

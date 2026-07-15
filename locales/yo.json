@@ -14,6 +14,7 @@
     "analysis": "Itupalẹ ATS",
     "skills": "Aafo Ọgbọn",
     "resources": "Awọn Ohun-elo Iṣẹ",
+    "chat": "Oluranlọwọ AI",
     "interview": "Igbimọ Iṣẹ",
     "reports": "Awọn Iroyin",
     "settings": "Awọn Eto",
@@ -323,6 +324,62 @@
     "close": "Pa",
     "empty": "Ko si nkan kan nibi sibẹsibẹ",
     "success": "Aṣeyọri"
+  },
+  "chat": {
+    "title": "Oluranlọwọ Iṣẹ AI",
+    "subtitle": "Alabaṣiṣẹpọ Iṣẹ AI Rẹ",
+    "assistantName": "Liberty AI",
+    "assistantDescription": "Alabaṣiṣẹpọ Iṣẹ AI Rẹ",
+    "placeholder": "Beere ohunkohun nipa iṣẹ rẹ...",
+    "send": "Firanṣẹ",
+    "sendAria": "Fi ifiranṣẹ ranṣẹ",
+    "clearConversation": "Pa ibaraẹnisọrọ rẹ",
+    "clearConfirm": "Ṣe o da ọ loju pe o fẹ pa ibaraẹnisọrọ yii rẹ?",
+    "newConversation": "Ibaraẹnisọrọ tuntun",
+    "noConversations": "Ko si ibaraẹnisọrọ sibẹsibẹ",
+    "regenerate": "Tun idahun ṣe",
+    "regenerating": "N tun ṣe...",
+    "copyResponse": "Daakọ idahun",
+    "copied": "A ti daakọ!",
+    "copyFailed": "Daakọ kuna",
+    "thinking": "Liberty AI n ronu...",
+    "typing": "Liberty AI n kọ...",
+    "errorTitle": "Aṣiṣe Asopọ",
+    "errorMessage": "Emi ko le de ọdọ iṣẹ AI. Jọwọ gbiyanju lẹẹkansi.",
+    "retry": "Gbiyanju lẹẹkansi",
+    "emptyTitle": "Bawo 👋",
+    "emptySubtitle": "Emi ni Liberty AI.",
+    "emptyDescription": "Mo wa nibi lati ṣe iranlọwọ fun ọ lati mu resume rẹ dara, mura fun awọn ibeere, ṣawari awọn ohun-elo ẹkọ, ati gbero iṣẹ rẹ.",
+    "emptyPrompt": "Bawo ni MO ṣe le ran ọ lọwọ loni?",
+    "languageLabel": "N dahun ni",
+    "suggestions": {
+      "reviewResume": "Ṣayẹwo resume mi",
+      "skillsToLearn": "Awọn ọgbọn wo ni MO nilo lati kọ?",
+      "careerPath": "Wa ọna iṣẹ mi",
+      "interviewPrep": "Bawo ni MO ṣe le mura fun awọn ibeere?",
+      "improveCV": "Mu CV mi dara",
+      "freeCourses": "Daba awọn ẹkọ ọfẹ"
+    },
+    "skeleton": {
+      "loading1": "N ṣe itupalẹ ibeere rẹ...",
+      "loading2": "N ṣe agbekalẹ idahun ti o ni ironu...",
+      "loading3": "N gba awọn oye iṣẹ..."
+    },
+    "sidebar": {
+      "title": "Awọn Ibaraẹnisọrọ",
+      "searchPlaceholder": "Wa awọn ibaraẹnisọrọ...",
+      "deleteConversation": "Pa ibaraẹnisọrọ rẹ",
+      "today": "Loni",
+      "yesterday": "Lana",
+      "thisWeek": "Ọsẹ Yii",
+      "older": "Agbalagba"
+    },
+    "emptyState": {
+      "tip1": "Mo le ṣayẹwo resume rẹ ki n daba awọn ilọsiwaju",
+      "tip2": "Beere lọwọ mi nipa awọn imọran igbaradi ibeere",
+      "tip3": "Mo le ṣe iranlọwọ fun ọ lati gbero ọna iṣẹ rẹ",
+      "tip4": "Gba awọn iṣeduro fun awọn ọgbọn ati awọn ẹkọ"
+    }
   },
   "footer": {
     "copyright": "© 2026 JobLiberty",
