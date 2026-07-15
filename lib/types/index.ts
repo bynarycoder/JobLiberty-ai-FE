@@ -122,6 +122,19 @@ export interface Notification {
   read: boolean;
 }
 
+export interface RecentActivity {
+  id: number;
+  action: string;
+  time: string;
+}
+
+export interface SignUpInput {
+  name: string;
+  email: string;
+  password: string;
+  location: string;
+}
+
 export interface DashboardStats {
   resumeScore: number;
   atsScore: number;

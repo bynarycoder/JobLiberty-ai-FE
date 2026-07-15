@@ -8,9 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/services/api';
 import { 
   TrendingUp, Target, FileText, Users, ArrowRight, 
-  Award, Clock 
+  Award, Clock, Upload 
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Dashboard() {
@@ -53,8 +52,8 @@ export default function Dashboard() {
           { label: t('dashboard.stats.applications'), value: stats?.applications ?? 12, icon: Award },
           { label: t('dashboard.stats.careerReadiness'), value: stats?.careerReadiness ?? 72, icon: TrendingUp, suffix: "%" },
           { label: t('dashboard.stats.learningProgress'), value: stats?.learningProgress ?? 64, icon: Clock, suffix: "%" },
-        ].map((stat, idx) => (
-          <Card key={idx} className="p-5">
+        ].map((stat) => (
+          <Card key={stat.label} className="p-5">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">{stat.label}</p>
@@ -110,8 +109,8 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="pt-0">
             <div className="space-y-3">
-              {jobs?.slice(0, 3).map((job, index) => (
-                <div key={index} className="flex justify-between items-center border rounded-2xl px-4 py-[13px] hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+              {jobs?.slice(0, 3).map((job) => (
+                <div key={job.id} className="flex justify-between items-center border rounded-2xl px-4 py-[13px] hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
                   <div>
                     <div className="font-medium">{job.title}</div>
                     <div className="text-sm text-muted-foreground">{job.company} • {job.location}</div>
@@ -161,7 +160,7 @@ export default function Dashboard() {
           <CardContent>
             <div className="space-y-4">
               {roadmap?.steps.slice(0, 3).map((step, idx) => (
-                <div key={idx} className={`flex items-center gap-4 rounded-2xl p-3 ${step.status === 'current' ? 'bg-blue-50 dark:bg-zinc-900' : ''}`}>
+                <div key={step.id} className={`flex items-center gap-4 rounded-2xl p-3 ${step.status === 'current' ? 'bg-blue-50 dark:bg-zinc-900' : ''}`}>
                   <div className={`w-6 h-6 rounded-full border-2 flex-shrink-0 flex items-center justify-center text-xs font-medium ${step.status === 'completed' ? 'bg-emerald-500 border-emerald-500 text-white' : step.status === 'current' ? 'border-blue-600 bg-blue-600 text-white' : 'border-zinc-300'}`}>
                     {step.status === 'completed' ? '✓' : idx + 1}
                   </div>
@@ -183,8 +182,8 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              {recent?.map((item: any, idx: number) => (
-                <div key={idx} className="p-4 rounded-2xl border bg-zinc-50/60 dark:bg-zinc-900/60 flex items-center gap-4">
+              {recent?.map((item) => (
+                <div key={item.id} className="p-4 rounded-2xl border bg-zinc-50/60 dark:bg-zinc-900/60 flex items-center gap-4">
                   <div className="flex-1">{item.action}</div>
                   <div className="text-xs text-muted-foreground">{item.time}</div>
                 </div>

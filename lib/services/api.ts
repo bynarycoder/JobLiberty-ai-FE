@@ -1,6 +1,6 @@
 import type { 
   Resume, Job, ATSAnalysis, SkillGap, CareerResource, 
-  InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification 
+  InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification, RecentActivity, SignUpInput 
 } from '@/lib/types';
 import * as Mock from './mockData';
 
@@ -99,7 +99,7 @@ export const api = {
     return Mock.MOCK_DASHBOARD_STATS;
   },
 
-  async fetchRecentActivity() {
+  async fetchRecentActivity(): Promise<RecentActivity[]> {
     await delay(280);
     return Mock.MOCK_RECENT_ACTIVITY;
   },
@@ -136,7 +136,7 @@ export const api = {
     throw new Error("Invalid credentials");
   },
 
-  async signUp(data: any) {
+  async signUp(data: SignUpInput) {
     await delay(1100);
     return { success: true, user: { ...Mock.MOCK_USER, ...data } };
   },

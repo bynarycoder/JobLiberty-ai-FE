@@ -22,7 +22,7 @@ export default function SignIn() {
       await api.signIn(email, password);
       toast.success("Welcome back!");
       router.push('/dashboard');
-    } catch (err) {
+    } catch {
       toast.error("Login failed. Please check credentials.");
     } finally {
       setLoading(false);

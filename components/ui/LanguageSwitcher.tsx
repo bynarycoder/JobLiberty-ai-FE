@@ -12,7 +12,7 @@ import {
 import { Globe } from 'lucide-react';
 
 export function LanguageSwitcher() {
-  const { language, setLanguage, languages, t } = useI18n();
+  const { language, setLanguage, languages } = useI18n();
 
   const currentLang = languages.find(l => l.code === language);
 

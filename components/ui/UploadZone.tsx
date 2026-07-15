@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Upload, File, CheckCircle } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { Button } from './Button';
 import { useI18n } from '@/providers/I18nProvider';
 

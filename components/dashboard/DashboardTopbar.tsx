@@ -6,13 +6,12 @@ import { useI18n } from '@/providers/I18nProvider';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Button } from '@/components/ui/Button';
-import { Bell, Search, User } from 'lucide-react';
-import { api } from '@/lib/services/api';
+import { Bell, Search } from 'lucide-react';
 
 export function DashboardTopbar() {
   const { t } = useI18n();
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [notifications, setNotifications] = React.useState(2);
+  const notifications = 2;
 
   // Mock search
   const handleSearch = (e: React.FormEvent) => {
@@ -55,7 +54,7 @@ export function DashboardTopbar() {
 
           <Link href="/settings" className="flex items-center gap-2 pl-2 border-l ml-1">
             <div className="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center overflow-hidden">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chinedu" alt="Profile" className="w-full h-full" />
+              <div aria-hidden="true" className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">CO</div>
             </div>
             <div className="hidden md:block text-sm font-medium">Chinedu O.</div>
           </Link>
