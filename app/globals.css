@@ -96,8 +96,8 @@
   --shadow-rose: 0 12px 28px -6px rgb(239 68 68 / 0.30);
 
   /* ── Glass ── */
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-bg: rgba(237, 241, 249, 0.88);
+  --glass-border: rgba(222, 229, 242, 0.85);
   --glass-blur: 20px;
 
   /* ── Charts — always colorful ── */
@@ -169,8 +169,8 @@
   --shadow-sky: 0 12px 32px -6px rgb(14 165 233 / 0.40);
   --shadow-rose: 0 12px 32px -6px rgb(239 68 68 / 0.40);
 
-  --glass-bg: rgba(13, 20, 40, 0.72);
-  --glass-border: rgba(120, 145, 200, 0.14);
+  --glass-bg: rgba(10, 16, 32, 0.88);
+  --glass-border: rgba(29, 42, 71, 0.85);
   --glass-blur: 24px;
 }
 
@@ -220,7 +220,9 @@
 /* ── Base ── */
 * { border-color: var(--border); }
 
-html {
+html,
+body {
+  min-height: 100%;
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
@@ -267,32 +269,26 @@ p { line-height: 1.7; }
   border: 1px solid var(--glass-border);
 }
 .glass-strong {
-  background: color-mix(in srgb, var(--card) 88%, transparent);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
   backdrop-filter: blur(32px) saturate(200%);
   -webkit-backdrop-filter: blur(32px) saturate(200%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-lg);
 }
 
-/* ── Ambient app background — layered color mesh ── */
+/* ── Ambient app background — direct image attachment without fixed layer overhead ── */
 .app-shell {
   position: relative;
-  background: var(--background);
-}
-.app-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
+  background-color: var(--background);
+  background-image:
     radial-gradient(at 8% -10%, rgba(37, 99, 235, 0.10) 0, transparent 42%),
     radial-gradient(at 95% 0%, rgba(124, 58, 237, 0.09) 0, transparent 40%),
     radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0, transparent 45%),
     radial-gradient(at 0% 100%, rgba(14, 165, 233, 0.07) 0, transparent 42%);
+  background-attachment: fixed;
 }
-.dark .app-shell::before {
-  background:
+.dark .app-shell {
+  background-image:
     radial-gradient(at 8% -10%, rgba(37, 99, 235, 0.16) 0, transparent 46%),
     radial-gradient(at 95% 0%, rgba(124, 58, 237, 0.14) 0, transparent 44%),
     radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.10) 0, transparent 48%),
@@ -335,58 +331,18 @@ p { line-height: 1.7; }
   position: relative;
   background: var(--card);
   border-radius: var(--radius-lg);
-}
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(37,99,235,0.5), rgba(124,58,237,0.4), rgba(16,185,129,0.45));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs);
 }
 
 /* ── Animated border glow ── */
-@property --glow-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes glow-spin { to { --glow-angle: 360deg; } }
 .border-glow {
   position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.border-glow::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(
-    from var(--glow-angle),
-    rgba(37,99,235,0.0) 0%,
-    rgba(37,99,235,0.85) 12%,
-    rgba(124,58,237,0.85) 24%,
-    rgba(16,185,129,0.75) 36%,
-    rgba(37,99,235,0.0) 48%,
-    rgba(37,99,235,0.0) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  animation: glow-spin 6s linear infinite;
-  opacity: 0;
-  transition: opacity 0.4s;
-  pointer-events: none;
-}
-.border-glow:hover::before { opacity: 1; }
-@supports not (background: conic-gradient(from var(--glow-angle), red, blue)) {
-  .border-glow::before { animation: none; background: linear-gradient(135deg, rgba(37,99,235,0.4), rgba(124,58,237,0.35)); }
+.border-glow:hover {
+  border-color: color-mix(in srgb, var(--primary) 50%, var(--border));
+  box-shadow: 0 0 16px -2px rgba(37, 99, 235, 0.25);
 }
 
 /* ── Hero gradients (page headers) ── */
@@ -420,7 +376,7 @@ p { line-height: 1.7; }
   inset: 0;
   background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
   background-size: 36px 36px;
-  mask-image: radial-gradient(at 80% 10%, black 0%, transparent 65%);
+  opacity: 0.5;
   pointer-events: none;
 }
 

@@ -11,7 +11,7 @@ import { Sparkles, Star, TrendingUp, Globe, ShieldCheck } from "lucide-react";
  */
 export function AuthShell({ children, title, subtitle }: { children: React.ReactNode; title: string; subtitle: string }) {
   return (
-    <div className="app-shell flex min-h-dvh">
+    <div className="app-shell flex min-h-screen">
       {/* ── Brand panel ── */}
       <div className="relative hidden w-[46%] overflow-hidden lg:flex">
         <div className="absolute inset-0 bg-[linear-gradient(150deg,#5B21B6_0%,#4F46E5_42%,#2563EB_78%,#0EA5E9_100%)]" />
@@ -20,7 +20,7 @@ export function AuthShell({ children, title, subtitle }: { children: React.React
           <div className="absolute -bottom-40 -left-24 h-[420px] w-[420px] rounded-full bg-[#10B981]/25 blur-3xl" />
           <div className="absolute -right-20 top-1/3 h-[300px] w-[300px] animate-float-slow rounded-full bg-white/10 blur-2xl" />
           <div
-            className="absolute inset-0 opacity-50 [mask-image:radial-gradient(at_70%_30%,black,transparent_70%)]"
+            className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: "linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)",
               backgroundSize: "40px 40px",

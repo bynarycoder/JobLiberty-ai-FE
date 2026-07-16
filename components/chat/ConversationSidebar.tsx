@@ -50,7 +50,7 @@ export function ConversationSidebar({ conversations, activeConversationId, onSel
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-30 lg:hidden" onClick={onClose} />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-background/80 backdrop-blur-sm z-30 lg:hidden" onClick={onClose} />
 
           <motion.aside
             initial={{ x: -300, opacity: 0 }}

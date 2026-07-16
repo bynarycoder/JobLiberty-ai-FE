@@ -77,12 +77,12 @@ export function PageHero({ title, subtitle, icon: Icon, gradient, eyebrow, stats
       {/* Decorative layers */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(at_92%_-20%,rgba(255,255,255,0.30)_0,transparent_52%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(at_-10%_130%,rgba(0,0,0,0.22)_0,transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_-10%_130%,rgba(0,0,0,0.12)_0,transparent_55%)]" />
         <div
-          className="absolute inset-0 opacity-70 [mask-image:radial-gradient(at_85%_15%,black,transparent_62%)]"
+          className="absolute inset-0 opacity-40"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)",
+              "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
             backgroundSize: "34px 34px",
           }}
         />
