@@ -248,19 +248,24 @@ export interface LearningResource {
   tags: string[];
 }
 
-export interface SmartRecommendation {
-  id: string;
-  title: string;
-  type: OpportunityType;
-  confidence: number;
-  reasonKey: string;
-  icon: string;
-}
-
 export interface NigeriaFilter {
   city: string;
   workMode: WorkMode | 'all';
 }
+
+export type JobType = 'full-time' | 'part-time' | 'contract' | 'internship' | 'freelance' | 'all';
+export type CompanySize = 'startup' | 'sme' | 'mid' | 'enterprise' | 'all';
+export type EducationLevel = 'secondary' | 'diploma' | 'bachelors' | 'masters' | 'phd' | 'any' | 'all';
+export type SectorType =
+  | 'government'
+  | 'private'
+  | 'startup'
+  | 'ngo'
+  | 'international'
+  | 'all';
+export type CostType = 'free' | 'paid' | 'all';
+export type DemandLevel = 'low' | 'moderate' | 'high' | 'very-high';
+export type GrowthTrend = 'declining' | 'stable' | 'growing' | 'exploding';
 
 export interface OpportunityFiltersState {
   category: string;
@@ -271,6 +276,20 @@ export interface OpportunityFiltersState {
   experienceLevel: ExperienceLevel;
   salary: string;
   industry: string;
+  jobType: JobType;
+  location: string;
+  educationLevel: EducationLevel;
+  companySize: CompanySize;
+  opportunityType: string;
+  costType: CostType;
+  sectorType: SectorType;
+  onlyFree: boolean;
+  onlyPaid: boolean;
+  onlyGovernment: boolean;
+  onlyPrivate: boolean;
+  onlyStartup: boolean;
+  onlyNgo: boolean;
+  onlyInternational: boolean;
 }
 
 export interface OpportunityStats {
@@ -280,6 +299,137 @@ export interface OpportunityStats {
   internships: number;
   hackathons: number;
   learningResources: number;
+}
+
+// Industry / Sector cards
+export interface IndustrySector {
+  id: string;
+  name: string;
+  emoji: string;
+  icon: string;
+  description: string;
+  opportunityCount: number;
+  trending: boolean;
+  trendPercent?: number;
+  color: string;
+}
+
+// Enhanced AI recommendations
+export interface RecommendationMatchFactors {
+  resume: boolean;
+  skills: string[];
+  careerGoal: string;
+  education: string;
+  experience: string;
+  preferredIndustry: string;
+  preferredLocation: string;
+  language: string;
+}
+
+export interface SmartRecommendation {
+  id: string;
+  title: string;
+  organization: string;
+  type: OpportunityType;
+  confidence: number;
+  reasonKey: string;
+  reason?: string;
+  icon: string;
+  location?: string;
+  salary?: string;
+  matchFactors: RecommendationMatchFactors;
+  tags?: string[];
+}
+
+// Career paths
+export interface CareerPath {
+  id: string;
+  title: string;
+  description: string;
+  averageSalary: string;
+  demand: DemandLevel;
+  growthTrend: GrowthTrend;
+  growthPercent: number;
+  recommendedSkills: string[];
+  recommendedCertifications: string[];
+  icon: string;
+  color: string;
+  openRoles: number;
+}
+
+// Featured employers
+export interface FeaturedEmployer {
+  id: string;
+  name: string;
+  industry: string;
+  industryGroup: string;
+  logoPlaceholder: string;
+  openRoles: number;
+  location: string;
+  description: string;
+  tags: string[];
+  featured?: boolean;
+}
+
+// Weekly insights
+export interface SkillDemand {
+  skill: string;
+  demandScore: number;
+  changePercent: number;
+}
+
+export interface IndustryGrowth {
+  industry: string;
+  growthPercent: number;
+  openings: number;
+}
+
+export interface StateHiring {
+  state: string;
+  openings: number;
+  changePercent: number;
+}
+
+export interface SalaryInsight {
+  role: string;
+  averageSalary: string;
+  range: string;
+}
+
+export interface TrendingOpportunityInsight {
+  title: string;
+  organization: string;
+  type: string;
+  views: number;
+}
+
+export interface DeadlineInsight {
+  title: string;
+  organization: string;
+  deadline: string;
+  daysLeft: number;
+}
+
+export interface CommunityEvent {
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  type: 'meetup' | 'career-fair' | 'workshop' | 'webinar';
+  attendees?: number;
+}
+
+export interface WeeklyInsights {
+  weekLabel: string;
+  mostInDemandSkills: SkillDemand[];
+  fastestGrowingIndustries: IndustryGrowth[];
+  mostActiveStates: StateHiring[];
+  averageSalaries: SalaryInsight[];
+  trendingOpportunities: TrendingOpportunityInsight[];
+  upcomingDeadlines: DeadlineInsight[];
+  communityEvents: CommunityEvent[];
+  techMeetups: CommunityEvent[];
+  careerFairs: CommunityEvent[];
 }
 
 // AI Chat Types

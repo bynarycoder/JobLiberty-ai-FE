@@ -4,7 +4,14 @@ import React from "react";
 import { Card } from "@/components/ui/Card";
 
 export function SkeletonCards({ count = 4, columns = 2 }: { count?: number; columns?: number }) {
-  const colClass = columns === 1 ? "grid-cols-1" : columns === 3 ? "md:grid-cols-3" : "md:grid-cols-2";
+  const colClass =
+    columns === 1
+      ? "grid-cols-1"
+      : columns === 3
+        ? "md:grid-cols-3"
+        : columns === 4
+          ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          : "md:grid-cols-2";
 
   return (
     <div className={`grid grid-cols-1 ${colClass} gap-4`}>
