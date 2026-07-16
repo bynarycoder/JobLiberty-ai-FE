@@ -14,6 +14,7 @@
     "analysis": "Binciken ATS",
     "skills": "Rago na Fasaha",
     "resources": "Albarkatun Aiki",
+    "opportunityHub": "Cibiyar Damar",
     "chat": "Mataimakin AI",
     "interview": "Shirye-shiryen Hira",
     "reports": "Rahotanni",
@@ -379,6 +380,176 @@
       "tip2": "Tambaye ni game da shawarwarin shirye-shiryen hira",
       "tip3": "Zan iya taimaka maka tsara hanyar aikin ka",
       "tip4": "Samu shawarwari don ƙwarewa da darussan"
+    }
+  },
+  "opportunityHub": {
+    "title": "Cibiyar Damar",
+    "subtitle": "Gano ayyuka, karatuttuka, fellowships, internships, hackathons, albarkatun koyo, da damar gida a Najeriya da wajen.",
+    "search": {
+      "placeholder": "Bincika ƙungiyoyi, ayyuka, karatuttuka, hackathons, darussan...",
+      "ariaLabel": "Bincika damar",
+      "noResults": "Babu sakamako"
+    },
+    "filters": {
+      "title": "Tace",
+      "clear": "Share tace",
+      "category": "Rukuni",
+      "country": "Ƙasa",
+      "state": "Jihar",
+      "workMode": "Yanayin aiki",
+      "deadline": "Ƙarshen lokaci",
+      "experience": "Matsayin ƙwarewa",
+      "salary": "Yawan albashi",
+      "industry": "Masana'antu",
+      "allCategories": "Duk rukunoni",
+      "allCountries": "Duk ƙasashen",
+      "allStates": "Duk jihohi",
+      "allWorkModes": "Duk yanayin aiki",
+      "anyDeadline": "Kowane lokaci",
+      "allExperience": "Duk matakai",
+      "anySalary": "Kowane albashi",
+      "allIndustries": "Duk masana'antu",
+      "job": "Ayyuka",
+      "scholarship": "Karatuttuka",
+      "fellowship": "Fellowships",
+      "internship": "Internships",
+      "hackathon": "Hackathons",
+      "learning": "Koyo",
+      "remote": "Nesa",
+      "hybrid": "Hybrid",
+      "onsite": "A wurin aiki",
+      "entry": "Matakin shiga",
+      "mid": "Matsakin tsakiya",
+      "senior": "Matsakin sama",
+      "executive": "Shugabanci",
+      "week": "Wannan mako",
+      "month": "Wannan wata",
+      "3months": "Maso 3 masu zuwa",
+      "salary05M": "₦0 - ₦5M",
+      "salary5M15M": "₦5M - ₦15M",
+      "salary15M30M": "₦15M - ₦30M",
+      "salary30M": "₦30M+"
+    },
+    "hero": {
+      "title": "Kofarku zuwa ga damar aiki a Afrika",
+      "description": "Bincika damar da aka tsara wa masu basira na Najeriya da Afirka. Daga ayyukan gida zuwa karatuttukan duniya, farkon saukinku ya fara nan.",
+      "todayOpportunities": "Damar Yau",
+      "availableJobs": "Ayyukan da ake samu",
+      "scholarships": "Karatuttuka",
+      "internships": "Internships",
+      "hackathons": "Hackathons",
+      "learningResources": "Albarkatun Koyo"
+    },
+    "categories": {
+      "title": "Rukunonin Damar",
+      "jobs": "Ayyuka",
+      "jobsDesc": "Ayyukan cikakken lokaci, ɓangaranci, da kwangila a faɗin Afrika.",
+      "scholarships": "Karatuttuka",
+      "scholarshipsDesc": "Kuɗin tallafi don ilimi na gida da na duniya.",
+      "fellowships": "Fellowships",
+      "fellowshipsDesc": "Shirye-shirye masu saurin ci gaban aiki tare da jagoranci.",
+      "internships": "Internships",
+      "internshipsDesc": "Gogewa ta hannu da sasantar NYSC.",
+      "competitions": "Gasu",
+      "competitionsDesc": "Nuna ƙwarewar ku kuma ku ci kyaututtuka.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Gina, haɗin kai, da sabuntawa tare da masu gina.",
+      "learning": "Albarkatun Koyo",
+      "learningDesc": "Darussa kyauta da na biya don haɓaka ƙwarewa.",
+      "networking": "Taron Haɗin Kai",
+      "networkingDesc": "Haɗu da ƙwararru da masu jagoranci.",
+      "volunteer": "Damar Ɗan'Adam",
+      "volunteerDesc": "Ba da amfani yayin gina gogewar ku.",
+      "opensource": "Shirye-shirye Open Source",
+      "opensourceDesc": "Bayar da gudummuwa ga shirye-shirye masu gina gobe."
+    },
+    "featured": {
+      "title": "Damar da aka Nuna",
+      "score": "Matsakin Damar",
+      "apply": "Nema Yanzu",
+      "addBookmark": "Alamar damar",
+      "removeBookmark": "Cire alama",
+      "share": "Raba damar"
+    },
+    "nigeria": {
+      "title": "Damar Najeriya",
+      "cityLabel": "Tace bisa birni",
+      "allCities": "Duk birane"
+    },
+    "community3mtt": {
+      "title": "Al'ummar 3MTT",
+      "subtitle": "Haɗu, koya, da girma tare da al'umma mafi girma na masu basira na fasaha a Najeriya.",
+      "members": "50,000+ mambobi",
+      "opportunities": "Damar 3MTT",
+      "opportunitiesDesc": "Fellowships, ayyuka, da sasantar masu karatu.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Gina magani da faɗaɗa kyaututtuka.",
+      "events": "Abubuwan Al'umma",
+      "eventsDesc": "Taro, webinar, da tarukan gida.",
+      "studyGroups": "Kungiyoyin Koyo",
+      "studyGroupsDesc": "Taron koyo tare da abokai a harkoki daban-daban.",
+      "mentorship": "Shirye-shiryen Jagoranci",
+      "mentorshipDesc": "Jagoranci daga masu ƙwarewa.",
+      "challenges": "Gasu Innovation",
+      "challengesDesc": "Warware gasa ta amfani da ƙwarewar ku.",
+      "projects": "Ayyukan Al'umma",
+      "projectsDesc": "Aiki tare a kan open source da tasiri zamantakewa.",
+      "networking": "Zama Haɗin Kai",
+      "networkingDesc": "Gina dangantaka masu ci gaban aiki."
+    },
+    "scholarships": {
+      "title": "Karatuttuka"
+    },
+    "fellowships": {
+      "title": "Fellowships"
+    },
+    "hackathons": {
+      "title": "Hackathons"
+    },
+    "learning": {
+      "title": "Albarkatun Koyo",
+      "free": "Kyauta",
+      "paid": "Biya",
+      "start": "Fara Koyo"
+    },
+    "recommendations": {
+      "title": "Shawarwarin Gare ku",
+      "subtitle": "Dangane da resume da ƙwarewar ku, Liberty AI ya zaɓi waɗannan damar domin ku.",
+      "reasons": {
+        "backend": "Ya dace da gogewar ku na Backend Development",
+        "aiCourse": "Yana rufe ragon ƙwarewa a Artificial Intelligence",
+        "hackathon": "Hanya mai kyau don gina ayyukan portfolio cikin sauri",
+        "community": "Ya dace da sha'awar ku a cikin al'ummomin fasaha",
+        "python": "Yana goyon bayan burin ku na ƙarfafa tushen programming"
+      }
+    },
+    "libertyAI": {
+      "title": "Liberty AI",
+      "subtitle": "Abokin Taimakon Aikin AI naka",
+      "description": "Samu jagoranci na keɓance da kuma gano damar da suka dace da bayanan ku.",
+      "actions": {
+        "findOpportunities": "Nemo Damar",
+        "recommendScholarships": "Ba da Shawarar Karatuttuka",
+        "recommendFellowships": "Ba da Shawarar Fellowships",
+        "findRemoteJobs": "Nemo Ayyukan Nesa",
+        "findLocalJobs": "Nemo Ayyukan Gida",
+        "recommendCourses": "Ba da Shawarar Darussan Kyauta",
+        "interviewPrep": "Yi Mini Shirye-shiryen Hira",
+        "careerRoadmap": "Gina Hanyar Aiki Ta"
+      }
+    },
+    "bookmarks": {
+      "saved": "An adana"
+    },
+    "emptyState": {
+      "title": "Babu samun damar",
+      "description": "Gwada canza tace ko kalmomin binciken ku."
+    },
+    "errorState": {
+      "description": "Ba mu iya loda damar ba. Da fatan za a sake gwadawa."
+    },
+    "common": {
+      "deadline": "Ƙarshen lokaci"
     }
   },
   "footer": {

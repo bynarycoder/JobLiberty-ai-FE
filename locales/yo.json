@@ -14,6 +14,7 @@
     "analysis": "Itupalẹ ATS",
     "skills": "Aafo Ọgbọn",
     "resources": "Awọn Ohun-elo Iṣẹ",
+    "opportunityHub": "Aago Anfani",
     "chat": "Oluranlọwọ AI",
     "interview": "Igbimọ Iṣẹ",
     "reports": "Awọn Iroyin",
@@ -379,6 +380,176 @@
       "tip2": "Beere lọwọ mi nipa awọn imọran igbaradi ibeere",
       "tip3": "Mo le ṣe iranlọwọ fun ọ lati gbero ọna iṣẹ rẹ",
       "tip4": "Gba awọn iṣeduro fun awọn ọgbọn ati awọn ẹkọ"
+    }
+  },
+  "opportunityHub": {
+    "title": "Aago Anfani",
+    "subtitle": "Ṣawari awọn iṣẹ, scholarships, fellowships, internships, hackathons, ohun elo ẹkọ, ati anfani agbegbe ni Nigeria ati lọwọlọwọ.",
+    "search": {
+      "placeholder": "Wa awọn ile-iṣẹ, iṣẹ, scholarships, hackathons, ẹkọ...",
+      "ariaLabel": "Wa awọn anfani",
+      "noResults": "Ko si abajade"
+    },
+    "filters": {
+      "title": "Àlẹmọ",
+      "clear": "Pa àlẹmọ",
+      "category": "Ẹka",
+      "country": "Orilẹ-ede",
+      "state": "Ipo",
+      "workMode": "Ona iṣẹ",
+      "deadline": "Ipari",
+      "experience": "Ipele iriri",
+      "salary": "Ipari owo",
+      "industry": "Iṣẹ-ọnà",
+      "allCategories": "Gbogbo ẹka",
+      "allCountries": "Gbogbo orilẹ-ede",
+      "allStates": "Gbogbo ipo",
+      "allWorkModes": "Gbogbo ona iṣẹ",
+      "anyDeadline": "Ipari kankan",
+      "allExperience": "Gbogbo ipèle",
+      "anySalary": "Owo kankan",
+      "allIndustries": "Gbogbo iṣẹ-ọnà",
+      "job": "Awọn Iṣẹ",
+      "scholarship": "Scholarships",
+      "fellowship": "Fellowships",
+      "internship": "Internships",
+      "hackathon": "Hackathons",
+      "learning": "Ẹkọ",
+      "remote": "Jinna",
+      "hybrid": "Hybrid",
+      "onsite": "Aye-iṣẹ",
+      "entry": "Ipele ibẹwẹ",
+      "mid": "Ipele arin",
+      "senior": "Ipele giga",
+      "executive": "Alakoso",
+      "week": "Ọsẹ yii",
+      "month": "Oṣu yii",
+      "3months": "Oṣu 3 ti n bọ",
+      "salary05M": "₦0 - ₦5M",
+      "salary5M15M": "₦5M - ₦15M",
+      "salary15M30M": "₦15M - ₦30M",
+      "salary30M": "₦30M+"
+    },
+    "hero": {
+      "title": "Ilẹ ọna rẹ si anfani iṣẹ ni Africa",
+      "description": "Ṣawari awọn anfani ti a ṣe fun talẹnti Nigeria ati Africa. Lati awọn iṣẹ agbegbe si awọn ijọsin aye, iṣẹlẹ rẹ bẹrẹ nibi.",
+      "todayOpportunities": "Awọn Anfani Loni",
+      "availableJobs": "Awọn Iṣẹ Ti a Ni",
+      "scholarships": "Scholarships",
+      "internships": "Internships",
+      "hackathons": "Hackathons",
+      "learningResources": "Awọn Ohun-elo Ẹkọ"
+    },
+    "categories": {
+      "title": "Awọn Ẹka Anfani",
+      "jobs": "Awọn Iṣẹ",
+      "jobsDesc": "Iṣẹ pipe, apakan, ati adehun kakiri Afrika.",
+      "scholarships": "Scholarships",
+      "scholarshipsDesc": "Isọdọtun fun ẹkọ agbegbe ati aye.",
+      "fellowships": "Fellowships",
+      "fellowshipsDesc": "Awọn eto ti o yara iṣẹ pẹlu itọsọna.",
+      "internships": "Internships",
+      "internshipsDesc": "Iriri ti ọwọ ati idanimọ NYSC.",
+      "competitions": "Awọn Iyanaya",
+      "competitionsDesc": "Fi ọgbọn rẹ hàn ki o si gba ẹbun.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Kọ, sopọ, ati ṣe imudojuiwọn pẹlu awọn olukọ.",
+      "learning": "Awọn Ohun-elo Ẹkọ",
+      "learningDesc": "Awọn ẹkọ ọfẹ ati ti o sanwo lati mu ipa rẹ pọ si.",
+      "networking": "Awọn Iṣẹlẹ Iforosọpọ",
+      "networkingDesc": "Sopọ pẹlu awọn ọjọgbọn ati awọn olutọsọna.",
+      "volunteer": "Awọn Anfani Ifarada",
+      "volunteerDesc": "Fi ẹbun fun awọn miran nigba ti o n kọ iriri rẹ.",
+      "opensource": "Awọn Eto Open Source",
+      "opensourceDesc": "Fi ẹbun kun awọn iṣẹ ti o dá ọjọ iwaju mulẹ."
+    },
+    "featured": {
+      "title": "Anfani Ti a Yan",
+      "score": "Iṣiro Anfani",
+      "apply": "Waye Bayi",
+      "addBookmark": "Tẹ ami si anfani",
+      "removeBookmark": "Yọ ami kuro",
+      "share": "Pin anfani"
+    },
+    "nigeria": {
+      "title": "Anfani Nigeria",
+      "cityLabel": "Yan ibi gege",
+      "allCities": "Gbogbo awọn ilu"
+    },
+    "community3mtt": {
+      "title": "Agbegbe 3MTT",
+      "subtitle": "Sopọ, kọ, ati dagba pẹlu agbegbe talẹnti imọ-ẹrọ ti o tobi julọ ni Nigeria.",
+      "members": "50,000+ ọmọ ẹgbẹ",
+      "opportunities": "Anfani 3MTT",
+      "opportunitiesDesc": "Fellowships, iṣẹ, ati idanimọ fun awọn akẹkọ.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Kọ awọn ojutu ki o si ja fun ẹbun.",
+      "events": "Awọn Iṣẹlẹ Agbegbe",
+      "eventsDesc": "Ibi ipade, webinar, ati awujo agbegbe.",
+      "studyGroups": "Awọn Ẹgbẹ Ẹkọ",
+      "studyGroupsDesc": "Awọn ẹgbẹ ẹkọ aladugbo laarin awọn ipa.",
+      "mentorship": "Awọn Eto Itọsọna",
+      "mentorshipDesc": "Itọsọna lati awọn alaaye.",
+      "challenges": "Awọn Iyansan Innovation",
+      "challengesDesc": "Yanju awọn ọrọ nipa lilo ọgbọn rẹ.",
+      "projects": "Awọn Iṣẹ Agbegbe",
+      "projectsDesc": "Bá a mu lori open source ati ipa awujọ.",
+      "networking": "Awọn Akoko Iforosọpọ",
+      "networkingDesc": "Kọ awọn ibatan ti o mu iṣẹ rẹ niwaju."
+    },
+    "scholarships": {
+      "title": "Scholarships"
+    },
+    "fellowships": {
+      "title": "Fellowships"
+    },
+    "hackathons": {
+      "title": "Hackathons"
+    },
+    "learning": {
+      "title": "Awọn Ohun-elo Ẹkọ",
+      "free": "Ọfẹ",
+      "paid": "Sanwo",
+      "start": "Bẹrẹ Ẹkọ"
+    },
+    "recommendations": {
+      "title": "Imọran Fun Ọ",
+      "subtitle": "Da lori resume ati awọn ọgbọn rẹ, Liberty AI yan awọn anfani wọnyi fun ọ.",
+      "reasons": {
+        "backend": "Baramu pẹlu iriri iṣatunṣe ẹhin rẹ",
+        "aiCourse": "Pa aafo ọgbọn ni Artificial Intelligence",
+        "hackathon": "Ọna daradara lati kọ awọn iṣẹ portfolio ni kiaakia",
+        "community": "Baramu pẹlu ifẹkufẹ rẹ si awọn agbegbe imọ-ẹrọ",
+        "python": "Atilẹyin fun ifẹkufẹ rẹ lati mu ipilẹ ẹkọ ilọsiwaju mulẹ"
+      }
+    },
+    "libertyAI": {
+      "title": "Liberty AI",
+      "subtitle": "Alabaṣiṣẹpọ Iṣẹ AI Rẹ",
+      "description": "Gba itọsọna ti ara ẹni ki o si ṣawari awọn anfani ti o baamu profaili rẹ.",
+      "actions": {
+        "findOpportunities": "Wa Awọn Anfani",
+        "recommendScholarships": "Ṣe Iṣeduro Scholarships",
+        "recommendFellowships": "Ṣe Iṣeduro Fellowships",
+        "findRemoteJobs": "Wa Awọn Iṣẹ Jinna",
+        "findLocalJobs": "Wa Awọn Iṣẹ Agbegbe",
+        "recommendCourses": "Ṣe Iṣeduro Awọn Ẹkọ Ọfẹ",
+        "interviewPrep": "Mura Mi Fun Awọn Ibeere",
+        "careerRoadmap": "Kọ Ọna Iṣẹ Mi"
+      }
+    },
+    "bookmarks": {
+      "saved": "Ti fipamọ"
+    },
+    "emptyState": {
+      "title": "Ko si anfani ti a ri",
+      "description": "Gbiyanju lati yipada àlẹmọ rẹ tabi awọn ọrọ wiwa rẹ."
+    },
+    "errorState": {
+      "description": "A ko le ṣaju awọn anfani. Jọwọ gbiyanju lẹẹkansi."
+    },
+    "common": {
+      "deadline": "Ipari"
     }
   },
   "footer": {

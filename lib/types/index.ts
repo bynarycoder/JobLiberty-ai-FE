@@ -150,6 +150,138 @@ export interface Translation {
   [key: string]: string | Translation;
 }
 
+// Opportunity Hub Types
+export type OpportunityType =
+  | 'job'
+  | 'scholarship'
+  | 'fellowship'
+  | 'internship'
+  | 'competition'
+  | 'hackathon'
+  | 'learning'
+  | 'networking'
+  | 'volunteer'
+  | 'opensource';
+
+export type WorkMode = 'remote' | 'hybrid' | 'onsite';
+
+export type ExperienceLevel = 'entry' | 'mid' | 'senior' | 'executive' | 'all';
+
+export interface OpportunityCategory {
+  id: OpportunityType;
+  icon: string;
+  titleKey: string;
+  descriptionKey: string;
+  count: number;
+  color: string;
+}
+
+export interface BaseOpportunity {
+  id: string;
+  title: string;
+  organization: string;
+  description: string;
+  type: OpportunityType;
+  location: string;
+  country: string;
+  state?: string;
+  workMode: WorkMode;
+  deadline?: string;
+  postedAt?: string;
+  url?: string;
+  logoPlaceholder?: string;
+  tags: string[];
+  isFeatured?: boolean;
+  isRemote?: boolean;
+}
+
+export interface FeaturedOpportunity extends BaseOpportunity {
+  category: string;
+  opportunityScore: number;
+  salary?: string;
+  experienceLevel: ExperienceLevel;
+}
+
+export interface NigeriaOpportunity extends BaseOpportunity {
+  city: string;
+  roleType: string;
+  industry: string;
+}
+
+export interface CommunityCard {
+  id: string;
+  titleKey: string;
+  descriptionKey: string;
+  icon: string;
+  count: number;
+  color: string;
+}
+
+export interface Scholarship extends BaseOpportunity {
+  provider: string;
+  coverage: string;
+  eligibility: string[];
+}
+
+export interface Fellowship extends BaseOpportunity {
+  provider: string;
+  duration: string;
+  benefits: string[];
+}
+
+export interface Hackathon extends BaseOpportunity {
+  platform: string;
+  prize?: string;
+  date: string;
+}
+
+export interface LearningResource {
+  id: string;
+  title: string;
+  provider: string;
+  url: string;
+  duration: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  free: boolean;
+  category: string;
+  description: string;
+  tags: string[];
+}
+
+export interface SmartRecommendation {
+  id: string;
+  title: string;
+  type: OpportunityType;
+  confidence: number;
+  reasonKey: string;
+  icon: string;
+}
+
+export interface NigeriaFilter {
+  city: string;
+  workMode: WorkMode | 'all';
+}
+
+export interface OpportunityFiltersState {
+  category: string;
+  country: string;
+  state: string;
+  workMode: WorkMode | 'all';
+  deadline: string;
+  experienceLevel: ExperienceLevel;
+  salary: string;
+  industry: string;
+}
+
+export interface OpportunityStats {
+  totalOpportunities: number;
+  availableJobs: number;
+  scholarships: number;
+  internships: number;
+  hackathons: number;
+  learningResources: number;
+}
+
 // AI Chat Types
 export interface ChatMessage {
   id: string;

@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useI18n } from '@/providers/I18nProvider';
 import { 
   LayoutDashboard, Upload, Target, BarChart3, TrendingUp, 
-  BookOpen, Users, FileText, Settings, Award, MessageCircle 
+  BookOpen, Users, FileText, Settings, Award, MessageCircle, Globe
 } from 'lucide-react';
 
 const navItems = [
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/chat', icon: MessageCircle, labelKey: 'nav.chat' },
   { href: '/upload', icon: Upload, labelKey: 'nav.upload' },
   { href: '/jobs', icon: Target, labelKey: 'nav.jobs' },
+  { href: '/opportunity-hub', icon: Globe, labelKey: 'nav.opportunityHub' },
   { href: '/analysis', icon: BarChart3, labelKey: 'nav.analysis' },
   { href: '/skills', icon: TrendingUp, labelKey: 'nav.skills' },
   { href: '/resources', icon: BookOpen, labelKey: 'nav.resources' },

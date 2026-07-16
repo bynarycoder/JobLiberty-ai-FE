@@ -381,6 +381,176 @@
       "tip4": "Get recommendations for skills and courses"
     }
   },
+  "opportunityHub": {
+    "title": "Opportunity Hub",
+    "subtitle": "Discover jobs, scholarships, fellowships, internships, hackathons, learning opportunities, and local opportunities across Nigeria and beyond.",
+    "search": {
+      "placeholder": "Search organizations, jobs, scholarships, hackathons, courses...",
+      "ariaLabel": "Search opportunities",
+      "noResults": "No results found"
+    },
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear filters",
+      "category": "Category",
+      "country": "Country",
+      "state": "State",
+      "workMode": "Work mode",
+      "deadline": "Deadline",
+      "experience": "Experience level",
+      "salary": "Salary range",
+      "industry": "Industry",
+      "allCategories": "All categories",
+      "allCountries": "All countries",
+      "allStates": "All states",
+      "allWorkModes": "All work modes",
+      "anyDeadline": "Any deadline",
+      "allExperience": "All levels",
+      "anySalary": "Any salary",
+      "allIndustries": "All industries",
+      "job": "Jobs",
+      "scholarship": "Scholarships",
+      "fellowship": "Fellowships",
+      "internship": "Internships",
+      "hackathon": "Hackathons",
+      "learning": "Learning",
+      "remote": "Remote",
+      "hybrid": "Hybrid",
+      "onsite": "On-site",
+      "entry": "Entry level",
+      "mid": "Mid level",
+      "senior": "Senior level",
+      "executive": "Executive",
+      "week": "This week",
+      "month": "This month",
+      "3months": "Next 3 months",
+      "salary05M": "₦0 - ₦5M",
+      "salary5M15M": "₦5M - ₦15M",
+      "salary15M30M": "₦15M - ₦30M",
+      "salary30M": "₦30M+"
+    },
+    "hero": {
+      "title": "Your gateway to African career opportunities",
+      "description": "Explore curated opportunities tailored for Nigerian and African talent. From local jobs to global scholarships, your next breakthrough starts here.",
+      "todayOpportunities": "Today's Opportunities",
+      "availableJobs": "Available Jobs",
+      "scholarships": "Scholarships",
+      "internships": "Internships",
+      "hackathons": "Hackathons",
+      "learningResources": "Learning Resources"
+    },
+    "categories": {
+      "title": "Opportunity Categories",
+      "jobs": "Jobs",
+      "jobsDesc": "Full-time, part-time, and contract roles across Africa.",
+      "scholarships": "Scholarships",
+      "scholarshipsDesc": "Funding for local and international education.",
+      "fellowships": "Fellowships",
+      "fellowshipsDesc": "Career-accelerating programs with mentorship.",
+      "internships": "Internships",
+      "internshipsDesc": "Hands-on experience and NYSC placements.",
+      "competitions": "Competitions",
+      "competitionsDesc": "Showcase your skills and win prizes.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Build, network, and innovate with builders.",
+      "learning": "Learning Resources",
+      "learningDesc": "Free and paid courses to level up your skills.",
+      "networking": "Networking Events",
+      "networkingDesc": "Connect with professionals and mentors.",
+      "volunteer": "Volunteer Opportunities",
+      "volunteerDesc": "Give back while building your experience.",
+      "opensource": "Open Source Programs",
+      "opensourceDesc": "Contribute to projects that shape the future."
+    },
+    "featured": {
+      "title": "Featured Opportunities",
+      "score": "Opportunity Score",
+      "apply": "Apply Now",
+      "addBookmark": "Bookmark opportunity",
+      "removeBookmark": "Remove bookmark",
+      "share": "Share opportunity"
+    },
+    "nigeria": {
+      "title": "Nigeria Opportunities",
+      "cityLabel": "Filter by city",
+      "allCities": "All cities"
+    },
+    "community3mtt": {
+      "title": "3MTT Community",
+      "subtitle": "Connect, learn, and grow with Nigeria's largest tech talent community.",
+      "members": "50,000+ members",
+      "opportunities": "3MTT Opportunities",
+      "opportunitiesDesc": "Fellowships, jobs, and placements for fellows.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Build solutions and compete for prizes.",
+      "events": "Community Events",
+      "eventsDesc": "Meetups, webinars, and local gatherings.",
+      "studyGroups": "Study Groups",
+      "studyGroupsDesc": "Peer learning circles across tracks.",
+      "mentorship": "Mentorship Programs",
+      "mentorshipDesc": "Guidance from experienced professionals.",
+      "challenges": "Innovation Challenges",
+      "challengesDesc": "Solve real problems with your skills.",
+      "projects": "Community Projects",
+      "projectsDesc": "Collaborate on open source and social impact.",
+      "networking": "Networking Sessions",
+      "networkingDesc": "Build relationships that advance your career."
+    },
+    "scholarships": {
+      "title": "Scholarships"
+    },
+    "fellowships": {
+      "title": "Fellowships"
+    },
+    "hackathons": {
+      "title": "Hackathons"
+    },
+    "learning": {
+      "title": "Learning Resources",
+      "free": "Free",
+      "paid": "Paid",
+      "start": "Start Learning"
+    },
+    "recommendations": {
+      "title": "Recommended For You",
+      "subtitle": "Based on your resume and skills, Liberty AI picked these opportunities for you.",
+      "reasons": {
+        "backend": "Matches your backend development experience",
+        "aiCourse": "Closes a skill gap in artificial intelligence",
+        "hackathon": "Great way to build portfolio projects quickly",
+        "community": "Aligns with your interest in tech communities",
+        "python": "Supports your goal to strengthen programming fundamentals"
+      }
+    },
+    "libertyAI": {
+      "title": "Liberty AI",
+      "subtitle": "Your AI Career Companion",
+      "description": "Get personalized guidance and discover opportunities matched to your profile.",
+      "actions": {
+        "findOpportunities": "Find Opportunities",
+        "recommendScholarships": "Recommend Scholarships",
+        "recommendFellowships": "Recommend Fellowships",
+        "findRemoteJobs": "Find Remote Jobs",
+        "findLocalJobs": "Find Local Jobs",
+        "recommendCourses": "Recommend Free Courses",
+        "interviewPrep": "Prepare Me for Interviews",
+        "careerRoadmap": "Build My Career Roadmap"
+      }
+    },
+    "bookmarks": {
+      "saved": "Saved"
+    },
+    "emptyState": {
+      "title": "No opportunities found",
+      "description": "Try changing your filters or search terms."
+    },
+    "errorState": {
+      "description": "We couldn't load opportunities. Please try again."
+    },
+    "common": {
+      "deadline": "Deadline"
+    }
+  },
   "footer": {
     "copyright": "© 2026 JobLiberty",
     "developedBy": "Developed by Abdulwahab Abdulyekeen",
