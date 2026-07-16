@@ -14,6 +14,7 @@
     "analysis": "Ntụle ATS",
     "skills": "Oghere Nkà",
     "resources": "Ihe Ndị Na-enyere Aka",
+    "opportunityHub": "Ebe Ohere",
     "chat": "Onye Enyemaka AI",
     "interview": "Nkwadebe Ajụjụ",
     "reports": "Akụkọ",
@@ -379,6 +380,176 @@
       "tip2": "Jụọ m gbasara ndụmọdụ nkwadebe ajụjụ",
       "tip3": "Enwere m ike inyere gị aka ịhazi map ọrụ gị",
       "tip4": "Nweta ndụmọdụ maka nkà na ọmụmụ"
+    }
+  },
+  "opportunityHub": {
+    "title": "Ebe Ohere",
+    "subtitle": "Chọta ọrụ, scholarships, fellowships, internships, hackathons, ihe ndị na-enyere aka mmụta, na ohere ndị mpaghara na Naịjirịa na n'ebe ọzọ.",
+    "search": {
+      "placeholder": "Chọọ ụlọ ọrụ, ọrụ, scholarships, hackathons, ọmụmụ...",
+      "ariaLabel": "Chọọ ohere",
+      "noResults": "Enweghị nsonaazụ"
+    },
+    "filters": {
+      "title": "Nzacha",
+      "clear": "Hichapụ nzacha",
+      "category": "Ụdị",
+      "country": "Obodo",
+      "state": "Steeti",
+      "workMode": "Ụzọ ọrụ",
+      "deadline": "Ụbọchị ikpeazụ",
+      "experience": "Ọkwa ahụmịhe",
+      "salary": "Ọkọlọtọ ụgwọ",
+      "industry": "Ọrụ",
+      "allCategories": "Mgbakwunye ụdị niile",
+      "allCountries": "Mgbakwunye obodo niile",
+      "allStates": "Mgbakwunye steeti niile",
+      "allWorkModes": "Mgbakwunye ụzọ ọrụ niile",
+      "anyDeadline": "Ụbọchị ikpeazụ ọ bụla",
+      "allExperience": "Ọkwa niile",
+      "anySalary": "Ụgwọ ọ bụla",
+      "allIndustries": "Ọrụ ọ bụla",
+      "job": "Ọrụ",
+      "scholarship": "Scholarships",
+      "fellowship": "Fellowships",
+      "internship": "Internships",
+      "hackathon": "Hackathons",
+      "learning": "Mmụta",
+      "remote": "N'ime",
+      "hybrid": "Hybrid",
+      "onsite": "N'ọrụ",
+      "entry": "Ọkwa mbido",
+      "mid": "Ọkwa etiti",
+      "senior": "Ọkwa elu",
+      "executive": "Onye isi",
+      "week": "Izu a",
+      "month": "Ọnwa a",
+      "3months": "Ọnwa 3 na-abịa",
+      "salary05M": "₦0 - ₦5M",
+      "salary5M15M": "₦5M - ₦15M",
+      "salary15M30M": "₦15M - ₦30M",
+      "salary30M": "₦30M+"
+    },
+    "hero": {
+      "title": "Ọnụ ụzọ gị na ohere ọrụ African",
+      "description": "Chọgharịa ohere ndị e mepụtara maka ndị na-eme ihe Naịjirịa na Africa. Site na ọrụ mpaghara ruo scholarships ụwa, mmalite gị na ebe a.",
+      "todayOpportunities": "Ohere Taa",
+      "availableJobs": "Ọrụ Dị",
+      "scholarships": "Scholarships",
+      "internships": "Internships",
+      "hackathons": "Hackathons",
+      "learningResources": "Ihe Ndị Na-enyere Aka Mmụta"
+    },
+    "categories": {
+      "title": "Ụdị Ohere",
+      "jobs": "Ọrụ",
+      "jobsDesc": "Ọrụ nke oge niile, nke akụkọ, na nkwekọrịta n'ofe Africa.",
+      "scholarships": "Scholarships",
+      "scholarshipsDesc": "Ego maka agụmakwụkwọ mpaghara na mba ọzọ.",
+      "fellowships": "Fellowships",
+      "fellowshipsDesc": "Mmemme na-aga n'ihu n'ọrụ site na ndụmọdụ.",
+      "internships": "Internships",
+      "internshipsDesc": "Ahụmịhe site n'aka na ịdobe NYSC.",
+      "competitions": "Asọmpi",
+      "competitionsDesc": "Gosi nkà gị wee merie ihe nrite.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Wuo, jikọọ, ma mee ihe ọhụrụ na ndị ọzọ.",
+      "learning": "Ihe Ndị Na-enyere Aka Mmụta",
+      "learningDesc": "Ọmụmụ n'efu na nke ịkwụ ụgwọ iji rụziwanye nkà gị.",
+      "networking": "Ihe Mmekọrịta",
+      "networkingDesc": "Jikọọ ndị ọkachamara na ndụmọdụ.",
+      "volunteer": "Ohere Ọrụ Enyemaka",
+      "volunteerDesc": "Nyere ndị ọzọ aka mgbe ị na-ewulite ahụmịhe gị.",
+      "opensource": "Mmemme Open Source",
+      "opensourceDesc": "Nyere aka na mmekọrịta ndị na-achịkwa echi."
+    },
+    "featured": {
+      "title": "Ohere ndị a Kparịtara Ụka",
+      "score": "Akara Ohere",
+      "apply": "Tinye Akwụkwọ Ugbu a",
+      "addBookmark": "Tinye akara ohere",
+      "removeBookmark": "Wepụ akara",
+      "share": "Kesaa ohere"
+    },
+    "nigeria": {
+      "title": "Ohere Naịjirịa",
+      "cityLabel": "Nzacha site n'obodo",
+      "allCities": "Obodo niile"
+    },
+    "community3mtt": {
+      "title": "Obodo 3MTT",
+      "subtitle": "Jikọọ, mụta, na tolitere n'obodo nkà teknụzụ kachasị ukwuu na Naịjirịa.",
+      "members": "50,000+ ndị otu",
+      "opportunities": "Ohere 3MTT",
+      "opportunitiesDesc": "Fellowships, ọrụ, na idobe maka ndị ọmụmụ.",
+      "hackathons": "Hackathons",
+      "hackathonsDesc": "Wuo solushọn wee na-asọmpi maka ihe nrite.",
+      "events": "Ihe Mmekọrịta Obodo",
+      "eventsDesc": "Nzukọ, webinar, na nzukọ mpaghara.",
+      "studyGroups": "Otu Mmụta",
+      "studyGroupsDesc": "Otu mmụta ndị enyi n'ofe ụzọ dị iche iche.",
+      "mentorship": "Mmemme Ndụmọdụ",
+      "mentorshipDesc": "Ndụmọdụ site n'aka ndị nwere ahụmịhe.",
+      "challenges": "Asọmpi Nhazi",
+      "challengesDesc": "Dozie nsogbu site n'iji nkà gị.",
+      "projects": "Ihe Obodo",
+      "projectsDesc": "Mekọrịta na open source na mmetụta obodo.",
+      "networking": "Akụkọ Njikọ",
+      "networkingDesc": "Wulite mmekọrịta na-aga n'ihu ọrụ gị."
+    },
+    "scholarships": {
+      "title": "Scholarships"
+    },
+    "fellowships": {
+      "title": "Fellowships"
+    },
+    "hackathons": {
+      "title": "Hackathons"
+    },
+    "learning": {
+      "title": "Ihe Ndị Na-enyere Aka Mmụta",
+      "free": "N'efu",
+      "paid": "Ịkwụ ụgwọ",
+      "start": "Malite Mmụta"
+    },
+    "recommendations": {
+      "title": "Nke a Tụrụ aro maka Gị",
+      "subtitle": "Dabere na resume gị na nkà gị, Liberty AI họrọ ohere ndị a maka gị.",
+      "reasons": {
+        "backend": "Na-adaba na ahụmịhe mmepe azụ gị",
+        "aiCourse": "Na-emechi oghere nkà na Artificial Intelligence",
+        "hackathon": "Ọnụ ọma iji wulite ihe ngosi ngwa ngwa",
+        "community": "Na-adaba na mmasị gị na obodo teknụzụ",
+        "python": "Na-akwado ebumnuche gị ịkwalite isi mmụta programming"
+      }
+    },
+    "libertyAI": {
+      "title": "Liberty AI",
+      "subtitle": "Onye enyemaka ọrụ AI gị",
+      "description": "Nweta ndụmọdụ nkeonwe ma chọpụta ohere ndị na-adaba profaịlụ gị.",
+      "actions": {
+        "findOpportunities": "Chọta Ohere",
+        "recommendScholarships": "Tụọ Aro Scholarships",
+        "recommendFellowships": "Tụọ Aro Fellowships",
+        "findRemoteJobs": "Chọta Ọrụ N'ime",
+        "findLocalJobs": "Chọta Ọrụ Mpaghara",
+        "recommendCourses": "Tụọ Aro Ọmụmụ N'efu",
+        "interviewPrep": "Kwadebere M maka Ajụjụ",
+        "careerRoadmap": "Wulite Ụzọ Ọrụ M"
+      }
+    },
+    "bookmarks": {
+      "saved": "Echekwara"
+    },
+    "emptyState": {
+      "title": "Enweghị ohere ahụrụ",
+      "description": "Gbalịa ịgbanwe nzacha gị ma ọ bụ okwu ọchụchọ gị."
+    },
+    "errorState": {
+      "description": "Anyị enweghị ike ibugo ohere. Biko gbalịa ọzọ."
+    },
+    "common": {
+      "deadline": "Ụbọchị ikpeazụ"
     }
   },
   "footer": {
