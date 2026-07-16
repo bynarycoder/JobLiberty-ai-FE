@@ -476,6 +476,173 @@
       "cityLabel": "Tace bisa birni",
       "allCities": "Duk birane"
     },
+    "madeForNigerians": {
+      "title": "🇳🇬 An yi don 'yan Najeriya",
+      "subtitle": "Gano damar da aka kirkira musamman don 'yan Najeriya don koyo, girma, gina sana'o'i, da kuma haduwa da tsarin fasaha.",
+      "exploreByState": "Bincika ta Jiha",
+      "stateSuf": "damar aiki",
+      "industrySuf": "Masana'antu da aka fi sani:",
+      "popularIndustries": "Masana'antu da aka fi sani",
+      "communityEvents": "Abubuwan Al'umma",
+      "featuredOrganizations": "Taron Kungiyoyi",
+      "aiRecommendations": "Damar Najeriya da aka Ba da Shawarar",
+      "aiRecSubtitle": "Bisa ga ci gaba na resume ɗinka, Liberty AI yana ba da shawarar waɗannan damar.",
+      "emptyState": "Babu damar Najeriya da ake samu a yanzu.",
+      "refresh": "Sake sabuntawa",
+      "loading": "Ana loda Damar Najeriya...",
+      "categories": {
+        "nysc": {
+          "title": "🇳🇬 Damar NYSC",
+          "description": "Ayyukan horon aiki, sanya wa aiki, ayyukan CDS, da kuma damar kammala karatu ga mambobin kungiyar dake hidima."
+        },
+        "siwes": {
+          "title": "🎓 Horon SIWES & Masana'antu",
+          "description": "Sanya horon masana'antu ga daliban digiri na farko a duk fadin Najeriya."
+        },
+        "graduate": {
+          "title": "💼 Shirye-shiryen Koyon Graduate",
+          "description": "Shirye-shiryen kammala karatun digiri na farko daga bankunan Najeriya, kamfanonin sadarwa, kamfanonin fintech, kamfanonin tattaunawa, farawa, da kamfanoni masu zaman kansu na duniya."
+        },
+        "startups": {
+          "title": "🚀 Ayyukan Farawa",
+          "description": "Gano damar aiki daga kamfanonin farawa na Najeriya masu saurin girma."
+        },
+        "remote": {
+          "title": "🌍 Ayyukan Nesa don Afirka",
+          "description": "Damar ayyukan nesa musamman ga masu neman aiki daga Najeriya da Afirka."
+        },
+        "fellowships": {
+          "title": "🤖 AI & Fellowships na Fasaha",
+          "description": "Shirye-shiryen fellowship da aka tsara don gina fasahar basirar wucin gadi da fasaha masu matukar bukata."
+        },
+        "certifications": {
+          "title": "📚 Takaddun Shaida na Kyauta",
+          "description": "Sami takaddun shaida masu mahimmanci da masana'antu suka yarda da su daga manyan kamfanonin fasaha na duniya kyauta."
+        },
+        "competitions": {
+          "title": "🏆 Gasar",
+          "description": "Kalubalanci kanka, baje kolin basirarka a matakin duniya, kuma ka ci kyaututtuka masu ban makaki."
+        },
+        "opensource": {
+          "title": "💻 Shirye-shiryen Buɗe Tushen",
+          "description": "Ba da gudummawa ga software na buɗe tushen, yi aiki tare da masu haɓakawa a duniya, kuma a biya ku."
+        },
+        "entrepreneurship": {
+          "title": "🌱 Kasuwanci",
+          "description": "Kaddamar da farawarka, sami kudade, shiga cikin accelerators, kuma ka gina babban abu na gaba."
+        }
+      },
+      "states": {
+        "lagos": "Lagos",
+        "abuja": "Abuja (FCT)",
+        "ogun": "Ogun",
+        "oyo": "Oyo",
+        "kwara": "Kwara",
+        "osun": "Osun",
+        "ekiti": "Ekiti",
+        "ondo": "Ondo",
+        "rivers": "Rivers",
+        "enugu": "Enugu",
+        "kaduna": "Kaduna",
+        "kano": "Kano",
+        "plateau": "Plateau",
+        "cross_river": "Cross River",
+        "delta": "Delta",
+        "anambra": "Anambra",
+        "edo": "Edo",
+        "akwa_ibom": "Akwa Ibom",
+        "software": "Injiniyan Software"
+      },
+      "industries": {
+        "software": "Injiniyan Software",
+        "ai": "Basirar Artificial",
+        "cybersecurity": "Tsaron Intanet",
+        "cloud": "Gajimare Kwamfuta",
+        "data_science": "Kimiyyar Bayanai",
+        "uiux": "UI/UX",
+        "product": "Gudanar da Samfura",
+        "devops": "DevOps",
+        "marketing": "Kasuwancin Dijital",
+        "finance": "Kudi",
+        "healthtech": "HealthTech",
+        "edtech": "EdTech",
+        "agritech": "Agritech",
+        "govtech": "GovTech"
+      },
+      "events": {
+        "meetups": {
+          "title": "Meetups",
+          "description": "Haɗuwar al'ummomin gida don haɗawa, raba ilimi, da haɗin gwiwa.",
+          "date": "Kowace Asabar",
+          "location": "Lagos, Abuja, Enugu & Kan Layi"
+        },
+        "hackathons": {
+          "title": "Hackathons",
+          "description": "Kalubalen lamba mai tsanani don warware matsalolin zamantakewa da tattalin arziki na gida da na duniya.",
+          "date": "Kowane Wata",
+          "location": "Hybrid / Ƙasa baki ɗaya"
+        },
+        "bootcamps": {
+          "title": "Bootcamps",
+          "description": "Shirye-shiryen horarwa na ɗan gajeren lokaci a fadin fasahohi daban-daban.",
+          "date": "Bayan Kowace Wata Biyu",
+          "location": "Kan Layi / Wasu Cibiyoyi na Musamman"
+        },
+        "conferences": {
+          "title": "Taron Fasaha",
+          "description": "Taron shekara-shekara na masu gina fasaha, shugabanni, masu zuba jari, da masu hangen nesa.",
+          "date": "Mai zuwa Q3-Q4",
+          "location": "Lagos Tech Fest, Techpoint Summit"
+        },
+        "communities": {
+          "title": "Al'ummomin Masu Haɓakawa",
+          "description": "Kungiyoyin fasaha masu aiki kamar GDG, Women Techmakers, da OSCA.",
+          "date": "Masu Aiki Kowace Mako",
+          "location": "A fadin Ƙasa baki ɗaya"
+        },
+        "networking": {
+          "title": "Abubuwan Haɗin Kai",
+          "description": "Hanyoyin da aka tsara don nemo abokan gudanarwa da masu ba da shawara.",
+          "date": "Kowace Mako Biyu",
+          "location": "Lagos & Abuja Hubs"
+        },
+        "fairs": {
+          "title": "Baje Kolin Aiki",
+          "description": "Ranakun ɗaukar ma'aikata tare da masu ɗaukar ma'aikata na gida da na duniya.",
+          "date": "Kowane Kwata na Shekara",
+          "location": "Kan Layi & Lagos physical"
+        },
+        "tags": {
+          "networking": "Haɗin Kai",
+          "local": "Gida",
+          "building": "Gina",
+          "prizes": "Kyaututtuka",
+          "learning": "Koyo",
+          "career": "Sana'a",
+          "summit": "Taro",
+          "ecosystem": "Tsarin Halitta",
+          "developers": "Masu Haɓakawa",
+          "mentorship": "Jagoranci",
+          "connections": "Hanyoyi",
+          "jobs": "Ayyuka",
+          "hiring": "Ma'aikata"
+        }
+      },
+      "recommendations": {
+        "rec1": {
+          "title": "Abokin Injiniyan Software",
+          "description": "Gina manyan APIs na banki don dandamali na kudi na Moniepoint na gaba."
+        },
+        "rec2": {
+          "title": "AI Research Fellow",
+          "description": "Gudanar da bincike akan samfuran NLP na gida don harsunan Afirka a ƙarƙashin tsarin 3MTT."
+        },
+        "rec3": {
+          "title": "Frontend Engineering Intern (NYSC)",
+          "description": "Yi aiki akan mu'amalar masu amfani don 'yan kasuwa na Paystack a duk fadin Afirka ta Yamma yayin shekarar hidimarku."
+        }
+      }
+    },
     "community3mtt": {
       "title": "Al'ummar 3MTT",
       "subtitle": "Haɗu, koya, da girma tare da al'umma mafi girma na masu basira na fasaha a Najeriya.",
