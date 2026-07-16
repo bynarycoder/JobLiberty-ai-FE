@@ -1,34 +1,29 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
-import { SearchX } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
-interface EmptyStateProps {
-  titleKey?: string;
-  descriptionKey?: string;
-}
-
-export function EmptyState({
-  titleKey = "opportunityHub.emptyState.title",
-  descriptionKey = "opportunityHub.emptyState.description",
-}: EmptyStateProps) {
+export function EmptyState({ titleKey, descriptionKey }: { titleKey: string; descriptionKey: string }) {
   const { t } = useI18n();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="empty-state flex flex-col items-center justify-center rounded-3xl border border-dashed bg-zinc-50/60 px-6 py-16 text-center dark:bg-zinc-900/40"
-      role="status"
-      aria-live="polite"
-    >
-      <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
-        <SearchX className="h-7 w-7 text-muted-foreground" aria-hidden="true" />
+    <div className="rounded-[20px] border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-white/[0.02] p-10 text-center">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-[16px] bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-slate-700 shadow-sm mb-4">
+        <Search className="h-6 w-6 text-slate-400" />
       </div>
-      <h3 className="text-lg font-semibold">{t(titleKey)}</h3>
-      <p className="mt-1 max-w-sm text-sm text-muted-foreground">{t(descriptionKey)}</p>
-    </motion.div>
+      <div className="text-[16px] font-semibold tracking-[-0.01em] text-slate-900 dark:text-white">{t(titleKey)}</div>
+      <p className="mt-1 text-[13px] leading-[1.6] text-slate-500 dark:text-slate-400 max-w-[32ch] mx-auto">{t(descriptionKey)}</p>
+      <div className="mt-4 flex items-center justify-center gap-2">
+        <Button variant="outline" size="sm" className="rounded-full">
+          Clear filters
+        </Button>
+        <Button size="sm" className="rounded-full gap-1.5">
+          <Sparkles className="h-4 w-4" />
+          Ask Liberty AI
+        </Button>
+      </div>
+    </div>
   );
 }
