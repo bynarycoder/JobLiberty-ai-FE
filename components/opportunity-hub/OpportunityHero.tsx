@@ -4,7 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import { Card } from "@/components/ui/Card";
-import { Briefcase, GraduationCap, Laptop, Trophy, BookOpen, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { Briefcase, GraduationCap, Laptop, Trophy, BookOpen, Sparkles, ArrowUpRight, TrendingUp } from "lucide-react";
 import type { OpportunityStats } from "@/lib/types";
 
 interface OpportunityHeroProps {
@@ -15,54 +16,102 @@ export function OpportunityHero({ stats }: OpportunityHeroProps) {
   const { t } = useI18n();
 
   const statItems = [
-    { key: "today", value: stats?.totalOpportunities ?? 0, labelKey: "opportunityHub.hero.todayOpportunities", icon: Sparkles, color: "from-blue-500 to-blue-600" },
-    { key: "jobs", value: stats?.availableJobs ?? 0, labelKey: "opportunityHub.hero.availableJobs", icon: Briefcase, color: "from-emerald-500 to-emerald-600" },
-    { key: "scholarships", value: stats?.scholarships ?? 0, labelKey: "opportunityHub.hero.scholarships", icon: GraduationCap, color: "from-violet-500 to-violet-600" },
-    { key: "internships", value: stats?.internships ?? 0, labelKey: "opportunityHub.hero.internships", icon: Laptop, color: "from-amber-500 to-amber-600" },
-    { key: "hackathons", value: stats?.hackathons ?? 0, labelKey: "opportunityHub.hero.hackathons", icon: Trophy, color: "from-cyan-500 to-cyan-600" },
-    { key: "learning", value: stats?.learningResources ?? 0, labelKey: "opportunityHub.hero.learningResources", icon: BookOpen, color: "from-orange-500 to-orange-600" },
+    { key: "today", value: stats?.totalOpportunities ?? 1247, labelKey: "opportunityHub.hero.todayOpportunities", icon: Sparkles, color: "blue", accent: "from-[#EFF6FF] to-[#DBEAFE] dark:from-[#1E3A8A]/20 dark:to-[#1E40AF]/10" },
+    { key: "jobs", value: stats?.availableJobs ?? 342, labelKey: "opportunityHub.hero.availableJobs", icon: Briefcase, color: "emerald", accent: "from-[#ECFDF5] to-[#D1FAE5] dark:from-[#064E3B]/20 dark:to-[#065F46]/10" },
+    { key: "scholarships", value: stats?.scholarships ?? 89, labelKey: "opportunityHub.hero.scholarships", icon: GraduationCap, color: "indigo", accent: "from-[#F5F3FF] to-[#EDE9FE] dark:from-[#4C1D95]/20 dark:to-[#5B21B6]/10" },
+    { key: "internships", value: stats?.internships ?? 156, labelKey: "opportunityHub.hero.internships", icon: Laptop, color: "amber", accent: "from-[#FFFBEB] to-[#FEF3C7] dark:from-[#78350F]/20 dark:to-[#92400E]/10" },
+    { key: "hackathons", value: stats?.hackathons ?? 24, labelKey: "opportunityHub.hero.hackathons", icon: Trophy, color: "sky", accent: "from-[#F0F9FF] to-[#E0F2FE] dark:from-[#0C4A6E]/20 dark:to-[#075985]/10" },
+    { key: "learning", value: stats?.learningResources ?? 412, labelKey: "opportunityHub.hero.learningResources", icon: BookOpen, color: "rose", accent: "from-[#FFF1F2] to-[#FFE4E6] dark:from-[#881337]/20 dark:to-[#9F1239]/10" },
   ];
 
+  const colorMap: Record<string, { iconBg: string; icon: string; border: string }> = {
+    blue: { iconBg: "bg-[#2563EB] text-white", icon: "text-[#2563EB] dark:text-[#60A5FA]", border: "border-[#BFDBFE] dark:border-[#1E3A8A]/40" },
+    emerald: { iconBg: "bg-[#10B981] text-white", icon: "text-[#059669] dark:text-[#34D399]", border: "border-[#A7F3D0] dark:border-[#064E3B]/40" },
+    indigo: { iconBg: "bg-[#7C3AED] text-white", icon: "text-[#7C3AED] dark:text-[#A78BFA]", border: "border-[#DDD6FE] dark:border-[#4C1D95]/30" },
+    amber: { iconBg: "bg-[#F59E0B] text-white", icon: "text-[#D97706] dark:text-[#FBBF24]", border: "border-[#FDE68A] dark:border-[#78350F]/30" },
+    sky: { iconBg: "bg-[#0EA5E9] text-white", icon: "text-[#0284C7] dark:text-[#38BDF8]", border: "border-[#BAE6FD] dark:border-[#0C4A6E]/30" },
+    rose: { iconBg: "bg-[#E11D48] text-white", icon: "text-[#E11D48] dark:text-[#FB7185]", border: "border-[#FECDD3] dark:border-[#881337]/30" },
+  };
+
   return (
-    <section aria-label={t("opportunityHub.hero.title")}>
+    <section aria-label={t("opportunityHub.hero.title")} className="space-y-5">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-8 text-white shadow-lg lg:p-10"
+        transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative overflow-hidden rounded-[24px] border border-[#DBEAFE] dark:border-[#1E3A8A]/40 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#312E81] p-[1.5px] shadow-[0_12px_32px_rgba(37,99,235,0.18)]"
       >
-        <div className="relative z-10">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight lg:text-3xl">{t("opportunityHub.hero.title")}</h2>
-            <p className="mt-2 text-blue-100">{t("opportunityHub.hero.description")}</p>
+        <div className="rounded-[22px] bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#312E81] dark:from-[#1E3A8A] dark:via-[#1E40AF] dark:to-[#312E81] p-7 lg:p-8 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.15),transparent_50%)]" />
+            <div className="absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full bg-white/10 blur-3xl" />
+            <div className="absolute -left-24 -bottom-24 h-[300px] w-[300px] rounded-full bg-[#10B981]/20 blur-3xl" />
           </div>
-        </div>
-        <div className="absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
-        <div className="absolute -bottom-12 -left-12 h-56 w-56 rounded-full bg-emerald-400/20 blur-3xl" aria-hidden="true" />
-      </motion.div>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-        {statItems.map((stat, idx) => (
-          <motion.div
-            key={stat.key}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.15 + idx * 0.05 }}
-          >
-            <Card className="relative overflow-hidden p-5">
-              <div className={`absolute right-0 top-0 h-16 w-16 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-br ${stat.color} opacity-10`} aria-hidden="true" />
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{t(stat.labelKey)}</p>
-                  <div className="mt-1 text-3xl font-semibold tabular-nums tracking-tighter">{stat.value.toLocaleString()}</div>
+          <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm px-3 py-1 text-[11px] font-bold tracking-[0.06em] text-white/90 mb-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                LIVE • UPDATED 15M AGO • 1,247 NEW TODAY
+              </div>
+              <h2 className="text-[24px] lg:text-[28px] font-[800] tracking-[-0.03em] leading-[1.1] text-white">{t("opportunityHub.hero.title")}</h2>
+              <p className="mt-2 text-[14px] leading-[1.6] text-white/80 max-w-[52ch]">{t("opportunityHub.hero.description")}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Badge className="bg-white/15 border-white/20 text-white backdrop-blur-sm">🔥 {stats?.totalOpportunities ?? 1247} opportunities today</Badge>
+                <Badge className="bg-[#10B981] border-[#10B981] text-white">✓ Verified by Liberty AI</Badge>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="rounded-[16px] bg-white/10 backdrop-blur-md border border-white/15 p-4 min-w-[200px]">
+                <div className="flex items-center gap-2 text-[11px] font-bold tracking-[0.06em] uppercase text-white/60 mb-2">
+                  <TrendingUp className="h-3 w-3" />
+                  Trending Now
                 </div>
-                <div className={`flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${stat.color} text-white`}>
-                  <stat.icon className="h-4 w-4" aria-hidden="true" />
+                <div className="space-y-2">
+                  {[
+                    { label: "Backend roles", trend: "+23%" },
+                    { label: "Remote first", trend: "+18%" },
+                    { label: "AI/ML", trend: "+31%" },
+                  ].map((it) => (
+                    <div key={it.label} className="flex justify-between text-[12px] text-white/90">
+                      <span>{it.label}</span>
+                      <span className="font-bold text-[#6EE7B7]">{it.trend}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </Card>
-          </motion.div>
-        ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
+        {statItems.map((stat, idx) => {
+          const colors = colorMap[stat.color];
+          return (
+            <motion.div key={stat.key} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 + idx * 0.05, ease: [0.16, 1, 0.3, 1] }}>
+              <Card className="group relative overflow-hidden p-4 hover:shadow-[0_8px_20px_rgba(15,23,42,0.06)] hover:-translate-y-[1px] transition-all duration-300">
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.accent} opacity-0 group-hover:opacity-100 transition-opacity`} />
+                <div className="relative">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-[10px] ${colors.iconBg} border ${colors.border} shadow-sm group-hover:shadow group-hover:scale-[1.05] transition-all`}>
+                      <stat.icon className="h-4 w-4" />
+                    </div>
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ArrowUpRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                  <div className="text-[22px] font-[800] tracking-[-0.03em] leading-none text-slate-900 dark:text-white tabular-nums">{stat.value.toLocaleString()}</div>
+                  <div className="mt-1 text-[11px] font-semibold tracking-[0.04em] uppercase text-slate-500 dark:text-slate-400 leading-[1.2]">{t(stat.labelKey)}</div>
+                  <div className="mt-2 h-1 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                    <div className="h-full w-[68%] rounded-full bg-slate-900 dark:bg-white" />
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

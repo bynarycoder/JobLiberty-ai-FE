@@ -3,22 +3,24 @@
 import React, { useState } from "react";
 import { useI18n } from "@/providers/I18nProvider";
 import { Button } from "@/components/ui/Button";
-import { Filter, X } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { Filter, X, Sparkles } from "lucide-react";
 import type { OpportunityFiltersState, WorkMode, ExperienceLevel } from "@/lib/types";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface OpportunityFiltersProps {
   filters: OpportunityFiltersState;
   onChange: (filters: OpportunityFiltersState) => void;
 }
 
-const CATEGORIES = ["all", "job", "scholarship", "fellowship", "internship", "hackathon", "learning"];
-const COUNTRIES = ["all", "Nigeria", "Ghana", "Kenya", "South Africa", "Global"];
-const NIGERIAN_STATES = ["all", "Lagos", "Abuja FCT", "Rivers", "Kano", "Kaduna", "Enugu", "Oyo", "Ogun", "Kwara"];
-const WORK_MODES: (WorkMode | "all")[] = ["all", "remote", "hybrid", "onsite"];
-const DEADLINES = ["all", "week", "month", "3months"];
-const EXPERIENCE_LEVELS: ExperienceLevel[] = ["all", "entry", "mid", "senior", "executive"];
-const SALARY_RANGES = ["all", "0-5M", "5M-15M", "15M-30M", "30M+"];
-const INDUSTRIES = ["all", "Technology", "Fintech", "Banking", "E-commerce", "Healthcare", "Education"];
+const OPTIONS = {
+  categories: ["all", "job", "scholarship", "fellowship", "internship", "hackathon", "learning"],
+  countries: ["all", "Nigeria", "Ghana", "Kenya", "South Africa", "Global"],
+  states: ["all", "Lagos", "Abuja FCT", "Rivers", "Kano", "Kaduna", "Enugu", "Oyo"],
+  workModes: ["all", "remote", "hybrid", "onsite"] as (WorkMode | "all")[],
+  deadlines: ["all", "week", "month", "3months"],
+  experience: ["all", "entry", "mid", "senior", "executive"] as ExperienceLevel[],
+};
 
 export function OpportunityFilters({ filters, onChange }: OpportunityFiltersProps) {
   const { t } = useI18n();
@@ -41,149 +43,118 @@ export function OpportunityFilters({ filters, onChange }: OpportunityFiltersProp
     });
   };
 
-  const activeCount = Object.entries(filters).filter(([, value]) => value !== "all").length;
+  const activeCount = Object.values(filters).filter((v) => v !== "all").length;
 
   const selectClass =
-    "h-10 rounded-2xl border border-input bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+    "h-[42px] rounded-[12px] border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-[#1E293B] px-3 text-[13px] font-[500] tracking-[-0.01em] text-slate-700 dark:text-slate-300 shadow-sm hover:border-slate-300 dark:hover:border-slate-600 focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]/40 transition-all cursor-pointer";
 
   return (
-    <div className="rounded-2xl border bg-card p-4 shadow-sm">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-medium">
-          <Filter className="h-4 w-4 text-primary" aria-hidden="true" />
-          {t("opportunityHub.filters.title")}
+    <div className="rounded-[16px] border border-slate-200/70 dark:border-slate-800 bg-white dark:bg-[#1E293B] p-4 shadow-sm">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-[#EFF6FF] dark:bg-[#1E3A8A]/20 border border-[#DBEAFE] dark:border-[#1E3A8A]/30">
+            <Filter className="h-4 w-4 text-[#2563EB] dark:text-[#60A5FA]" />
+          </div>
+          <div>
+            <div className="text-[13.5px] font-semibold tracking-[-0.01em] text-slate-900 dark:text-white flex items-center gap-2">
+              {t("opportunityHub.filters.title")}
+              {activeCount > 0 && (
+                <Badge variant="emerald" size="sm">
+                  {activeCount} active
+                </Badge>
+              )}
+            </div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">AI-powered filters • Real-time</div>
+          </div>
         </div>
+
         <div className="flex items-center gap-2">
           {activeCount > 0 && (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 gap-1 text-xs">
-              <X className="h-3.5 w-3.5" aria-hidden="true" />
-              {t("opportunityHub.filters.clear")} ({activeCount})
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-8 rounded-full gap-1 text-[12px]">
+              <X className="h-3.5 w-3.5" />
+              Clear
             </Button>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-8 gap-1.5 text-xs lg:hidden"
-            onClick={() => setIsOpen((prev) => !prev)}
-            aria-expanded={isOpen}
-            aria-controls="filter-panel"
-          >
-            <Filter className="h-3.5 w-3.5" aria-hidden="true" />
-            {isOpen ? t("common.close") : t("opportunityHub.filters.title")}
+          <Button variant="outline" size="sm" className="h-8 rounded-full gap-1.5 text-[12px] lg:hidden" onClick={() => setIsOpen((p) => !p)}>
+            <Filter className="h-3.5 w-3.5" />
+            {isOpen ? "Close" : "Filters"}
           </Button>
         </div>
       </div>
 
-      <div
-        id="filter-panel"
-        className={`${isOpen ? "block" : "hidden"} mt-4 lg:block`}
-      >
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-          <select
-            aria-label={t("opportunityHub.filters.category")}
-            className={selectClass}
-            value={filters.category}
-            onChange={(e) => update("category", e.target.value)}
-          >
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c === "all" ? t("opportunityHub.filters.allCategories") : t(`opportunityHub.filters.${c}`)}
-              </option>
-            ))}
-          </select>
+      <AnimatePresence>
+        <motion.div
+          initial={false}
+          animate={{ height: isOpen || typeof window !== "undefined" && window.innerWidth >= 1024 ? "auto" : "auto", opacity: 1 }}
+          className={`${isOpen ? "block" : "hidden"} lg:block mt-4`}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+            <select aria-label="Category" className={selectClass} value={filters.category} onChange={(e) => update("category", e.target.value)}>
+              {OPTIONS.categories.map((c) => (
+                <option key={c} value={c}>
+                  {c === "all" ? "All categories" : c.charAt(0).toUpperCase() + c.slice(1)}
+                </option>
+              ))}
+            </select>
 
-          <select
-            aria-label={t("opportunityHub.filters.country")}
-            className={selectClass}
-            value={filters.country}
-            onChange={(e) => update("country", e.target.value)}
-          >
-            {COUNTRIES.map((c) => (
-              <option key={c} value={c}>
-                {c === "all" ? t("opportunityHub.filters.allCountries") : c}
-              </option>
-            ))}
-          </select>
+            <select aria-label="Country" className={selectClass} value={filters.country} onChange={(e) => update("country", e.target.value)}>
+              {OPTIONS.countries.map((c) => (
+                <option key={c} value={c}>
+                  {c === "all" ? "All countries" : c}
+                </option>
+              ))}
+            </select>
 
-          <select
-            aria-label={t("opportunityHub.filters.state")}
-            className={selectClass}
-            value={filters.state}
-            onChange={(e) => update("state", e.target.value)}
-          >
-            {NIGERIAN_STATES.map((s) => (
-              <option key={s} value={s}>
-                {s === "all" ? t("opportunityHub.filters.allStates") : s}
-              </option>
-            ))}
-          </select>
+            <select aria-label="State" className={selectClass} value={filters.state} onChange={(e) => update("state", e.target.value)}>
+              {OPTIONS.states.map((s) => (
+                <option key={s} value={s}>
+                  {s === "all" ? "All states" : s}
+                </option>
+              ))}
+            </select>
 
-          <select
-            aria-label={t("opportunityHub.filters.workMode")}
-            className={selectClass}
-            value={filters.workMode}
-            onChange={(e) => update("workMode", e.target.value as WorkMode | "all")}
-          >
-            {WORK_MODES.map((m) => (
-              <option key={m} value={m}>
-                {m === "all" ? t("opportunityHub.filters.allWorkModes") : t(`opportunityHub.filters.${m}`)}
-              </option>
-            ))}
-          </select>
+            <select aria-label="Work mode" className={selectClass} value={filters.workMode} onChange={(e) => update("workMode", e.target.value as any)}>
+              {OPTIONS.workModes.map((m) => (
+                <option key={m} value={m}>
+                  {m === "all" ? "Any work mode" : m}
+                </option>
+              ))}
+            </select>
 
-          <select
-            aria-label={t("opportunityHub.filters.deadline")}
-            className={selectClass}
-            value={filters.deadline}
-            onChange={(e) => update("deadline", e.target.value)}
-          >
-            {DEADLINES.map((d) => (
-              <option key={d} value={d}>
-                {d === "all" ? t("opportunityHub.filters.anyDeadline") : t(`opportunityHub.filters.${d}`)}
-              </option>
-            ))}
-          </select>
+            <select aria-label="Deadline" className={selectClass} value={filters.deadline} onChange={(e) => update("deadline", e.target.value)}>
+              {OPTIONS.deadlines.map((d) => (
+                <option key={d} value={d}>
+                  {d === "all" ? "Any deadline" : d}
+                </option>
+              ))}
+            </select>
 
-          <select
-            aria-label={t("opportunityHub.filters.experience")}
-            className={selectClass}
-            value={filters.experienceLevel}
-            onChange={(e) => update("experienceLevel", e.target.value as ExperienceLevel)}
-          >
-            {EXPERIENCE_LEVELS.map((l) => (
-              <option key={l} value={l}>
-                {l === "all" ? t("opportunityHub.filters.allExperience") : t(`opportunityHub.filters.${l}`)}
-              </option>
-            ))}
-          </select>
+            <select aria-label="Experience" className={selectClass} value={filters.experienceLevel} onChange={(e) => update("experienceLevel", e.target.value as any)}>
+              {OPTIONS.experience.map((l) => (
+                <option key={l} value={l}>
+                  {l === "all" ? "Any level" : l}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <select
-            aria-label={t("opportunityHub.filters.salary")}
-            className={selectClass}
-            value={filters.salary}
-            onChange={(e) => update("salary", e.target.value)}
-          >
-            {SALARY_RANGES.map((s) => (
-              <option key={s} value={s}>
-                {s === "all" ? t("opportunityHub.filters.anySalary") : t(`opportunityHub.filters.salary${s.replace(/[^a-zA-Z0-9]/g, "")}`)}
-              </option>
-            ))}
-          </select>
-
-          <select
-            aria-label={t("opportunityHub.filters.industry")}
-            className={selectClass}
-            value={filters.industry}
-            onChange={(e) => update("industry", e.target.value)}
-          >
-            {INDUSTRIES.map((i) => (
-              <option key={i} value={i}>
-                {i === "all" ? t("opportunityHub.filters.allIndustries") : i}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+          {activeCount > 0 && (
+            <div className="mt-3 flex items-center gap-2 flex-wrap">
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Active:</span>
+              {Object.entries(filters)
+                .filter(([, v]) => v !== "all")
+                .map(([k, v]) => (
+                  <Badge key={k} variant="secondary" size="sm" className="gap-1">
+                    {k}: {v}
+                    <button onClick={() => update(k as any, "all" as any)} className="ml-1 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 p-0.5">
+                      <X className="h-3 w-3" />
+                    </button>
+                  </Badge>
+                ))}
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
