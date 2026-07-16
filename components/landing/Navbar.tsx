@@ -48,21 +48,21 @@ export function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-1 rounded-full border border-slate-200/60 dark:border-slate-800 bg-slate-50/70 dark:bg-white/[0.04] p-1">
-            {[
+            {([
               { href: "#features", label: "Features" },
               { href: "/dashboard", label: t("nav.dashboard") },
               { href: "#how", label: "How it works" },
               { href: "/opportunity-hub", label: "Opportunities", badge: "NEW" },
-            ].map((link) => (
+            ] satisfies { href: string; label: string; badge?: string }[]).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="relative flex items-center gap-1.5 rounded-full px-3.5 py-[6px] text-[13.5px] font-[500] tracking-[-0.01em] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white dark:hover:bg-white/[0.06] transition-all"
               >
                 {link.label}
-                {(link as any).badge && (
+                {link.badge && (
                   <span className="rounded-full bg-[#10B981] px-1.5 py-0.5 text-[9px] font-bold tracking-[0.04em] text-white leading-none">
-                    {(link as any).badge}
+                    {link.badge}
                   </span>
                 )}
               </Link>

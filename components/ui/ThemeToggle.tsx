@@ -3,13 +3,14 @@
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+/* SSR-safe mount detection without setState-in-effect */
+const emptySubscribe = () => () => undefined;
 
 export function ThemeToggle({ size = "default" as "default" | "sm" }) {
   const { setTheme, theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   if (!mounted) {
     return (

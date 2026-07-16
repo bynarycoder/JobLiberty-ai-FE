@@ -236,7 +236,11 @@ export default function ChatPage() {
   );
 
   return (
-    <div className="flex h-[calc(100vh-65px)] bg-white dark:bg-zinc-950">
+    <div className="relative -mx-4 -mt-5 flex h-[calc(100dvh-66px)] overflow-hidden sm:-mx-5 lg:-mx-8 lg:-mt-7">
+      {/* Aurora background wash */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(at_20%_0%,rgba(124,58,237,0.10),transparent_45%),radial-gradient(at_85%_15%,rgba(37,99,235,0.10),transparent_45%),radial-gradient(at_50%_110%,rgba(16,185,129,0.08),transparent_50%)] dark:bg-[radial-gradient(at_20%_0%,rgba(124,58,237,0.16),transparent_50%),radial-gradient(at_85%_15%,rgba(37,99,235,0.14),transparent_50%),radial-gradient(at_50%_110%,rgba(16,185,129,0.10),transparent_55%)]" />
+      </div>
       {/* Sidebar */}
       <ConversationSidebar
         conversations={conversations}

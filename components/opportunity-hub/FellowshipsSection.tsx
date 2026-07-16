@@ -1,6 +1,13 @@
 "use client";
 import { GenericGridSection } from "./GenericSection";
 import { Rocket } from "lucide-react";
-export function FellowshipsSection(props: any) {
-  return <GenericGridSection title="Fellowships" items={props.fellowships} isLoading={props.isLoading} bookmarkedIds={props.bookmarkedIds} onToggleBookmark={props.onToggleBookmark} icon={Rocket} accent="from-violet-500 to-purple-600" />;
+import type { Fellowship } from "@/lib/types";
+
+export function FellowshipsSection({ fellowships, isLoading, bookmarkedIds, onToggleBookmark }: {
+  fellowships: Fellowship[];
+  isLoading: boolean;
+  bookmarkedIds?: Set<string>;
+  onToggleBookmark?: (id: string) => void;
+}) {
+  return <GenericGridSection title="Fellowships" items={fellowships} isLoading={isLoading} bookmarkedIds={bookmarkedIds} onToggleBookmark={onToggleBookmark} icon={Rocket} accent="from-violet-500 to-purple-600" />;
 }

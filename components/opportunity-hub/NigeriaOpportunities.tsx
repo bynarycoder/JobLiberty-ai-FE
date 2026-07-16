@@ -53,7 +53,7 @@ export function NigeriaOpportunities({ opportunities, isLoading, city, workMode,
             ))}
           </div>
 
-          <select value={workMode} onChange={(e) => onWorkModeChange(e.target.value as any)} className="h-[34px] rounded-[10px] border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-[#1E293B] px-2.5 text-[12px] font-medium">
+          <select value={workMode} onChange={(e) => onWorkModeChange(e.target.value as WorkMode | "all")} className="h-[34px] rounded-[10px] border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-[#1E293B] px-2.5 text-[12px] font-medium">
             <option value="all">Any mode</option>
             <option value="remote">Remote</option>
             <option value="hybrid">Hybrid</option>

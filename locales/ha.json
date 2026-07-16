@@ -22,7 +22,13 @@
     "about": "Game da",
     "signIn": "Shiga",
     "signUp": "Fara",
-    "logout": "Fita"
+    "logout": "Fita",
+    "resume": "Takardar Aiki",
+    "libertyAI": "Liberty AI",
+    "notifications": "Sanarwa",
+    "quickActions": "Ayyuka Cikin Sauri",
+    "viewProfile": "Duba bayanan martaba",
+    "searchEverything": "Nemo ayyuka, ƙwarewa..."
   },
   "auth": {
     "signIn": "Shiga",

@@ -22,7 +22,9 @@ export function ChatHeader({ onClearConversation, onNewConversation, onToggleSid
   const { t } = useI18n();
 
   return (
-    <div className={cn("flex items-center gap-3 px-4 md:px-5 py-[14px] bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/60 sticky top-0 z-10", className)}>
+    <div className={cn("sticky top-0 z-10 flex items-center gap-3 border-b border-border/60 px-4 py-[12px] md:px-5 glass", className)}>
+      {/* Gradient underline */}
+      <span className="pointer-events-none absolute inset-x-0 bottom-[-1px] h-[2px] bg-[linear-gradient(90deg,transparent,rgba(124,58,237,0.75)_30%,rgba(37,99,235,0.75)_70%,transparent)] bg-[length:200%_100%] animate-gradient-pan" />
       {onToggleSidebar && (
         <button
           onClick={onToggleSidebar}
@@ -39,17 +41,19 @@ export function ChatHeader({ onClearConversation, onNewConversation, onToggleSid
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <h2 className="text-[14px] font-bold tracking-[-0.01em] text-slate-900 dark:text-slate-100 truncate">{t("chat.assistantName")}</h2>
+            <h2 className="truncate bg-gradient-to-r from-[#7C3AED] to-[#2563EB] bg-clip-text text-[15px] font-extrabold tracking-[-0.01em] text-transparent dark:from-[#B691FF] dark:to-[#7FA8FF]">
+              {t("chat.assistantName")}
+            </h2>
             <Badge variant="ai" size="sm" className="hidden sm:inline-flex">
               <Sparkles className="h-3 w-3 mr-1" />
               AI • GPT-4o
             </Badge>
-            <span className="hidden md:inline-flex items-center gap-1 rounded-full bg-[#ECFDF5] dark:bg-[#064E3B]/30 border border-[#A7F3D0] dark:border-[#064E3B]/40 px-2 py-0.5 text-[10px] font-bold text-[#065F46] dark:text-[#6EE7B7]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+            <span className="hidden items-center gap-1 rounded-full bg-[#E4F9EC] px-2 py-0.5 text-[10px] font-bold text-[#16A34A] ring-1 ring-[#22C55E]/25 dark:bg-[#22C55E]/12 dark:text-[#4ADE80] md:inline-flex">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#22C55E]" />
               Online
             </span>
           </div>
-          <p className="text-[11px] font-[450] text-slate-500 dark:text-slate-400 truncate flex items-center gap-1">
+          <p className="flex items-center gap-1 truncate text-[11px] font-[450] text-muted-foreground">
             {t("chat.subtitle")} • <Zap className="h-3 w-3 text-[#F59E0B]" /> Empowering your career journey
           </p>
         </div>

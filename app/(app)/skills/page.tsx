@@ -18,32 +18,43 @@ export default function SkillGapPage() {
 
   if (!skillGap)
     return (
-      <div className="grid md:grid-cols-2 gap-5">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-[300px] rounded-[20px] bg-white dark:bg-[#1E293B] border border-slate-200/60 dark:border-slate-800 animate-pulse" />
-        ))}
+      <div className="space-y-5">
+        <div className="shimmer h-[190px] rounded-[24px]" />
+        <div className="grid gap-5 md:grid-cols-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="shimmer h-[300px] rounded-[22px]" />
+          ))}
+        </div>
       </div>
     );
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center"
+      >
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-[30px] font-[800] tracking-[-0.03em] leading-[1.1] text-slate-900 dark:text-white">{t("skills.title")}</h1>
+            <div className="flex h-10 w-10 items-center justify-center rounded-[13px] bg-gradient-to-br from-[#10B981] to-[#059669] text-white shadow-[0_8px_18px_-6px_rgba(16,185,129,0.65)]">
+              <TrendingUp className="h-5 w-5" />
+            </div>
+            <h1 className="text-[28px] font-extrabold leading-[1.1] tracking-[-0.03em]">{t("skills.title")}</h1>
             <Badge variant="ai" size="sm" dot pulse>
               AI Roadmap
             </Badge>
           </div>
-          <p className="text-[13.5px] font-[450] text-slate-600 dark:text-slate-400 mt-1">{t("skills.subtitle")} • Personalized by Liberty AI • 6 weeks to 92%</p>
+          <p className="mt-1.5 text-[13.5px] font-[450] text-muted-foreground">{t("skills.subtitle")} • Personalized by Liberty AI • 6 weeks to 92%</p>
         </div>
-        <Link href="/dashboard">
-          <Button variant="secondary" size="sm" className="rounded-full gap-1.5">
-            <TrendingUp className="h-4 w-4" />
-            Back to Dashboard
+        <Link href="/resources">
+          <Button variant="outline" size="sm" className="gap-1.5 rounded-full">
+            <BookOpen className="h-4 w-4 text-[#14B8A6]" />
+            Browse learning resources
           </Button>
         </Link>
-      </div>
+      </motion.div>
 
       {/* Hero */}
       <div className="relative overflow-hidden rounded-[24px] border border-[#A7F3D0] dark:border-[#064E3B]/30 bg-gradient-to-br from-[#10B981] via-[#059669] to-[#047857] p-[1.5px] shadow-[0_12px_32px_rgba(16,185,129,0.2)]">

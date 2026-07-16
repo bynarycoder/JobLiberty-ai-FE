@@ -8,7 +8,8 @@ import { BookOpen, Clock, ExternalLink } from "lucide-react";
 import { SkeletonCards } from "./SkeletonCards";
 import { EmptyState } from "./EmptyState";
 import { useI18n } from "@/providers/I18nProvider";
-export function LearningResourcesSection({ resources, isLoading }: { resources: any[]; isLoading: boolean }) {
+import type { LearningResource } from "@/lib/types";
+export function LearningResourcesSection({ resources, isLoading }: { resources: LearningResource[]; isLoading: boolean }) {
   const { t } = useI18n();
   if (isLoading) return <SkeletonCards count={4} columns={4} />;
   if (resources.length === 0) return <EmptyState titleKey="opportunityHub.emptyState.title" descriptionKey="opportunityHub.emptyState.description" />;
@@ -22,7 +23,7 @@ export function LearningResourcesSection({ resources, isLoading }: { resources: 
         <Badge variant="secondary" size="sm">{resources.length}</Badge>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {resources.map((item: any, idx: number) => (
+        {resources.map((item: LearningResource, idx: number) => (
           <motion.div key={item.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.04 }}>
             <Card className="h-full p-4 hover:shadow-md hover:-translate-y-[1px] transition-all group">
               <div className="flex items-start gap-3 mb-3">

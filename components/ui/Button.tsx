@@ -55,18 +55,26 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, isLoading, leftIcon, rightIcon, children, disabled, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
-    
+    /* Radix Slot requires EXACTLY ONE child — so asChild branches off early
+       and receives the child untouched (typically a next/link <Link>). */
+    if (asChild) {
+      return (
+        <Slot className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props}>
+          {children}
+        </Slot>
+      );
+    }
+
     return (
-      <Comp
+      <button
         className={cn(buttonVariants({ variant, size, className }), isLoading && "pointer-events-none")}
         ref={ref}
         disabled={disabled || isLoading}
         {...props}
       >
         {/* Ripple/Glow layer */}
-        <span className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-white/10 to-transparent" />
-        
+        <span className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br from-white/10 to-transparent" />
+
         {isLoading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -79,7 +87,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             {rightIcon && <span className="shrink-0 [&>svg]:h-[1.1em] [&>svg]:w-[1.1em]">{rightIcon}</span>}
           </>
         )}
-      </Comp>
+      </button>
     );
   }
 );

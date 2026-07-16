@@ -10,6 +10,23 @@ import { EmptyState } from "./EmptyState";
 import { formatDate } from "@/lib/utils";
 import { useI18n } from "@/providers/I18nProvider";
 
+/** Fields the grid cards read — structurally satisfied by Scholarship | Fellowship | Hackathon */
+export interface GridSectionItem {
+  id: string;
+  title: string;
+  description: string;
+  organization?: string;
+  provider?: string;
+  platform?: string;
+  tags?: string[];
+  eligibility?: string[];
+  benefits?: string[];
+  coverage?: string;
+  duration?: string;
+  prize?: string;
+  deadline?: string;
+}
+
 export function GenericGridSection({
   title,
   items,
@@ -20,7 +37,7 @@ export function GenericGridSection({
   accent,
 }: {
   title: string;
-  items: any[];
+  items: GridSectionItem[];
   isLoading: boolean;
   bookmarkedIds?: Set<string>;
   onToggleBookmark?: (id: string) => void;

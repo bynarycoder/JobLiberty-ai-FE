@@ -21,7 +21,14 @@
     "about": "About",
     "signIn": "Sign In",
     "signUp": "Get Started",
-    "logout": "Log out"
+    "logout": "Log out",
+    "opportunityHub": "Opportunity Hub",
+    "resume": "Resume",
+    "libertyAI": "Liberty AI",
+    "notifications": "Notifications",
+    "quickActions": "Quick Actions",
+    "viewProfile": "View profile",
+    "searchEverything": "Search jobs, skills, resources..."
   },
   "auth": {
     "signIn": "Sign In",
