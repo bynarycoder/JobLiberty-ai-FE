@@ -10,7 +10,18 @@ import type {
   SmartRecommendation,
   OpportunityStats,
   OpportunityType,
+  IndustrySector,
+  CareerPath,
+  FeaturedEmployer,
+  WeeklyInsights,
 } from '@/lib/types';
+import {
+  INDUSTRY_SECTORS,
+  ENHANCED_RECOMMENDATIONS,
+  CAREER_PATHS,
+  FEATURED_EMPLOYERS,
+  WEEKLY_INSIGHTS,
+} from '@/lib/services/opportunity-hub-data';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -186,13 +197,14 @@ export const LEARNING_RESOURCES: LearningResource[] = [
   { id: 'lr_8', title: 'Developer Roadmaps', provider: 'roadmap.sh', url: '#', duration: 'Self-paced', difficulty: 'Intermediate', free: true, category: 'Career Guide', description: 'Step-by-step roadmaps for various developer career paths.', tags: ['Career', 'Guide'] },
 ];
 
-export const SMART_RECOMMENDATIONS: SmartRecommendation[] = [
-  { id: 'rec_1', title: 'Backend Developer Internship', type: 'internship', confidence: 96, reasonKey: 'opportunityHub.recommendations.reasons.backend', icon: 'Laptop' },
-  { id: 'rec_2', title: 'Google AI Course', type: 'learning', confidence: 91, reasonKey: 'opportunityHub.recommendations.reasons.aiCourse', icon: 'BookOpen' },
-  { id: 'rec_3', title: 'Devpost Hackathon', type: 'hackathon', confidence: 87, reasonKey: 'opportunityHub.recommendations.reasons.hackathon', icon: 'Trophy' },
-  { id: 'rec_4', title: '3MTT Community Event', type: 'networking', confidence: 84, reasonKey: 'opportunityHub.recommendations.reasons.community', icon: 'Users' },
-  { id: 'rec_5', title: 'Python Scholarship', type: 'scholarship', confidence: 79, reasonKey: 'opportunityHub.recommendations.reasons.python', icon: 'GraduationCap' },
-];
+export const SMART_RECOMMENDATIONS: SmartRecommendation[] = ENHANCED_RECOMMENDATIONS;
+
+export {
+  INDUSTRY_SECTORS,
+  CAREER_PATHS,
+  FEATURED_EMPLOYERS,
+  WEEKLY_INSIGHTS,
+};
 
 export const NIGERIA_CITIES = ['Lagos', 'Abuja', 'Ibadan', 'Kano', 'Port Harcourt', 'Kaduna', 'Enugu', 'Ogun', 'Kwara', 'Oyo', 'Remote'];
 
@@ -271,6 +283,26 @@ export const opportunitiesApi = {
   async fetchStats(): Promise<OpportunityStats> {
     await delay(300);
     return OPPORTUNITY_STATS;
+  },
+
+  async fetchIndustries(): Promise<IndustrySector[]> {
+    await delay(350);
+    return INDUSTRY_SECTORS;
+  },
+
+  async fetchCareerPaths(): Promise<CareerPath[]> {
+    await delay(400);
+    return CAREER_PATHS;
+  },
+
+  async fetchFeaturedEmployers(): Promise<FeaturedEmployer[]> {
+    await delay(380);
+    return FEATURED_EMPLOYERS;
+  },
+
+  async fetchWeeklyInsights(): Promise<WeeklyInsights> {
+    await delay(420);
+    return WEEKLY_INSIGHTS;
   },
 
   async searchOpportunities(query: string): Promise<{ id: string; title: string; type: OpportunityType; organization: string }[]> {

@@ -390,7 +390,7 @@
       "noResults": "No results found"
     },
     "filters": {
-      "title": "Filters",
+      "title": "Smart Filters",
       "clear": "Clear filters",
       "category": "Category",
       "country": "Country",
@@ -418,7 +418,7 @@
       "hybrid": "Hybrid",
       "onsite": "On-site",
       "entry": "Entry level",
-      "mid": "Mid level",
+      "mid": "Mid-size",
       "senior": "Senior level",
       "executive": "Executive",
       "week": "This week",
@@ -427,7 +427,50 @@
       "salary05M": "₦0 - ₦5M",
       "salary5M15M": "₦5M - ₦15M",
       "salary15M30M": "₦15M - ₦30M",
-      "salary30M": "₦30M+"
+      "salary30M": "₦30M+",
+      "jobType": "Job Type",
+      "location": "Location",
+      "education": "Education Level",
+      "companySize": "Company Size",
+      "opportunityType": "Opportunity Type",
+      "costType": "Cost",
+      "sectorType": "Sector Type",
+      "moreFilters": "More filters",
+      "hideAdvanced": "Hide advanced filters",
+      "quickFilters": "Quick filters",
+      "onlyFree": "Only Free",
+      "onlyPaid": "Paid Opportunities",
+      "onlyGovernment": "Government",
+      "onlyPrivate": "Private Sector",
+      "onlyStartup": "Startups",
+      "onlyNgo": "NGOs",
+      "onlyInternational": "International",
+      "allJobTypes": "All job types",
+      "allLocations": "All locations",
+      "anyEducation": "Any education",
+      "anySize": "Any size",
+      "allTypes": "All types",
+      "allSectors": "All sectors",
+      "freeAndPaid": "Free & Paid",
+      "fullTime": "Full-time",
+      "partTime": "Part-time",
+      "contract": "Contract",
+      "freelance": "Freelance",
+      "startup": "Startup",
+      "sme": "SME",
+      "enterprise": "Enterprise",
+      "secondary": "Secondary",
+      "diploma": "Diploma",
+      "bachelors": "Bachelor's",
+      "masters": "Master's",
+      "phd": "PhD",
+      "government": "Government",
+      "private": "Private",
+      "ngo": "NGO",
+      "international": "International",
+      "free": "Free",
+      "paid": "Paid",
+      "active": "active"
     },
     "hero": {
       "title": "Your gateway to African career opportunities",
@@ -679,14 +722,26 @@
       "start": "Start Learning"
     },
     "recommendations": {
-      "title": "Recommended For You",
-      "subtitle": "Based on your resume and skills, Liberty AI picked these opportunities for you.",
+      "title": "Recommended Opportunities",
+      "subtitle": "Based on your resume, skills, career goal, education, experience, preferred industry, location, and language.",
+      "confidence": "AI Confidence",
+      "view": "View",
+      "resumeMatch": "Resume match",
       "reasons": {
         "backend": "Matches your backend development experience",
         "aiCourse": "Closes a skill gap in artificial intelligence",
         "hackathon": "Great way to build portfolio projects quickly",
         "community": "Aligns with your interest in tech communities",
         "python": "Supports your goal to strengthen programming fundamentals"
+      },
+      "factors": {
+        "resume": "Resume analyzed",
+        "careerGoal": "Career goal matched",
+        "education": "Education considered",
+        "experience": "Experience weighed",
+        "industry": "Preferred industry",
+        "location": "Preferred location",
+        "language": "Language"
       }
     },
     "libertyAI": {
@@ -716,6 +771,53 @@
     },
     "common": {
       "deadline": "Deadline"
+    },
+    "industries": {
+      "title": "Explore Industries",
+      "subtitle": "Opportunities across every sector — not only technology.",
+      "trending": "Trending",
+      "openings": "openings",
+      "showAll": "Show all industries",
+      "showFewer": "Show fewer industries",
+      "explore": "Explore sector"
+    },
+    "careerPaths": {
+      "title": "Explore Career Paths",
+      "subtitle": "Discover roles, salaries, demand signals, and skills to level up.",
+      "avgSalary": "Avg. salary",
+      "demand": "Demand",
+      "growth": "Growth",
+      "openRoles": "Open roles",
+      "skills": "Recommended Skills",
+      "certifications": "Recommended Certifications",
+      "showAll": "Explore all career paths",
+      "showFewer": "Show fewer paths",
+      "veryHigh": "Very High Demand",
+      "high": "High Demand",
+      "moderate": "Moderate Demand",
+      "low": "Low Demand"
+    },
+    "employers": {
+      "title": "Featured Employers",
+      "subtitle": "Premium companies hiring across industries in Nigeria and beyond.",
+      "openRoles": "open roles",
+      "viewOpportunities": "View opportunities",
+      "featured": "Featured",
+      "all": "All"
+    },
+    "weeklyInsights": {
+      "title": "This Week in Nigeria",
+      "subtitle": "Labour market signals, trending skills, and community events",
+      "skills": "Most in-demand skills",
+      "industries": "Fastest-growing industries",
+      "states": "Most active states hiring",
+      "salaries": "Average salaries",
+      "trending": "Trending opportunities",
+      "deadlines": "Upcoming deadlines",
+      "events": "Community events",
+      "meetups": "Tech meetups",
+      "fairs": "Career fairs",
+      "live": "Live insights"
     }
   },
   "footer": {

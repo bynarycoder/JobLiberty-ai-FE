@@ -391,7 +391,7 @@
       "noResults": "Babu sakamako"
     },
     "filters": {
-      "title": "Tace",
+      "title": "Smart Filters",
       "clear": "Share tace",
       "category": "Rukuni",
       "country": "Ƙasa",
@@ -680,8 +680,8 @@
       "start": "Fara Koyo"
     },
     "recommendations": {
-      "title": "Shawarwarin Gare ku",
-      "subtitle": "Dangane da resume da ƙwarewar ku, Liberty AI ya zaɓi waɗannan damar domin ku.",
+      "title": "Recommended Opportunities",
+      "subtitle": "Based on your resume, skills, career goal, education, experience, preferred industry, location, and language.",
       "reasons": {
         "backend": "Ya dace da gogewar ku na Backend Development",
         "aiCourse": "Yana rufe ragon ƙwarewa a Artificial Intelligence",
@@ -717,6 +717,53 @@
     },
     "common": {
       "deadline": "Ƙarshen lokaci"
+    },
+    "industries": {
+      "title": "Explore Industries",
+      "subtitle": "Opportunities across every sector — not only technology.",
+      "trending": "Trending",
+      "openings": "openings",
+      "showAll": "Show all industries",
+      "showFewer": "Show fewer industries",
+      "explore": "Explore sector"
+    },
+    "careerPaths": {
+      "title": "Explore Career Paths",
+      "subtitle": "Discover roles, salaries, demand signals, and skills to level up.",
+      "avgSalary": "Avg. salary",
+      "demand": "Demand",
+      "growth": "Growth",
+      "openRoles": "Open roles",
+      "skills": "Recommended Skills",
+      "certifications": "Recommended Certifications",
+      "showAll": "Explore all career paths",
+      "showFewer": "Show fewer paths",
+      "veryHigh": "Very High Demand",
+      "high": "High Demand",
+      "moderate": "Moderate Demand",
+      "low": "Low Demand"
+    },
+    "employers": {
+      "title": "Featured Employers",
+      "subtitle": "Premium companies hiring across industries in Nigeria and beyond.",
+      "openRoles": "open roles",
+      "viewOpportunities": "View opportunities",
+      "featured": "Featured",
+      "all": "All"
+    },
+    "weeklyInsights": {
+      "title": "This Week in Nigeria",
+      "subtitle": "Labour market signals, trending skills, and community events",
+      "skills": "Most in-demand skills",
+      "industries": "Fastest-growing industries",
+      "states": "Most active states hiring",
+      "salaries": "Average salaries",
+      "trending": "Trending opportunities",
+      "deadlines": "Upcoming deadlines",
+      "events": "Community events",
+      "meetups": "Tech meetups",
+      "fairs": "Career fairs",
+      "live": "Live insights"
     }
   },
   "footer": {
