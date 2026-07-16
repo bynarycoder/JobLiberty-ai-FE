@@ -476,6 +476,173 @@
       "cityLabel": "Yan ibi gege",
       "allCities": "Gbogbo awọn ilu"
     },
+    "madeForNigerians": {
+      "title": "🇳🇬 Ti a ṣe fun awọn ọmọ orilẹ-ede Naijiria",
+      "subtitle": "Ṣawari awọn aye ti a ṣẹda ni pataki fun awọn ọmọ orilẹ-ede Naijiria lati kọ ẹkọ, dagba, kọ awọn iṣẹ-ṣiṣe, ati sopọ pli ilana ilana imọ-ẹrọ.",
+      "exploreByState": "Ṣawari nipasẹ Ipinle",
+      "stateSuf": "awọn anfani",
+      "industrySuf": "Ile-iṣẹ ti o gbajumọ:",
+      "popularIndustries": "Awọn ile-iṣẹ ti o gbajumọ",
+      "communityEvents": "Awọn iṣẹlẹ Agbegbe",
+      "featuredOrganizations": "Awọn ajo ti o ṣe afihan",
+      "aiRecommendations": "Awọn Anfani Naijiria Ti a Ṣeduro",
+      "aiRecSubtitle": "Based on your resume, Liberty AI recommends these opportunities.",
+      "emptyState": "Ko si awọn aye ti orilẹ-ede Naijiria ni bayi.",
+      "refresh": "Tun sọ",
+      "loading": "N gbe awọn aye orilẹ-ede Naijiria...",
+      "categories": {
+        "nysc": {
+          "title": "🇳🇬 Awọn Anfani NYSC",
+          "description": "Awọn ikọṣẹ, awọn ibiduro, awọn iṣẹ CDS, ati awọn aye fun awọn ọmọ ẹgbẹ korps ti n ṣiṣẹ."
+        },
+        "siwes": {
+          "title": "🎓 SIWES & Ikẹkọ Ile-iṣẹ",
+          "description": "Awọn ibiduro ikẹkọ ile-iṣẹ fun awọn ọmọ ile-iwe giga kọja Nigeria."
+        },
+        "graduate": {
+          "title": "💼 Awọn Eto Ikẹkọ Graduate",
+          "description": "Awọn eto ikẹkọ ipele-iwọle fun awọn ọmọ ile-iwe giga lati ọdọ awọn ile-ifowopamọ Naijiria, awọn kamfanoni ibaraẹnisọrọ, awọn kamfanoni fintech, awọn ile-iṣẹ ijumọsọrọ, awọn ibẹrẹ, ati awọn kamfanoni agbaye."
+        },
+        "startups": {
+          "title": "🚀 Awọn Iṣẹ Ibẹrẹ",
+          "description": "Ṣawari awọn aye lati ọdọ awọn ibẹrẹ Naijiria ti n dagba ni iyara."
+        },
+        "remote": {
+          "title": "🌍 Awọn Iṣẹ Jinna fun Afirka",
+          "description": "Awọn aye jinna ti o ṣii ni pataki si awọn olubere lati Nigeria ati Afirka."
+        },
+        "fellowships": {
+          "title": "🤖 AI & Awọn Idapọ Imọ-ẹrọ",
+          "description": "Awọn eto idapọ ti a ṣe lati kọ oye ọgbọn atọwọda ati awọn ọgbọn imọ-ẹrọ giga."
+        },
+        "certifications": {
+          "title": "📚 Awọn Iwe-ẹri Ọfẹ",
+          "description": "Gba awọn iwe-ẹri ile-iṣẹ ti o niyele ti o gba lọwọ awọn omiran imọ-ẹrọ agbaye ni ọfẹ."
+        },
+        "competitions": {
+          "title": "🏆 Awọn Idije",
+          "description": "Soro ararẹ nija, ṣafihan talent rẹ lori awọn ipele agbaye, ki o gba awọn ẹbun iyalẹnu."
+        },
+        "opensource": {
+          "title": "💻 Awọn Eto Orisun Ṣiṣii",
+          "description": "Ṣe alabapin si sọfitiwia orisun-ṣiṣii, ṣe ifowosowopo pẹlu awọn olupilẹṣẹ ni kariaye, ati gba owo."
+        },
+        "entrepreneurship": {
+          "title": "🌱 Iṣowo",
+          "description": "Lọlẹ ibẹrẹ rẹ, wọle si igbeowo, darapọ mọ awọn accelerators, ki o kọ ohun nla ti n bọ."
+        }
+      },
+      "states": {
+        "lagos": "Lagos",
+        "abuja": "Abuja (FCT)",
+        "ogun": "Ogun",
+        "oyo": "Oyo",
+        "kwara": "Kwara",
+        "osun": "Osun",
+        "ekiti": "Ekiti",
+        "ondo": "Ondo",
+        "rivers": "Rivers",
+        "enugu": "Enugu",
+        "kaduna": "Kaduna",
+        "kano": "Kano",
+        "plateau": "Plateau",
+        "cross_river": "Cross River",
+        "delta": "Delta",
+        "anambra": "Anambra",
+        "edo": "Edo",
+        "akwa_ibom": "Akwa Ibom",
+        "software": "Kikọ Sọfitiwia"
+      },
+      "industries": {
+        "software": "Kikọ Sọfitiwia",
+        "ai": "Ọgbọn Atọwọda",
+        "cybersecurity": "Aabo Intanẹẹti",
+        "cloud": "Iṣiro Awọsanma",
+        "data_science": "Imọ-jinlẹ Data",
+        "uiux": "UI/UX",
+        "product": "Isakoso Ọja",
+        "devops": "DevOps",
+        "marketing": "Titaja Dijital",
+        "finance": "Isuna",
+        "healthtech": "HealthTech",
+        "edtech": "EdTech",
+        "agritech": "Agritech",
+        "govtech": "GovTech"
+      },
+      "events": {
+        "meetups": {
+          "title": "Meetups",
+          "description": "Awọn ipade agbegbe lati sopọ, pin imọ, ati ifowosowopo.",
+          "date": "Gbogbo Ọjọ Satide",
+          "location": "Lagos, Abuja, Enugu & Lori Ayelujara"
+        },
+        "hackathons": {
+          "title": "Hackathons",
+          "description": "Awọn italaya koodu to lagbara ti n yanju awọn iṣoro awujọ ati ti ọrọ-aje agbegbe ati ti agbaye.",
+          "date": "Oṣooṣu",
+          "location": "Adalu / Káàkiri orilẹ-ede"
+        },
+        "bootcamps": {
+          "title": "Bootcamps",
+          "description": "Awọn eto ikẹkọ igba kukuru ti o jinlẹ kọja awọn akopọ imọ-ẹrọ pupọ.",
+          "date": "Bi-Oṣooṣu",
+          "location": "Lori Ayelujara / Awọn ibudo ti a yan"
+        },
+        "conferences": {
+          "title": "Awọn Apejọ Imọ-ẹrọ",
+          "description": "Awọn apejọ ọdọọdun ti awọn olupilẹṣẹ imọ-ẹrọ, awọn oludari, awọn oludokoowo, ati awọn oluranran.",
+          "date": "Ti mbọ Q3-Q4",
+          "location": "Lagos Tech Fest, Techpoint Summit"
+        },
+        "communities": {
+          "title": "Awọn Agbegbe Olupilẹṣẹ",
+          "description": "Awọn guilds imọ-ẹrọ ti n ṣiṣẹ lọwọ bii GDG, Awọn oluṣe Tech Obirin, ati OSCA.",
+          "date": "Ti n ṣiṣẹ Lọsọọsẹ",
+          "location": "Káàkiri orilẹ-ede"
+        },
+        "networking": {
+          "title": "Awọn iṣẹlẹ Iforosọpọ",
+          "description": "Awọn alapọpo ti a mu lati wa awọn alabaṣiṣẹpọ ati awọn oludamọran.",
+          "date": "Bi-Ọsẹsẹ",
+          "location": "Awọn ibudo Lagos & Abuja"
+        },
+        "fairs": {
+          "title": "Awọn ifihan Iṣẹ",
+          "description": "Awọn ọjọ igbanisiṣẹ igbẹhin pẹlu agbegbe ati ti kariaye awọn agbanisiṣẹ imọ-ẹrọ.",
+          "date": "Kọọkan mẹrin oṣu",
+          "location": "Lori Ayelujara & Lagos physical"
+        },
+        "tags": {
+          "networking": "Iforosọpọ",
+          "local": "Agbegbe",
+          "building": "Kikọ",
+          "prizes": "Awọn ẹbun",
+          "learning": "Ẹkọ",
+          "career": "Iṣẹ",
+          "summit": "Apejọ",
+          "ecosystem": "Ecosystem",
+          "developers": "Awọn olupilẹṣẹ",
+          "mentorship": "Itọsọna",
+          "connections": "Awọn asopọ",
+          "jobs": "Awọn iṣẹ",
+          "hiring": "Gbigbaṣe"
+        }
+      },
+      "recommendations": {
+        "rec1": {
+          "title": "Oluranlọwọ Onimọ-ẹrọ Sọfitiwia",
+          "description": "Kọ awọn API banki pataki fun pẹpẹ isuna ti Moniepoint ti n bọ."
+        },
+        "rec2": {
+          "title": "AI Research Fellow",
+          "description": "Ṣe iwadii awọn awoṣe NLP agbegbe fun awọn ede Afirika labẹ ero 3MTT."
+        },
+        "rec3": {
+          "title": "Frontend Engineering Intern (NYSC)",
+          "description": "Ṣiṣẹ lori awọn atọkun olumulo for awọn oniṣowo Paystack kọja Iwọ-oorun Afirika lakoko ọdun iṣẹ rẹ."
+        }
+      }
+    },
     "community3mtt": {
       "title": "Agbegbe 3MTT",
       "subtitle": "Sopọ, kọ, ati dagba pẹlu agbegbe talẹnti imọ-ẹrọ ti o tobi julọ ni Nigeria.",

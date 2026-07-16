@@ -476,6 +476,173 @@
       "cityLabel": "Nzacha site n'obodo",
       "allCities": "Obodo niile"
     },
+    "madeForNigerians": {
+      "title": "🇳🇬 E mere maka ndị Naịjirịa",
+      "subtitle": "Chọpụta ohere emebere maka ndị Naịjirịa ka ha mụta ihe, tolite, wuo ọrụ, ma jikọọ na usoro gburugburu ebe obibi teknụzụ.",
+      "exploreByState": "Chọgharịa site na Steeti",
+      "stateSuf": "ohere",
+      "industrySuf": "Ụlọ ọrụ ama ama:",
+      "popularIndustries": "Ụlọ ọrụ ama ama",
+      "communityEvents": "Ihe omume obodo",
+      "featuredOrganizations": "Òtù ndị pụtara ìhè",
+      "aiRecommendations": "Ohere Naịjirịa tụrụ aro",
+      "aiRecSubtitle": "Dabere na resume gị, Liberty AI na-atụ aro ohere ndị a maka gị.",
+      "emptyState": "Enweghị ohere Naịjirịa ọ bụla dị ugbu a.",
+      "refresh": "Nye ume ọhụrụ",
+      "loading": "Na-ebunye Ohere Naịjirịa...",
+      "categories": {
+        "nysc": {
+          "title": "🇳🇬 Ohere NYSC",
+          "description": "Ọrụ nkuzi, ntinye, oru CDS, na ohere gụsịrị akwụkwọ maka ndị otu korps na-eje ozi."
+        },
+        "siwes": {
+          "title": "🎓 SIWES & Ọzụzụ Mmepụta",
+          "description": "Ntinye ọzụzụ mmepụta ihe maka ụmụ akwụkwọ gụsịrị akwụkwọ na Naịjirịa niile."
+        },
+        "graduate": {
+          "title": "💼 Mmemme Ndị Gụsịrị Akwụkwọ Ọhụrụ",
+          "description": "Mmemme ntinye ọkwa mbụ sitere na ụlọ akụ Naịjirịa, ụlọ ọrụ nkwukọrịta, ụlọ ọrụ fintech, ụlọ ọrụ na-ahụ maka ndụmọdụ, mmalite na ụlọ ọrụ mba dị iche iche."
+        },
+        "startups": {
+          "title": "🚀 Ọrụ Mmalite",
+          "description": "Chọpụta ohere sitere na mmalite Naịjirịa na-eto ngwa ngwa."
+        },
+        "remote": {
+          "title": "🌍 Ọrụ Ime Obodo maka Ndị Africa",
+          "description": "Ohere ime obodo mepere emepe maka ndị na-achọ akwụkwọ sitere na Naịjirịa na Africa."
+        },
+        "fellowships": {
+          "title": "🤖 AI & Mkpakọrịta Teknụzụ",
+          "description": "Mmemme mkpakọrịta emebere iji wuo ọgụgụ isi na nkà teknụzụ dị elu."
+        },
+        "certifications": {
+          "title": "📚 Asambodo N'efu",
+          "description": "Nweta asambodo ụlọ ọrụ bara uru nke ndị dike teknụzụ ụwa ghọtara kpamkpam n'efu."
+        },
+        "competitions": {
+          "title": "🏆 Asọmpi",
+          "description": "Mee onwe gị aka mgba, gosi nkà gị n'ọkwa ụwa, ma merie ihe nrite dị egwu."
+        },
+        "opensource": {
+          "title": "💻 Mmemme Mepee Ebe",
+          "description": "Tụnye aka na sọftụwia mepere emepe, soro ndị mmepe rụọ ọrụ n'ụwa niile, ma nweta ụgwọ."
+        },
+        "entrepreneurship": {
+          "title": "🌱 Onyinye Ọchụnta ego",
+          "description": "Malite mmalite gị, nweta ego, sonye na accelerators, ma wuo nnukwu ihe na-abịa."
+        }
+      },
+      "states": {
+        "lagos": "Lagos",
+        "abuja": "Abuja (FCT)",
+        "ogun": "Ogun",
+        "oyo": "Oyo",
+        "kwara": "Kwara",
+        "osun": "Osun",
+        "ekiti": "Ekiti",
+        "ondo": "Ondo",
+        "rivers": "Rivers",
+        "enugu": "Enugu",
+        "kaduna": "Kaduna",
+        "kano": "Kano",
+        "plateau": "Plateau",
+        "cross_river": "Cross River",
+        "delta": "Delta",
+        "anambra": "Anambra",
+        "edo": "Edo",
+        "akwa_ibom": "Akwa Ibom",
+        "software": "Injinia Software"
+      },
+      "industries": {
+        "software": "Injinia Software",
+        "ai": "Ọgụgụ Isi Artificial",
+        "cybersecurity": "Nchebe ịntanetị",
+        "cloud": "Ihe Ndekọ igwe ojii",
+        "data_science": "Sayensị data",
+        "uiux": "UI/UX",
+        "product": "Nchịkọta Ọrụ",
+        "devops": "DevOps",
+        "marketing": "Ahịa Dijitalụ",
+        "finance": "Ego",
+        "healthtech": "HealthTech",
+        "edtech": "EdTech",
+        "agritech": "Agritech",
+        "govtech": "GovTech"
+      },
+      "events": {
+        "meetups": {
+          "title": "Meetups",
+          "description": "Nzukọ obodo iji jikọọ, kesaa ihe ọmụma, na imekọ ihe ọnụ.",
+          "date": "Satọde ọ bụla",
+          "location": "Lagos, Abuja, Enugu & N'ịntanetị"
+        },
+        "hackathons": {
+          "title": "Hackathons",
+          "description": "Ihe ịma aka itinye koodu siri ike na-edozi nsogbu mmekọrịta ọha na eze na mpaghara na mba ụwa.",
+          "date": "Kwa ọnwa",
+          "location": "Njikọ / Mba niile"
+        },
+        "bootcamps": {
+          "title": "Bootcamps",
+          "description": "Usoro ọzụzụ nkenke oge dị mkpirikpi n'ofe teknụzụ dị iche iche.",
+          "date": "Bi-Monthly",
+          "location": "N'ịntanetị / Ebe ndị a họọrọ"
+        },
+        "conferences": {
+          "title": "Nzukọ Teknụzụ",
+          "description": "Nzukọ kwa afọ nke ndị na-ewu teknụzụ, ndị isi, ndị na-etinye ego, na ndị ọhụụ.",
+          "date": "Na-abịa Q3-Q4",
+          "location": "Lagos Tech Fest, Techpoint Summit"
+        },
+        "communities": {
+          "title": "Obodo ndị mmepe",
+          "description": "Ndị otu teknụzụ na-arụ ọrụ dịka GDG, Women Techmakers, na OSCA.",
+          "date": "Na-arụ ọrụ kwa izu",
+          "location": "Mba niile"
+        },
+        "networking": {
+          "title": "Ihe omume mmekọrịta",
+          "description": "Ihe mmekọrịta emere iji chọta ndị otu na ndị ndụmọdụ.",
+          "date": "Bi-Weekly",
+          "location": "Ebe Lagos & Abuja"
+        },
+        "fairs": {
+          "title": "Ihe ngosi ọrụ",
+          "description": "Ụbọchị mbanye ọrụ raara onwe ya nye n'aka ndị ọrụ teknụzụ mpaghara na mba ụwa.",
+          "date": "Kwa nkeji iri na ise",
+          "location": "Ebe mebere & Lagos"
+        },
+        "tags": {
+          "networking": "Mmekọrịta",
+          "local": "Mpaghara",
+          "building": "Owuwu",
+          "prizes": "Ihe nrite",
+          "learning": "Mmụta",
+          "career": "Ọrụ",
+          "summit": "Nzukọ elu",
+          "ecosystem": "Ecosystem",
+          "developers": "Ndị mmepe",
+          "mentorship": "Ndụmọdụ",
+          "connections": "Njikọ",
+          "jobs": "Ọrụ",
+          "hiring": "Ịre ọrụ"
+        }
+      },
+      "recommendations": {
+        "rec1": {
+          "title": "Onye ntinye Software",
+          "description": "Wuo API ụlọ akụ maka Moniepoint."
+        },
+        "rec2": {
+          "title": "AI Research Fellow",
+          "description": "Mee nnyocha n'ụdị NLP maka asụsụ Africa n'okpuru atụmatụ 3MTT."
+        },
+        "rec3": {
+          "title": "Frontend Engineering Intern (NYSC)",
+          "description": "Rụọ ọrụ na UI maka ndị ahịa Paystack n'oge ọrụ gị."
+        }
+      }
+    },
     "community3mtt": {
       "title": "Obodo 3MTT",
       "subtitle": "Jikọọ, mụta, na tolitere n'obodo nkà teknụzụ kachasị ukwuu na Naịjirịa.",

@@ -475,6 +475,173 @@
       "cityLabel": "Filter by city",
       "allCities": "All cities"
     },
+    "madeForNigerians": {
+      "title": "🇳🇬 Made for Nigerians",
+      "subtitle": "Discover opportunities created specifically for Nigerians to learn, grow, build careers, and connect with the tech ecosystem.",
+      "exploreByState": "Explore by State",
+      "stateSuf": "opportunities",
+      "industrySuf": "Popular industry:",
+      "popularIndustries": "Popular Industries",
+      "communityEvents": "Community Events",
+      "featuredOrganizations": "Featured Organizations",
+      "aiRecommendations": "Recommended Nigerian Opportunities",
+      "aiRecSubtitle": "Based on your resume, Liberty AI recommends these opportunities.",
+      "emptyState": "No Nigerian opportunities available right now.",
+      "refresh": "Refresh",
+      "loading": "Loading Nigerian Opportunities...",
+      "categories": {
+        "nysc": {
+          "title": "🇳🇬 NYSC Opportunities",
+          "description": "Internships, placements, CDS projects, and graduate opportunities for serving corps members."
+        },
+        "siwes": {
+          "title": "🎓 SIWES & Industrial Training",
+          "description": "Industrial training placements for undergraduate students across Nigeria."
+        },
+        "graduate": {
+          "title": "💼 Graduate Trainee Programmes",
+          "description": "Entry-level graduate programmes from Nigerian banks, telecom companies, fintech companies, consulting firms, startups, and multinational companies."
+        },
+        "startups": {
+          "title": "🚀 Startup Jobs",
+          "description": "Discover opportunities from fast-growing Nigerian startups."
+        },
+        "remote": {
+          "title": "🌍 Remote Jobs for Africans",
+          "description": "Remote opportunities open specifically to applicants from Nigeria and Africa."
+        },
+        "fellowships": {
+          "title": "🤖 AI & Tech Fellowships",
+          "description": "Fellowship programs designed to build high-demand artificial intelligence and tech skills."
+        },
+        "certifications": {
+          "title": "📚 Free Certifications",
+          "description": "Earn valuable industry-recognized credentials from global tech giants completely free."
+        },
+        "competitions": {
+          "title": "🏆 Competitions",
+          "description": "Challenge yourself, showcase your talent on global stages, and win amazing prizes."
+        },
+        "opensource": {
+          "title": "💻 Open Source Programs",
+          "description": "Contribute to open-source software, collaborate with developers globally, and get paid."
+        },
+        "entrepreneurship": {
+          "title": "🌱 Entrepreneurship",
+          "description": "Launch your startup, access funding, join accelerators, and build the next big thing."
+        }
+      },
+      "states": {
+        "lagos": "Lagos",
+        "abuja": "Abuja (FCT)",
+        "ogun": "Ogun",
+        "oyo": "Oyo",
+        "kwara": "Kwara",
+        "osun": "Osun",
+        "ekiti": "Ekiti",
+        "ondo": "Ondo",
+        "rivers": "Rivers",
+        "enugu": "Enugu",
+        "kaduna": "Kaduna",
+        "kano": "Kano",
+        "plateau": "Plateau",
+        "cross_river": "Cross River",
+        "delta": "Delta",
+        "anambra": "Anambra",
+        "edo": "Edo",
+        "akwa_ibom": "Akwa Ibom",
+        "software": "Software Engineering"
+      },
+      "industries": {
+        "software": "Software Engineering",
+        "ai": "Artificial Intelligence",
+        "cybersecurity": "Cybersecurity",
+        "cloud": "Cloud Computing",
+        "data_science": "Data Science",
+        "uiux": "UI/UX",
+        "product": "Product Management",
+        "devops": "DevOps",
+        "marketing": "Digital Marketing",
+        "finance": "Finance",
+        "healthtech": "HealthTech",
+        "edtech": "EdTech",
+        "agritech": "Agritech",
+        "govtech": "GovTech"
+      },
+      "events": {
+        "meetups": {
+          "title": "Meetups",
+          "description": "Local community meetups to connect, share knowledge, and collaborate.",
+          "date": "Every Saturday",
+          "location": "Lagos, Abuja, Enugu & Online"
+        },
+        "hackathons": {
+          "title": "Hackathons",
+          "description": "Intense coding challenges solving local and global socio-economic problems.",
+          "date": "Monthly",
+          "location": "Hybrid / Nationwide"
+        },
+        "bootcamps": {
+          "title": "Bootcamps",
+          "description": "Immersive short-term training programs across multiple tech stacks.",
+          "date": "Bi-Monthly",
+          "location": "Online / Selected Hubs"
+        },
+        "conferences": {
+          "title": "Tech Conferences",
+          "description": "Annual gatherings of tech builders, leaders, investors, and visionaries.",
+          "date": "Upcoming Q3-Q4",
+          "location": "Lagos Tech Fest, Techpoint Summit"
+        },
+        "communities": {
+          "title": "Developer Communities",
+          "description": "Active tech guilds like GDG, Women Techmakers, and OSCA.",
+          "date": "Active Weekly",
+          "location": "Nationwide Campus & City Chapters"
+        },
+        "networking": {
+          "title": "Networking Events",
+          "description": "Curated mixers to find co-founders, collaborators, and mentors.",
+          "date": "Bi-Weekly",
+          "location": "Lagos & Abuja Hubs"
+        },
+        "fairs": {
+          "title": "Career Fairs",
+          "description": "Dedicated recruitment days with local and international tech employers.",
+          "date": "Quarterly",
+          "location": "Virtual & Lagos physical"
+        },
+        "tags": {
+          "networking": "Networking",
+          "local": "Local",
+          "building": "Building",
+          "prizes": "Prizes",
+          "learning": "Learning",
+          "career": "Career",
+          "summit": "Summit",
+          "ecosystem": "Ecosystem",
+          "developers": "Developers",
+          "mentorship": "Mentorship",
+          "connections": "Connections",
+          "jobs": "Jobs",
+          "hiring": "Hiring"
+        }
+      },
+      "recommendations": {
+        "rec1": {
+          "title": "Associate Software Engineer",
+          "description": "Build premium banking APIs for Moniepoint's next-generation financial platform."
+        },
+        "rec2": {
+          "title": "AI Research Fellow",
+          "description": "Research localized NLP models for African languages under the 3MTT scheme."
+        },
+        "rec3": {
+          "title": "Frontend Engineering Intern (NYSC)",
+          "description": "Work on user interfaces for Paystack's merchants across West Africa during your service year."
+        }
+      }
+    },
     "community3mtt": {
       "title": "3MTT Community",
       "subtitle": "Connect, learn, and grow with Nigeria's largest tech talent community.",
