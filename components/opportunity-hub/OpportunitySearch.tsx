@@ -66,7 +66,7 @@ export function OpportunitySearch() {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => query.trim() && setIsOpen(true)}
           placeholder={t("opportunityHub.search.placeholder")}
-          className="h-[48px] w-full rounded-[14px] border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-[#1E293B] pl-12 pr-[120px] text-[14px] font-[450] tracking-[-0.01em] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-[0_1px_3px_rgba(15,23,42,0.04)] transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-[0_2px_8px_rgba(15,23,42,0.06)] focus:outline-none focus:border-[#2563EB]/40 focus:ring-[4px] focus:ring-[#2563EB]/[0.08] focus:shadow-[0_0_0_4px_rgba(37,99,235,0.08),0_4px_12px_rgba(15,23,42,0.08)]"
+          className="h-[48px] w-full rounded-[14px] border border-border bg-card pl-12 pr-[120px] text-[14px] font-[450] tracking-[-0.01em] text-foreground placeholder:text-muted-foreground shadow-sm transition-all duration-200 hover:border-border-strong focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10"
           aria-label={t("opportunityHub.search.ariaLabel")}
           aria-expanded={isOpen}
         />
@@ -91,11 +91,11 @@ export function OpportunitySearch() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute z-50 mt-2 w-full rounded-[16px] border border-slate-200/70 dark:border-slate-700/60 bg-white/95 dark:bg-[#1E293B]/95 backdrop-blur-xl p-2 shadow-[0_12px_32px_rgba(15,23,42,0.12)]"
+            className="absolute z-50 mt-2 w-full rounded-[16px] border border-border bg-popover/95 backdrop-blur-xl p-2 shadow-xl"
             role="listbox"
           >
             {results.length > 0 ? (

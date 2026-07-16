@@ -226,7 +226,7 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
         isMobile
           ? "w-[300px] max-w-[85vw] bg-card"
           : cn(
-              "glass-strong rounded-[22px] transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+              "bg-card/90 glass-strong rounded-[22px] transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
               collapsed ? "w-[84px]" : "w-[282px]"
             )
       )}

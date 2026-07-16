@@ -87,7 +87,7 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
   const markAllRead = () => setNotifications((ns) => ns.map((n) => ({ ...n, read: true })));
 
   return (
-    <div className="topbar-underline sticky top-0 z-30 border-b border-border/60 glass">
+    <div className="topbar-underline sticky top-0 z-30 border-b border-border/60 bg-background/85 glass">
       <div className="mx-auto flex h-[66px] max-w-[1680px] items-center justify-between gap-3 px-4 lg:px-7">
         {/* ── Mobile menu + logo ── */}
         <div className="flex items-center gap-2 lg:hidden">

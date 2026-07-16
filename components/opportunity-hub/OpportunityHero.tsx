@@ -47,9 +47,9 @@ export function OpportunityHero({ stats }: OpportunityHeroProps) {
             <div className="absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full bg-white/10 blur-3xl" />
             <div className="absolute -left-24 -bottom-24 h-[300px] w-[300px] rounded-full bg-[#2563EB]/25 blur-3xl" />
             <div
-              className="absolute inset-0 opacity-60 [mask-image:radial-gradient(at_85%_15%,black,transparent_60%)]"
+              className="absolute inset-0 opacity-30"
               style={{
-                backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+                backgroundImage: "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
                 backgroundSize: "34px 34px",
               }}
             />

@@ -24,8 +24,8 @@ export function Navbar() {
     <nav
       className={`sticky top-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl border-slate-200/60 dark:border-slate-800/60 shadow-[0_1px_3px_rgba(15,23,42,0.04),0_8px_24px_rgba(15,23,42,0.04)]"
-          : "bg-white/60 dark:bg-[#0F172A]/60 backdrop-blur-xl border-slate-200/40 dark:border-slate-800/40"
+          ? "bg-background/85 backdrop-blur-xl border-border shadow-sm"
+          : "bg-background/70 backdrop-blur-xl border-border/60"
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-6 h-[68px] flex items-center justify-between">
@@ -103,7 +103,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-t border-slate-200/60 dark:border-slate-800/60 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-xl px-6 py-6"
+            className="md:hidden border-t border-border bg-popover/95 backdrop-blur-xl px-6 py-6"
           >
             <div className="flex flex-col gap-1">
               <Link href="#features" className="rounded-[12px] px-3 py-3 text-[15px] font-medium hover:bg-slate-50 dark:hover:bg-white/[0.06]">
