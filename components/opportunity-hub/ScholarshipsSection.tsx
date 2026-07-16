@@ -1,6 +1,13 @@
 "use client";
 import { GenericGridSection } from "./GenericSection";
 import { GraduationCap } from "lucide-react";
-export function ScholarshipsSection(props: any) {
-  return <GenericGridSection title="Scholarships & Grants" items={props.scholarships} isLoading={props.isLoading} bookmarkedIds={props.bookmarkedIds} onToggleBookmark={props.onToggleBookmark} icon={GraduationCap} accent="from-emerald-500 to-teal-600" />;
+import type { Scholarship } from "@/lib/types";
+
+export function ScholarshipsSection({ scholarships, isLoading, bookmarkedIds, onToggleBookmark }: {
+  scholarships: Scholarship[];
+  isLoading: boolean;
+  bookmarkedIds?: Set<string>;
+  onToggleBookmark?: (id: string) => void;
+}) {
+  return <GenericGridSection title="Scholarships & Grants" items={scholarships} isLoading={isLoading} bookmarkedIds={bookmarkedIds} onToggleBookmark={onToggleBookmark} icon={GraduationCap} accent="from-emerald-500 to-teal-600" />;
 }

@@ -34,8 +34,8 @@ export function TypingIndicator() {
 
 export function SkeletonMessage() {
   const { t } = useI18n();
-  const messages = [t("chat.skeleton.loading1"), t("chat.skeleton.loading2"), t("chat.skeleton.loading3")];
-  const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+  /* Deterministic — keeps render pure (no Math.random in render) */
+  const randomMsg = t("chat.skeleton.loading1");
 
   return (
     <div className="flex items-start gap-3 py-2">

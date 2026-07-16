@@ -22,7 +22,13 @@
     "about": "Nipa",
     "signIn": "Wọle",
     "signUp": "Bẹrẹ",
-    "logout": "Jade"
+    "logout": "Jade",
+    "resume": "Ìwé Ìşẹ́",
+    "libertyAI": "Liberty AI",
+    "notifications": "Àwón ìkìlọ̀",
+    "quickActions": "Àwón ìşẹ́ kíákíá",
+    "viewProfile": "Wo profaili",
+    "searchEverything": "Wa isé, àwọn ògbón..."
   },
   "auth": {
     "signIn": "Wọle",

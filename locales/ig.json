@@ -22,7 +22,13 @@
     "about": "Banyere",
     "signIn": "Banye",
     "signUp": "Malite",
-    "logout": "Pụọ"
+    "logout": "Pụọ",
+    "resume": "Akwụkwọ CV",
+    "libertyAI": "Liberty AI",
+    "notifications": "Ọkwa",
+    "quickActions": "Ihe ngwa ngwa",
+    "viewProfile": "Lelee profaịlụ",
+    "searchEverything": "Chọọ ọrụ, nkà..."
   },
   "auth": {
     "signIn": "Banye",

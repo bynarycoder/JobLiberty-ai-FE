@@ -39,13 +39,20 @@ export function OpportunityHero({ stats }: OpportunityHeroProps) {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden rounded-[24px] border border-[#DBEAFE] dark:border-[#1E3A8A]/40 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#312E81] p-[1.5px] shadow-[0_12px_32px_rgba(37,99,235,0.18)]"
+        className="relative overflow-hidden rounded-[24px] bg-[linear-gradient(125deg,#047857_0%,#059669_45%,#10B981_80%,#14B8A6_100%)] p-[1.5px] shadow-[0_16px_40px_-10px_rgba(16,185,129,0.4)]"
       >
-        <div className="rounded-[22px] bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#312E81] dark:from-[#1E3A8A] dark:via-[#1E40AF] dark:to-[#312E81] p-7 lg:p-8 relative overflow-hidden">
+        <div className="relative overflow-hidden rounded-[22px] bg-[linear-gradient(125deg,#047857_0%,#059669_45%,#10B981_80%,#0D9488_100%)] p-7 lg:p-8">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.15),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.16),transparent_50%)]" />
             <div className="absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full bg-white/10 blur-3xl" />
-            <div className="absolute -left-24 -bottom-24 h-[300px] w-[300px] rounded-full bg-[#10B981]/20 blur-3xl" />
+            <div className="absolute -left-24 -bottom-24 h-[300px] w-[300px] rounded-full bg-[#2563EB]/25 blur-3xl" />
+            <div
+              className="absolute inset-0 opacity-60 [mask-image:radial-gradient(at_85%_15%,black,transparent_60%)]"
+              style={{
+                backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+                backgroundSize: "34px 34px",
+              }}
+            />
           </div>
 
           <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">

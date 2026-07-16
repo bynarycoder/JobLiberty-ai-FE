@@ -29,32 +29,50 @@ export function AIAvatar({ size = "md", showSparkles = true, className, pulse = 
 
   return (
     <div className={cn("relative inline-flex shrink-0", className)}>
+      {/* Orbiting energy ring */}
+      {pulse && (
+        <motion.span
+          animate={{ rotate: 360 }}
+          transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+          className="pointer-events-none absolute -inset-[5px] rounded-[18px]"
+          style={{
+            background:
+              "conic-gradient(from 0deg, transparent 0%, rgba(124,58,237,0.55) 12%, transparent 26%, transparent 60%, rgba(37,99,235,0.55) 72%, transparent 86%)",
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+            padding: "1.5px",
+          }}
+        />
+      )}
       <motion.div
-        animate={pulse ? { scale: [1, 1.05, 1] } : {}}
-        transition={pulse ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}
+        animate={pulse ? { scale: [1, 1.06, 1] } : {}}
+        transition={pulse ? { duration: 2.2, repeat: Infinity, ease: "easeInOut" } : {}}
         className={cn(
           "relative rounded-[14px] flex items-center justify-center overflow-hidden",
-          "bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#4F46E5]",
-          "ring-1 ring-[#2563EB]/20 dark:ring-white/10",
-          "shadow-[0_4px_12px_rgba(37,99,235,0.25),0_1px_3px_rgba(37,99,235,0.15)]",
+          "bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB]",
+          "ring-1 ring-white/20",
+          "shadow-[0_6px_16px_rgba(124,58,237,0.35),0_2px_6px_rgba(37,99,235,0.25)]",
           sizeClasses[size]
         )}
         role="img"
         aria-label="Liberty AI"
       >
         {/* Shimmer */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
-        </div>
+        <motion.div
+          animate={{ x: ["-120%", "220%"] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.4 }}
+          className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+        />
         {/* Grain */}
-        <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.25),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.28),transparent_60%)]" />
         <Sparkles className={cn("text-white relative z-10 drop-shadow-sm", iconSizes[size])} />
       </motion.div>
 
       {showSparkles && (
         <span className="absolute -top-1 -right-1 flex h-[12px] w-[12px]">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-60" />
-          <span className="relative inline-flex rounded-full h-[12px] w-[12px] bg-[#10B981] ring-2 ring-white dark:ring-[#0F172A] border border-white/50 shadow-sm items-center justify-center">
+          <span className="relative inline-flex rounded-full h-[12px] w-[12px] bg-[#10B981] ring-2 ring-card border border-white/50 shadow-sm items-center justify-center">
             <span className="h-[4px] w-[4px] rounded-full bg-white" />
           </span>
         </span>

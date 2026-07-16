@@ -52,10 +52,12 @@ export function ChatInput({ onSend, isDisabled = false, isLoading = false, class
   );
 
   return (
-    <div className={cn("relative p-3 md:p-4 bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-xl border-t border-slate-200/60 dark:border-slate-800/60", className)}>
-      <div className="max-w-3xl mx-auto">
-        <div className="relative flex items-end gap-2.5 rounded-[20px] border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-[#1E293B] shadow-[0_2px_12px_rgba(15,23,42,0.06),0_1px_3px_rgba(15,23,42,0.04)] p-2.5 transition-all duration-200 focus-within:border-[#2563EB]/40 focus-within:ring-[4px] focus-within:ring-[#2563EB]/[0.08] focus-within:shadow-[0_0_0_4px_rgba(37,99,235,0.08),0_4px_20px_rgba(15,23,42,0.08)]">
-          <button className="shrink-0 h-9 w-9 rounded-full bg-slate-50 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/[0.08] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.08] hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
+    <div className={cn("relative border-t border-border/60 p-3 md:p-4 glass", className)}>
+      <div className="mx-auto max-w-3xl">
+        <div className="relative flex items-end gap-2.5 rounded-[20px] border border-border bg-card/90 p-2.5 shadow-sm transition-all duration-200 focus-within:border-[#7C3AED]/50 focus-within:shadow-[0_0_0_4px_rgba(124,58,237,0.10),0_10px_30px_-8px_rgba(124,58,237,0.25)] focus-within:ring-0">
+          {/* Gradient focus strip */}
+          <span className="pointer-events-none absolute inset-x-6 top-0 h-[2px] bg-gradient-to-r from-[#7C3AED] to-[#2563EB] opacity-0 transition-opacity duration-300 [.focus-within_&]:opacity-100" />
+          <button className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card-muted text-muted-foreground transition-all hover:border-[#7C3AED]/40 hover:text-[#7C3AED]">
             <Plus className="h-4 w-4" />
           </button>
 
@@ -86,12 +88,12 @@ export function ChatInput({ onSend, isDisabled = false, isLoading = false, class
             onClick={handleSend}
             disabled={!message.trim() || isDisabled || isLoading}
             className={cn(
-              "shrink-0 h-[40px] w-[40px] rounded-full flex items-center justify-center transition-all duration-200",
+              "flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full transition-all duration-200",
               message.trim()
-                ? "bg-gradient-to-br from-[#2563EB] to-[#4F46E5] text-white shadow-[0_2px_8px_rgba(37,99,235,0.3)] hover:shadow-[0_4px_14px_rgba(37,99,235,0.35)] hover:translate-y-[-1px]"
-                : "bg-slate-100 dark:bg-white/[0.06] text-slate-400 dark:text-slate-500 border border-slate-200/60 dark:border-white/[0.08]",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
+                ? "bg-[linear-gradient(135deg,#7C3AED,#4F46E5_55%,#2563EB)] text-white shadow-[0_6px_16px_-2px_rgba(124,58,237,0.5)] hover:-translate-y-[1px] hover:shadow-[0_10px_24px_-4px_rgba(124,58,237,0.55)]"
+                : "border border-border bg-card-muted text-muted-foreground/60",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED] focus-visible:ring-offset-2"
             )}
             aria-label={isLoading ? t("chat.thinking") : t("chat.sendAria")}
           >
@@ -99,7 +101,7 @@ export function ChatInput({ onSend, isDisabled = false, isLoading = false, class
           </motion.button>
         </div>
 
-        <div className="mt-2.5 flex items-center justify-center gap-2 text-[11px] text-slate-400 dark:text-slate-500">
+        <div className="mt-2.5 flex items-center justify-center gap-2 text-[11px] text-muted-foreground/80">
           <Sparkles className="h-3 w-3 text-[#7C3AED]" />
           <span>Liberty AI can make mistakes. Verify important info. • Built for 3MTT NextGen 2026</span>
         </div>

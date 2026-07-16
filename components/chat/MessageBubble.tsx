@@ -24,7 +24,7 @@ function renderContent(content: string): React.ReactNode {
 
   const processInlineFormatting = (text: string): React.ReactNode => {
     const parts: React.ReactNode[] = [];
-    let remaining = text;
+    const remaining = text;
     let key = 0;
     const combinedRegex = /(\*\*(.+?)\*\*|`([^`]+)`)/g;
     let lastIndex = 0;
@@ -116,32 +116,34 @@ export function MessageBubble({ message, onRegenerate, isRegenerating }: Message
       <div className={cn("flex flex-col max-w-[85%] md:max-w-[72%]", isUser ? "items-end" : "items-start")}>
         {!isUser && (
           <div className="flex items-center gap-2 mb-1.5 px-1">
-            <span className="text-[11px] font-semibold tracking-[0.04em] uppercase text-[#2563EB] dark:text-[#60A5FA]">Liberty AI</span>
+            <span className="bg-gradient-to-r from-[#7C3AED] to-[#2563EB] bg-clip-text text-[11px] font-extrabold uppercase tracking-[0.06em] text-transparent">Liberty AI</span>
             <Badge variant="ai" size="sm" className="h-4 px-1.5 text-[9px]">GPT-4o</Badge>
           </div>
         )}
 
         <div
           className={cn(
-            "relative px-[18px] py-[14px] rounded-[18px] text-[14px] leading-[1.6] tracking-[-0.01em] shadow-sm transition-all duration-200",
-            isUser ? "bg-[#2563EB] text-white rounded-br-[6px] shadow-[0_2px_8px_rgba(37,99,235,0.25)]" : "bg-white dark:bg-[#1E293B] text-slate-800 dark:text-slate-100 border border-slate-200/60 dark:border-slate-700/50 rounded-bl-[6px] hover:shadow-[0_4px_12px_rgba(15,23,42,0.06)]"
+            "relative px-[18px] py-[14px] rounded-[18px] text-[14px] leading-[1.6] tracking-[-0.01em] transition-all duration-200",
+            isUser
+              ? "rounded-br-[6px] bg-[linear-gradient(135deg,#2563EB_0%,#4F46E5_60%,#7C3AED_100%)] text-white shadow-[0_6px_18px_-4px_rgba(79,70,229,0.45)]"
+              : "glass-strong rounded-bl-[6px] text-foreground hover:shadow-[0_8px_24px_-8px_rgba(124,58,237,0.25)]"
           )}
           role="article"
         >
-          {!isUser && <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-[3px] rounded-l-[18px] bg-gradient-to-b from-[#2563EB] to-[#7C3AED] opacity-60 group-hover:opacity-100 transition-opacity" />}
+          {!isUser && <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[3px] rounded-l-[18px] bg-gradient-to-b from-[#7C3AED] via-[#4F46E5] to-[#2563EB] opacity-70 transition-opacity group-hover:opacity-100" />}
           <div className={cn("prose-sm max-w-none", isUser ? "prose-invert" : "")}>{renderContent(message.content)}</div>
         </div>
 
-        <div className={cn("flex items-center gap-1.5 mt-2 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200", isUser ? "flex-row-reverse" : "flex-row")}>
-          <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">{timeStr}</span>
+        <div className={cn("mt-2 flex items-center gap-1.5 px-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100", isUser ? "flex-row-reverse" : "flex-row")}>
+          <span className="text-[11px] font-medium text-muted-foreground/80">{timeStr}</span>
           {!isUser && (
             <>
-              <button onClick={handleCopy} className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow hover:border-slate-300 dark:hover:border-slate-600 transition-all">
-                {copied ? <Check className="h-3.5 w-3.5 text-[#10B981]" /> : <Copy className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />}
+              <button onClick={handleCopy} className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-all hover:border-[#7C3AED]/40 hover:text-[#7C3AED] hover:shadow">
+                {copied ? <Check className="h-3.5 w-3.5 text-[#10B981]" /> : <Copy className="h-3.5 w-3.5" />}
               </button>
               {onRegenerate && (
-                <button onClick={onRegenerate} disabled={isRegenerating} className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-white dark:bg-[#1E293B] border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow hover:border-slate-300 dark:hover:border-slate-600 transition-all disabled:opacity-50">
-                  <RefreshCw className={cn("h-3.5 w-3.5 text-slate-500 dark:text-slate-400", isRegenerating && "animate-spin")} />
+                <button onClick={onRegenerate} disabled={isRegenerating} className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition-all hover:border-[#2563EB]/40 hover:text-[#2563EB] hover:shadow disabled:opacity-50">
+                  <RefreshCw className={cn("h-3.5 w-3.5", isRegenerating && "animate-spin")} />
                 </button>
               )}
             </>

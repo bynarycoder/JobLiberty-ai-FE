@@ -57,7 +57,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#F8FAFC] dark:bg-[#0F172A] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#2563EB] selection:text-white antialiased">
+      <body className="min-h-full flex flex-col bg-background text-foreground font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
           <I18nProvider>
             <QueryProvider>

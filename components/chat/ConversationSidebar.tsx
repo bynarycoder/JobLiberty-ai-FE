@@ -57,34 +57,34 @@ export function ConversationSidebar({ conversations, activeConversationId, onSel
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -300, opacity: 0 }}
             transition={{ type: "spring", damping: 28, stiffness: 220 }}
-            className={cn("fixed lg:sticky top-0 z-40 w-[300px] h-[100dvh] lg:h-[calc(100vh-65px)] bg-[#FCFCFD] dark:bg-[#0F172A] border-r border-slate-200/70 dark:border-slate-800/80 flex flex-col")}
+            className={cn("fixed top-0 z-40 flex h-[100dvh] w-[300px] flex-col bg-card/95 backdrop-blur-xl lg:sticky lg:h-[calc(100dvh-66px)] border-r border-border/70")}
           >
-            <div className="p-4 border-b border-slate-200/70 dark:border-slate-800/80">
-              <div className="flex items-center justify-between mb-3">
+            <div className="border-b border-border/70 p-4">
+              <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-7 w-7 rounded-[8px] bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center shadow-sm">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-[9px] bg-gradient-to-br from-[#7C3AED] to-[#2563EB] shadow-sm">
                     <Sparkles className="h-3.5 w-3.5 text-white" />
                   </div>
-                  <h3 className="font-semibold text-[13.5px] tracking-[-0.01em] text-slate-900 dark:text-slate-100">{t("chat.sidebar.title")}</h3>
+                  <h3 className="text-[13.5px] font-bold tracking-[-0.01em]">{t("chat.sidebar.title")}</h3>
                 </div>
-                <button onClick={onClose} className="lg:hidden h-7 w-7 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/[0.06] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.08]">
+                <button onClick={onClose} className="flex h-7 w-7 items-center justify-center rounded-full border border-transparent text-muted-foreground transition-colors hover:border-border hover:bg-card-muted lg:hidden">
                   <X className="h-4 w-4" />
                 </button>
               </div>
 
-              <Button size="sm" className="w-full rounded-full gap-2 mb-3" onClick={onNewConversation}>
+              <Button size="sm" className="mb-3 w-full gap-2 rounded-full" onClick={onNewConversation}>
                 <Plus className="h-4 w-4" />
                 New conversation
               </Button>
 
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={t("chat.sidebar.searchPlaceholder")}
-                  className="w-full h-9 pl-9 pr-3 rounded-[12px] text-[13px] font-[450] bg-white dark:bg-white/[0.04] border border-slate-200/70 dark:border-slate-700/50 focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]/40 transition-all placeholder:text-slate-400"
+                  className="h-9 w-full rounded-[12px] border border-border bg-card-muted/70 pl-9 pr-3 text-[13px] font-[450] transition-all placeholder:text-muted-foreground/70 focus:border-[#7C3AED]/40 focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/10"
                 />
               </div>
             </div>
@@ -112,11 +112,13 @@ export function ConversationSidebar({ conversations, activeConversationId, onSel
                           onMouseEnter={() => setHoveredId(conv.id)}
                           onMouseLeave={() => setHoveredId(null)}
                           className={cn(
-                            "w-full group flex items-center gap-2.5 px-3 py-2.5 rounded-[12px] text-left transition-all border",
-                            activeConversationId === conv.id ? "bg-[#2563EB] text-white border-[#2563EB] shadow-[0_2px_8px_rgba(37,99,235,0.25)]" : "bg-white dark:bg-white/[0.03] border-slate-200/60 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/[0.10] hover:bg-slate-50 dark:hover:bg-white/[0.06] text-slate-700 dark:text-slate-300"
+                            "group flex w-full items-center gap-2.5 rounded-[12px] border px-3 py-2.5 text-left transition-all",
+                            activeConversationId === conv.id
+                              ? "border-transparent bg-[linear-gradient(120deg,#7C3AED,#4F46E5_60%,#2563EB)] text-white shadow-[0_6px_16px_-4px_rgba(124,58,237,0.5)]"
+                              : "border-transparent text-foreground/75 hover:border-border hover:bg-card-muted/70 hover:text-foreground"
                           )}
                         >
-                          <MessageSquare className={cn("h-4 w-4 shrink-0", activeConversationId === conv.id ? "text-white/80" : "text-slate-400 group-hover:text-slate-600")} />
+                          <MessageSquare className={cn("h-4 w-4 shrink-0", activeConversationId === conv.id ? "text-white/85" : "text-[#7C3AED]/70 dark:text-[#B691FF]/70")} />
                           <span className="flex-1 text-[13px] font-[450] tracking-[-0.01em] truncate">{conv.title}</span>
                           {hoveredId === conv.id && (
                             <button
@@ -137,14 +139,14 @@ export function ConversationSidebar({ conversations, activeConversationId, onSel
               )}
             </div>
 
-            <div className="p-3 border-t border-slate-200/70 dark:border-slate-800/80">
-              <div className="rounded-[12px] bg-[#F8FAFC] dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/[0.06] p-2.5 flex items-center gap-2.5">
-                <div className="h-7 w-7 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#4F46E5] flex items-center justify-center text-white text-[11px] font-bold">AI</div>
+            <div className="border-t border-border/70 p-3">
+              <div className="flex items-center gap-2.5 rounded-[12px] bg-[linear-gradient(120deg,rgba(124,58,237,0.10),rgba(37,99,235,0.08))] p-2.5 ring-1 ring-[#7C3AED]/15">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] to-[#2563EB] text-[11px] font-bold text-white shadow-sm">AI</div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[12px] font-semibold tracking-[-0.01em] text-slate-900 dark:text-white">Liberty AI</div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400">GPT-4o • Multilingual</div>
+                  <div className="text-[12px] font-bold tracking-[-0.01em]">Liberty AI</div>
+                  <div className="text-[11px] text-muted-foreground">GPT-4o • Multilingual</div>
                 </div>
-                <span className="h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#10B981]" />
               </div>
             </div>
           </motion.aside>
