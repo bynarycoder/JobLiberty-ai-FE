@@ -1,148 +1,35 @@
-import type { 
-  Resume, Job, ATSAnalysis, SkillGap, CareerResource, 
-  InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification, RecentActivity, SignUpInput 
-} from '@/lib/types';
-import * as Mock from './mockData';
+import type { Resume, Job, ATSAnalysis, SkillGap, CareerResource, InterviewQuestion, Report, CareerRoadmap, DashboardStats, Notification, RecentActivity, SignUpInput } from "@/lib/types";
+import { ApiError } from "@/lib/api/client";
+import { resumeApi } from "@/lib/api/resume";
+import { jobsApi } from "@/lib/api/jobs";
+import { roadmapApi } from "@/lib/api/roadmap";
 
-// Simulate API delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const resumeId = () => typeof window === "undefined" ? undefined : window.localStorage.getItem("jobliberty_resume_id") ?? undefined;
+const unsupported = (name: string): never => { throw new ApiError(`${name} is not available from the production API.`, 404, "not_found"); };
 
 export const api = {
-  // Resume
   async uploadResume(file: File): Promise<Resume> {
-    await delay(1200);
-    // In real app would upload to backend
-    return {
-      ...Mock.MOCK_RESUME,
-      fileName: file.name,
-      fileSize: file.size,
-      uploadDate: new Date().toISOString(),
-    };
+    const response = await resumeApi.upload(file);
+    const id = response.id ?? response.resume_id;
+    if (id && typeof window !== "undefined") window.localStorage.setItem("jobliberty_resume_id", String(id));
+    return { ...response, id: String(id ?? "") };
   },
-
-  async analyzeResume(resumeId: string): Promise<Resume> {
-    await delay(2200);
-    return {
-      ...Mock.MOCK_RESUME,
-      id: resumeId,
-      score: 82 + Math.floor(Math.random() * 8),
-      atsScore: 78 + Math.floor(Math.random() * 8),
-      status: 'analyzed',
-    };
-  },
-
-  async fetchResume(): Promise<Resume> {
-    await delay(400);
-    return Mock.MOCK_RESUME;
-  },
-
-  // Jobs
-  async fetchJobMatches(): Promise<Job[]> {
-    await delay(650);
-    return Mock.MOCK_JOBS;
-  },
-
-  async searchJobs(query: string): Promise<Job[]> {
-    await delay(300);
-    const jobs = await this.fetchJobMatches();
-    if (!query) return jobs;
-    return jobs.filter(job => 
-      job.title.toLowerCase().includes(query.toLowerCase()) ||
-      job.company.toLowerCase().includes(query.toLowerCase())
-    );
-  },
-
-  // ATS
-  async fetchATSAnalysis(): Promise<ATSAnalysis> {
-    await delay(550);
-    return Mock.MOCK_ATS;
-  },
-
-  // Skill Gap
-  async fetchSkillGap(): Promise<SkillGap> {
-    await delay(480);
-    return Mock.MOCK_SKILL_GAP;
-  },
-
-  // Resources
-  async fetchCareerResources(): Promise<CareerResource[]> {
-    await delay(420);
-    return Mock.MOCK_CAREER_RESOURCES;
-  },
-
-  // Interview
-  async fetchInterviewPrep(): Promise<InterviewQuestion[]> {
-    await delay(380);
-    return Mock.MOCK_INTERVIEW_QUESTIONS;
-  },
-
-  // Reports
-  async fetchReports(): Promise<Report> {
-    await delay(510);
-    return Mock.MOCK_REPORT;
-  },
-
-  async downloadReport(): Promise<void> {
-    await delay(800);
-    // Simulate PDF download
-    const link = document.createElement('a');
-    link.href = '#';
-    link.download = 'JobLiberty_Career_Report.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  },
-
-  // Dashboard
-  async fetchDashboardStats(): Promise<DashboardStats> {
-    await delay(360);
-    return Mock.MOCK_DASHBOARD_STATS;
-  },
-
-  async fetchRecentActivity(): Promise<RecentActivity[]> {
-    await delay(280);
-    return Mock.MOCK_RECENT_ACTIVITY;
-  },
-
-  async fetchNotifications(): Promise<Notification[]> {
-    await delay(200);
-    return Mock.MOCK_NOTIFICATIONS;
-  },
-
-  // Roadmap
-  async fetchCareerRoadmap(): Promise<CareerRoadmap> {
-    await delay(440);
-    return Mock.MOCK_ROADMAP;
-  },
-
-  // Opportunity Mode
-  async getOpportunityInsights() {
-    await delay(390);
-    return {
-      currentReadiness: 72,
-      targetRole: "Senior Backend Engineer",
-      missingSkills: ["Kubernetes", "AWS", "CI/CD"],
-      estimatedTime: "6 Weeks",
-      potentialMatch: 92,
-    };
-  },
-
-  // Auth (mocked)
-  async signIn(email: string, password: string) {
-    await delay(900);
-    if (email && password.length > 5) {
-      return { success: true, user: Mock.MOCK_USER };
-    }
-    throw new Error("Invalid credentials");
-  },
-
-  async signUp(data: SignUpInput) {
-    await delay(1100);
-    return { success: true, user: { ...Mock.MOCK_USER, ...data } };
-  },
-
-  async signOut() {
-    await delay(300);
-    return { success: true };
-  }
+  async analyzeResume(id: string): Promise<Resume> { return resumeApi.analyze(id); },
+  async fetchResume(): Promise<Resume> { const id = resumeId(); return id ? resumeApi.details(id) : unsupported("Resume details"); },
+  async fetchJobMatches(): Promise<Job[]> { return jobsApi.match({ resume_id: resumeId() }); },
+  async searchJobs(query: string, signal?: AbortSignal): Promise<Job[]> { return jobsApi.search({ query }, signal); },
+  async fetchATSAnalysis(): Promise<ATSAnalysis> { const id = resumeId(); return id ? resumeApi.atsFeedback(id) : unsupported("ATS feedback"); },
+  async fetchSkillGap(): Promise<SkillGap> { return unsupported("Skill gap analysis"); },
+  async fetchCareerResources(): Promise<CareerResource[]> { return unsupported("Career resources"); },
+  async fetchInterviewPrep(): Promise<InterviewQuestion[]> { return unsupported("Interview preparation"); },
+  async fetchReports(): Promise<Report> { return unsupported("Reports"); },
+  async downloadReport(): Promise<void> { return unsupported("Report download"); },
+  async fetchDashboardStats(): Promise<DashboardStats> { return jobsApi.aggregate({ query: resumeId() }) as unknown as Promise<DashboardStats>; },
+  async fetchRecentActivity(): Promise<RecentActivity[]> { return unsupported("Recent activity"); },
+  async fetchNotifications(): Promise<Notification[]> { return unsupported("Notifications"); },
+  async fetchCareerRoadmap(): Promise<CareerRoadmap> { return roadmapApi.get("software-engineering"); },
+  async getOpportunityInsights() { return unsupported("Opportunity insights"); },
+  async signIn(_email: string, _password: string) { return unsupported("Sign in"); },
+  async signUp(_data: SignUpInput) { return unsupported("Sign up"); },
+  async signOut() { if (typeof window !== "undefined") window.localStorage.removeItem("jobliberty_access_token"); return { success: true }; },
 };

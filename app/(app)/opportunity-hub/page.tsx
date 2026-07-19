@@ -129,8 +129,7 @@ export default function OpportunityHubPage() {
         (filters.jobType === "internship" && o.type === "internship") ||
         (filters.jobType === "full-time" && o.type === "job");
 
-      // Industry selection is primarily a browse signal; strict matching lands with the backend.
-      // Keep featured list usable with mock data when an industry is selected.
+      // Industry selection is a browse signal; recommendation filtering is owned by the backend.
       return (
         typeFromFilters &&
         typeFromActive &&

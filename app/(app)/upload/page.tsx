@@ -20,24 +20,20 @@ export default function UploadPage() {
   const [isAnalyzing, setIsAnalyzing] = React.useState(false);
 
   const uploadMutation = useMutation({
-    mutationFn: (file: File) => api.uploadResume(file),
-    onSuccess: async (resume) => {
-      toast.success(t("upload.success"));
+    mutationFn: async (selectedFile: File) => {
+      setProgress(10); // Uploading
+      const resume = await api.uploadResume(selectedFile);
+      setProgress(45); // Extracting / parsing is performed by the API
       setIsAnalyzing(true);
-      const interval = setInterval(() => {
-        setProgress((p) => {
-          const newP = p + 25;
-          if (newP >= 100) {
-            clearInterval(interval);
-            setTimeout(async () => {
-              await api.analyzeResume(resume.id);
-              router.push("/resume");
-            }, 400);
-          }
-          return Math.min(newP, 100);
-        });
-      }, 420);
+      const analyzed = await api.analyzeResume(resume.id);
+      setProgress(100); // Complete
+      return analyzed;
     },
+    onSuccess: () => {
+      toast.success(t("upload.success"));
+      router.push("/resume");
+    },
+    onError: () => toast.error("We could not process your resume. Please try again."),
   });
 
   const handleFileSelect = (selectedFile: File) => {

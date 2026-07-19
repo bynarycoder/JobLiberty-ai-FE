@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useI18n } from "@/providers/I18nProvider";
 import { ChatWindow } from "@/components/chat/ChatWindow";
@@ -29,6 +30,7 @@ export default function ChatPage() {
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const chatMutation = useMutation({ mutationFn: (request: import("@/lib/types").ChatRequest) => chatWithAI(request) });
 
   // Derive active messages
   const activeConversation = conversations.find((c) => c.id === activeConversationId) ?? null;
@@ -123,7 +125,7 @@ export default function ChatPage() {
       // Call AI
       setIsLoading(true);
       try {
-        const response = await chatWithAI({
+        const response = await chatMutation.mutateAsync({
           message: content,
           history: activeConversation?.messages ?? [],
           language,
@@ -169,7 +171,7 @@ export default function ChatPage() {
       removeLastAssistantMessage(convId);
 
       try {
-        const response = await chatWithAI({
+        const response = await chatMutation.mutateAsync({
           message: userMessage.content,
           history: conv.messages.slice(0, msgIndex - 1),
           language,

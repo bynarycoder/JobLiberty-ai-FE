@@ -35,7 +35,7 @@ export default function JobsPage() {
 
   const { data: jobs = [], isLoading } = useQuery({
     queryKey: ["jobs", search],
-    queryFn: () => api.searchJobs(search),
+    queryFn: ({ signal }) => api.searchJobs(search, signal),
   });
 
   const sortedJobs = React.useMemo(() => {

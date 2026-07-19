@@ -60,7 +60,7 @@ export default function LandingPage() {
       title: t("landing.features.interviewPrep.title"),
       desc: t("landing.features.interviewPrep.desc"),
       accent: "indigo" as const,
-      highlight: "AI mock",
+      highlight: "AI powered",
     },
     {
       icon: Award,
