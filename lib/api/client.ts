@@ -36,11 +36,21 @@ function normalizeError(error: unknown): ApiError {
 }
 
 export async function request<T>(config: AxiosRequestConfig, signal?: AbortSignal): Promise<T> {
-  try {
-    const response = await apiClient.request<T>({ ...config, signal });
-    return response.data;
-  } catch (error) {
-    throw normalizeError(error);
+  let attempt = 0;
+  while (true) {
+    try {
+      const response = await apiClient.request<T>({ ...config, signal });
+      return response.data;
+    } catch (error) {
+      const normalized = normalizeError(error);
+      const retryable = normalized.code === "offline" || normalized.code === "timeout" || normalized.code === "rate_limited" || normalized.code === "server";
+      if (!retryable || attempt >= 2 || signal?.aborted) throw normalized;
+      await new Promise<void>((resolve, reject) => {
+        const timer = window.setTimeout(resolve, 300 * 2 ** attempt);
+        signal?.addEventListener("abort", () => { window.clearTimeout(timer); reject(signal.reason); }, { once: true });
+      });
+      attempt += 1;
+    }
   }
 }
 
