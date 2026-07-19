@@ -44,7 +44,7 @@ export default function SignUp() {
           <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.fullName")}</label>
           <div className="relative">
             <User className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-            <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputCls} placeholder="Chinedu Okafor" required />
+            <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputCls} placeholder="Abdulwahab Abdulyekeen" required />
           </div>
         </div>
         <div>

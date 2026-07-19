@@ -278,11 +278,11 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
             <DropdownMenuTrigger asChild>
               <button className="group flex items-center gap-2.5 rounded-full border border-border bg-card/70 py-1 pl-1 pr-2.5 shadow-sm transition-all hover:border-border-strong hover:bg-card hover:shadow-md">
                 <div className="relative flex h-[32px] w-[32px] items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[12px] font-bold text-white transition-transform group-hover:scale-105">
-                  CO
+                  AA
                   <span className="absolute -bottom-0.5 -right-0.5 h-[10px] w-[10px] rounded-full bg-[#22C55E] ring-2 ring-card" />
                 </div>
                 <span className="hidden text-left leading-tight md:block">
-                  <span className="block text-[12.5px] font-semibold tracking-[-0.01em]">Chinedu O.</span>
+                  <span className="block text-[12.5px] font-semibold tracking-[-0.01em]">Abdulwahab A.</span>
                   <span className="flex items-center gap-1 text-[10.5px] font-medium text-muted-foreground">
                     Pro <Zap className="h-2.5 w-2.5 text-[#F59E0B]" />
                   </span>
@@ -292,8 +292,8 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="glass-strong w-[230px] rounded-[16px] border-border/70 p-1.5">
               <div className="mb-1 rounded-[12px] bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#7C3AED] p-3 text-white">
-                <div className="text-[13.5px] font-bold">Chinedu Okafor</div>
-                <div className="text-[11px] text-white/75">chinedu@jobliberty.africa</div>
+                <div className="text-[13.5px] font-bold">Abdulwahab Abdulyekeen</div>
+                <div className="text-[11px] text-white/75">abdulwahab@jobliberty.africa</div>
                 <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold backdrop-blur-sm">
                   <Zap className="h-2.5 w-2.5" /> Pro Plan
                 </div>
