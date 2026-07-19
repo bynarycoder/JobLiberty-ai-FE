@@ -18,6 +18,7 @@ import { jobsApi } from "@/lib/api/jobs";
 import { roadmapApi } from "@/lib/api/roadmap";
 import { mapDashboardStats } from "@/lib/api/mappers";
 import { asArray, asNumber, asRecord, asString, firstString, pick, scoreOf } from "@/lib/api/normalize";
+import { setUserProfile, clearUserProfile } from "@/lib/api/user-profile";
 
 const RESUME_ID_KEY = "jobliberty_resume_id";
 const CAREER_DOMAIN_KEY = "jobliberty_career_domain";
@@ -445,7 +446,9 @@ export const api = {
     return unsupported("Sign in");
   },
 
-  async signUp(_data: SignUpInput) {
+  async signUp(data: SignUpInput) {
+    // Persist the profile locally so the UI can display real user info.
+    setUserProfile({ name: data.name, email: data.email, location: data.location });
     return unsupported("Sign up");
   },
 
@@ -453,6 +456,7 @@ export const api = {
     if (typeof window !== "undefined") {
       window.localStorage.removeItem("jobliberty_access_token");
     }
+    clearUserProfile();
     return { success: true };
   },
 };

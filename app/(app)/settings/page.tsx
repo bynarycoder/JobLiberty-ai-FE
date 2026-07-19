@@ -11,6 +11,7 @@ import { Settings, Moon, Sun, Monitor, Bell, Globe, User, Shield, Trash2, Check,
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { getUserProfile, getInitials } from "@/lib/api/user-profile";
 
 function Toggle({ enabled, onChange, tint }: { enabled: boolean; onChange: (v: boolean) => void; tint: string }) {
   return (
@@ -51,6 +52,8 @@ export default function SettingsPage() {
   const { t, language, setLanguage, languages } = useI18n();
   const { theme, setTheme } = useTheme();
   const [notif, setNotif] = React.useState({ email: true, jobs: true, weekly: false });
+  const profile = getUserProfile();
+  const profileInitials = getInitials(profile.name);
 
   /* next-themes is undefined during SSR — "Auto" renders until mounted */
   const themeLabel = theme === "dark" ? "Dark" : theme === "light" ? "Light" : "Auto";
@@ -228,10 +231,10 @@ export default function SettingsPage() {
           </div>
           <div className="space-y-3 p-5">
             <div className="flex items-center gap-3 rounded-[15px] bg-[linear-gradient(120deg,#7C3AED,#4F46E5_50%,#2563EB)] p-4 text-white shadow-[0_12px_28px_-8px_rgba(79,70,229,0.5)]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-[16px] font-extrabold ring-2 ring-white/30 backdrop-blur-sm">CO</div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-[16px] font-extrabold ring-2 ring-white/30 backdrop-blur-sm">{profileInitials}</div>
               <div className="min-w-0 flex-1">
-                <div className="truncate text-[14px] font-bold">Abdulwahab Abdulyekeen</div>
-                <div className="truncate text-[11.5px] text-white/75">abdul@jobliberty.africa • Software Engineer</div>
+                <div className="truncate text-[14px] font-bold">{profile.name}</div>
+                <div className="truncate text-[11.5px] text-white/75">{profile.email}{profile.location ? ` • ${profile.location}` : ""}</div>
               </div>
               <span className="rounded-full bg-white/20 px-2.5 py-1 text-[10px] font-extrabold backdrop-blur-sm">PRO</span>
             </div>
