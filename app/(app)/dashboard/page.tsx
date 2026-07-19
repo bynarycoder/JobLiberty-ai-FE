@@ -32,9 +32,15 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar, Cell } from "recharts";
+import { ErrorState, PageSkeleton } from "@/components/ui/QueryState";
 
-const weeklyActivity: { day: string; applications: number; matches: number; profile: number }[] = [];
-const skillMix: { name: string; value: number; color: string }[] = [];
+const LOGO_GRADIENTS = [
+  "from-[#2563EB] to-[#4F46E5]",
+  "from-[#F59E0B] to-[#F97316]",
+  "from-[#7C3AED] to-[#9333EA]",
+  "from-[#10B981] to-[#059669]",
+  "from-[#0EA5E9] to-[#22D3EE]",
+];
 
 function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color?: string }[]; label?: string }) {
   if (!active || !payload?.length) return null;
@@ -54,27 +60,79 @@ function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: 
 export default function Dashboard() {
   const { t } = useI18n();
 
-  const { data: stats } = useQuery({ queryKey: ["dashboard-stats"], queryFn: () => api.fetchDashboardStats() });
-  const { data: jobs } = useQuery({ queryKey: ["jobs"], queryFn: () => api.fetchJobMatches() });
-  const { data: roadmap } = useQuery({ queryKey: ["roadmap"], queryFn: () => api.fetchCareerRoadmap() });
-  const { data: recent } = useQuery({ queryKey: ["recent-activity"], queryFn: () => api.fetchRecentActivity() });
+  const { data: stats, isLoading: statsLoading, isError: statsError, error: statsErr, refetch: refetchStats } = useQuery({
+    queryKey: ["dashboard-stats"],
+    queryFn: ({ signal }) => api.fetchDashboardStats(signal),
+  });
+  const { data: jobs = [] } = useQuery({ queryKey: ["jobs"], queryFn: ({ signal }) => api.fetchJobMatches(signal) });
+  const { data: roadmap } = useQuery({ queryKey: ["roadmap"], queryFn: ({ signal }) => api.fetchCareerRoadmap(signal) });
+  const { data: recent = [] } = useQuery({
+    queryKey: ["recent-activity"],
+    queryFn: ({ signal }) => api.fetchRecentActivity(signal),
+    retry: false,
+  });
+  const { data: resume } = useQuery({
+    queryKey: ["resume"],
+    queryFn: ({ signal }) => api.fetchResume(signal),
+    retry: false,
+  });
+
+  if (statsLoading && !stats) return <PageSkeleton cards={4} />;
+  if (statsError && !stats) return <ErrorState error={statsErr} onRetry={() => refetchStats()} title="Could not load dashboard" />;
+
+  const topJobs = [...jobs].sort((a, b) => (b.matchPercentage || 0) - (a.matchPercentage || 0)).slice(0, 3);
+  const topMatch = topJobs[0];
+  const remoteCount = jobs.filter((j) => j.remote).length;
+  const readiness = stats?.careerReadiness || resume?.analysis?.careerReadiness || roadmap?.overallReadiness || 0;
+  const recommendations = [
+    ...(resume?.analysis?.recommendations ?? []),
+    ...(topJobs.flatMap((j) => j.recommendations ?? [])),
+    ...(topJobs.flatMap((j) => (j.missingSkills ?? []).map((s) => `Build experience with ${s}`))),
+  ].filter(Boolean).slice(0, 3);
+
+  // Presence-only skill chart: backend does not return per-skill proficiency scores.
+  const skillMix = (resume?.analysis?.skills ?? []).slice(0, 6).map((name, index) => ({
+    name: name.length > 12 ? `${name.slice(0, 12)}…` : name,
+    value: 100,
+    color: ["#2563EB", "#10B981", "#7C3AED", "#F59E0B", "#0EA5E9", "#14B8A6"][index % 6],
+  }));
+
+  // Snapshot chart uses only values already returned by supported endpoints.
+  const weeklyActivity =
+    jobs.length || readiness || resume?.score
+      ? [
+          { day: "Jobs", applications: stats?.applications ?? 0, matches: jobs.length, profile: readiness },
+          { day: "Remote", applications: remoteCount, matches: remoteCount, profile: readiness },
+          {
+            day: "Top match",
+            applications: topMatch?.matchPercentage ?? 0,
+            matches: topMatch?.matchPercentage ?? 0,
+            profile: resume?.score ?? 0,
+          },
+        ]
+      : [];
 
   return (
     <div className="space-y-6">
-      {/* ── Blue gradient hero ── */}
       <PageHero
         gradient="blue"
         icon={LayoutDashboard}
         eyebrow={t("dashboard.subtitle")}
         title={
           <>
-            {t("dashboard.welcome")},{" "}
-            <span className="bg-gradient-to-r from-white via-[#BFDBFE] to-[#C4B5FD] bg-clip-text text-transparent">
-              Chinedu
-            </span>
+            {t("dashboard.welcome")}
+            {resume?.fileName ? (
+              <>
+                , <span className="bg-gradient-to-r from-white via-[#BFDBFE] to-[#C4B5FD] bg-clip-text text-transparent">ready</span>
+              </>
+            ) : null}
           </>
         }
-        subtitle="Your career engine is running at full speed. 12 new matches landed today and your ATS score is up 6 points."
+        subtitle={
+          resume
+            ? `Tracking ${jobs.length} matched roles${topMatch ? ` with a top match of ${topMatch.matchPercentage}%` : ""}.`
+            : "Upload a resume to unlock ATS scoring, AI job matching, and your career roadmap."
+        }
         actions={
           <>
             <Button size="sm" asChild className="h-[40px] rounded-full bg-white px-5 text-[#1D4ED8] shadow-lg shadow-black/10 hover:bg-white/90 hover:text-[#1E40AF]">
@@ -82,12 +140,7 @@ export default function Dashboard() {
                 <Upload className="h-4 w-4" /> Upload new CV
               </Link>
             </Button>
-            <Button
-              size="sm"
-              asChild
-              variant="ghost"
-              className="h-[40px] rounded-full border border-white/25 bg-white/10 px-5 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
-            >
+            <Button size="sm" asChild variant="ghost" className="h-[40px] rounded-full border border-white/25 bg-white/10 px-5 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white">
               <Link href="/chat">
                 <Sparkles className="h-4 w-4" /> Ask Liberty AI
               </Link>
@@ -95,22 +148,20 @@ export default function Dashboard() {
           </>
         }
         stats={[
-          { label: t("dashboard.stats.resumeScore"), value: stats?.resumeScore ?? 0, suffix: "%", sub: "+4% this week" },
-          { label: t("dashboard.stats.atsScore"), value: stats?.atsScore ?? 0, suffix: "%", sub: "ATS friendly" },
-          { label: t("dashboard.stats.jobMatches"), value: stats?.jobMatches ?? 0, sub: "+12 today" },
-          { label: t("dashboard.stats.careerReadiness"), value: stats?.careerReadiness ?? 0, suffix: "%", sub: "Target 92%" },
+          { label: t("dashboard.stats.resumeScore"), value: stats?.resumeScore ?? 0, suffix: "%", sub: resume?.status || "No resume" },
+          { label: t("dashboard.stats.atsScore"), value: stats?.atsScore ?? 0, suffix: "%", sub: "Backend ATS" },
+          { label: t("dashboard.stats.jobMatches"), value: stats?.jobMatches ?? jobs.length, sub: `${remoteCount} remote` },
+          { label: t("dashboard.stats.careerReadiness"), value: readiness, suffix: "%", sub: roadmap?.targetRole || "Roadmap" },
         ]}
       />
 
-      {/* ── Analytics cards ── */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <AnalyticsCard index={0} label={t("dashboard.stats.resumeScore")} value={stats?.resumeScore ?? 0} suffix="%" icon={FileText} accent="blue" trend={{ value: "+4%", up: true }} sparkline={[62, 66, 64, 71, 74, 79, 82]} sub="Excellent structure" />
-        <AnalyticsCard index={1} label={t("dashboard.stats.atsScore")} value={stats?.atsScore ?? 0} suffix="%" icon={Target} accent="emerald" trend={{ value: "+6%", up: true }} ring={stats?.atsScore ?? 0} sub="Beats 68% of candidates" />
-        <AnalyticsCard index={2} label={t("dashboard.stats.jobMatches")} value={stats?.jobMatches ?? 0} icon={Users} accent="purple" trend={{ value: "+12", up: true }} sparkline={[8, 14, 11, 19, 24, 33, 47]} sub="9 remote-friendly" />
-        <AnalyticsCard index={3} label={t("dashboard.stats.applications")} value={stats?.applications ?? 0} icon={Award} accent="amber" trend={{ value: "+3", up: true }} sparkline={[2, 3, 3, 5, 7, 9, 12]} sub="2 interviews lined up" />
+        <AnalyticsCard index={0} label={t("dashboard.stats.resumeScore")} value={stats?.resumeScore ?? 0} suffix="%" icon={FileText} accent="blue" sub={resume?.fileName || "Upload a resume"} />
+        <AnalyticsCard index={1} label={t("dashboard.stats.atsScore")} value={stats?.atsScore ?? 0} suffix="%" icon={Target} accent="emerald" ring={stats?.atsScore ?? 0} sub="From ATS feedback" />
+        <AnalyticsCard index={2} label={t("dashboard.stats.jobMatches")} value={stats?.jobMatches ?? jobs.length} icon={Users} accent="purple" sub={`${remoteCount} remote-friendly`} />
+        <AnalyticsCard index={3} label={t("dashboard.stats.applications")} value={stats?.applications ?? 0} icon={Award} accent="amber" sub="Tracked applications" />
       </div>
 
-      {/* ── Charts row ── */}
       <div className="grid gap-5 lg:grid-cols-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -125,49 +176,47 @@ export default function Dashboard() {
                 <BarChart3 className="h-[18px] w-[18px]" />
               </div>
               <div>
-                <h3 className="text-[15px] font-bold tracking-[-0.01em]">Weekly momentum</h3>
-                <p className="text-[11.5px] font-medium text-muted-foreground">Applications vs matches vs profile views</p>
+                <h3 className="text-[15px] font-bold tracking-[-0.01em]">Career snapshot</h3>
+                <p className="text-[11.5px] font-medium text-muted-foreground">Composed from resume, jobs, and roadmap APIs</p>
               </div>
             </div>
-            <Badge variant="emerald" size="sm" dot pulse>
-              +38% WoW
+            <Badge variant="emerald" size="sm" dot>
+              Live API
             </Badge>
           </div>
           <div className="h-[240px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={weeklyActivity} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="gMatches" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2563EB" stopOpacity={0.32} />
-                    <stop offset="100%" stopColor="#2563EB" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="gApps" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10B981" stopOpacity={0.32} />
-                    <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="gViews" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#7C3AED" stopOpacity={0.30} />
-                    <stop offset="100%" stopColor="#7C3AED" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid vertical={false} />
-                <XAxis dataKey="day" axisLine={false} tickLine={false} dy={6} />
-                <YAxis axisLine={false} tickLine={false} />
-                <Tooltip content={<ChartTooltip />} />
-                <Area type="monotone" dataKey="matches" name="Matches" stroke="#2563EB" strokeWidth={2.6} fill="url(#gMatches)" dot={false} activeDot={{ r: 4 }} />
-                <Area type="monotone" dataKey="applications" name="Applications" stroke="#10B981" strokeWidth={2.6} fill="url(#gApps)" dot={false} activeDot={{ r: 4 }} />
-                <Area type="monotone" dataKey="profile" name="Profile views" stroke="#7C3AED" strokeWidth={2.6} fill="url(#gViews)" dot={false} activeDot={{ r: 4 }} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="mt-2 flex flex-wrap items-center gap-4 text-[11.5px] font-semibold text-muted-foreground">
-            <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#2563EB]" /> Matches</span>
-            <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#10B981]" /> Applications</span>
-            <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#7C3AED]" /> Profile views</span>
+            {weeklyActivity.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={weeklyActivity} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="gMatches" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2563EB" stopOpacity={0.32} />
+                      <stop offset="100%" stopColor="#2563EB" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="gApps" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#10B981" stopOpacity={0.32} />
+                      <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="gViews" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#7C3AED" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#7C3AED" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid vertical={false} />
+                  <XAxis dataKey="day" axisLine={false} tickLine={false} dy={6} />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip content={<ChartTooltip />} />
+                  <Area type="monotone" dataKey="matches" name="Matches" stroke="#2563EB" strokeWidth={2.6} fill="url(#gMatches)" dot={false} activeDot={{ r: 4 }} />
+                  <Area type="monotone" dataKey="applications" name="Applications" stroke="#10B981" strokeWidth={2.6} fill="url(#gApps)" dot={false} activeDot={{ r: 4 }} />
+                  <Area type="monotone" dataKey="profile" name="Readiness" stroke="#7C3AED" strokeWidth={2.6} fill="url(#gViews)" dot={false} activeDot={{ r: 4 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">No chart data yet — upload a resume or search jobs.</div>
+            )}
           </div>
         </motion.div>
 
-        {/* Skill mix — colorful bars */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -182,7 +231,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <h3 className="text-[15px] font-bold tracking-[-0.01em]">Skill strengths</h3>
-                <p className="text-[11.5px] font-medium text-muted-foreground">AI-scored proficiency</p>
+                <p className="text-[11.5px] font-medium text-muted-foreground">Extracted skills (presence only)</p>
               </div>
             </div>
             <Link href="/skills" className="group flex items-center gap-1 text-[12px] font-bold text-[#0D9488] dark:text-[#4FE0D0]">
@@ -190,25 +239,28 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className="h-[240px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={skillMix} layout="vertical" margin={{ top: 0, right: 8, left: 8, bottom: 0 }} barCategoryGap="28%">
-                <CartesianGrid horizontal={false} />
-                <XAxis type="number" hide domain={[0, 100]} />
-                <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} width={92} tick={{ fontSize: 11.5, fontWeight: 600 }} />
-                <Tooltip content={<ChartTooltip />} cursor={{ fill: "color-mix(in srgb, var(--primary) 6%, transparent)" }} />
-                <Bar dataKey="value" name="Score" radius={[6, 10, 10, 6]} barSize={14}>
-                  {skillMix.map((s) => (
-                    <Cell key={s.name} fill={s.color} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            {skillMix.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={skillMix} layout="vertical" margin={{ top: 0, right: 8, left: 8, bottom: 0 }} barCategoryGap="28%">
+                  <CartesianGrid horizontal={false} />
+                  <XAxis type="number" hide domain={[0, 100]} />
+                  <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} width={92} tick={{ fontSize: 11.5, fontWeight: 600 }} />
+                  <Tooltip content={<ChartTooltip />} cursor={{ fill: "color-mix(in srgb, var(--primary) 6%, transparent)" }} />
+                  <Bar dataKey="value" name="Signal" radius={[6, 10, 10, 6]} barSize={14}>
+                    {skillMix.map((s) => (
+                      <Cell key={s.name} fill={s.color} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">Skills appear after resume analysis.</div>
+            )}
           </div>
         </motion.div>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-12">
-        {/* ── Opportunity Mode (gradient feature card) ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -218,9 +270,7 @@ export default function Dashboard() {
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(255,255,255,0.15),transparent_50%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(at_100%_100%,rgba(16,185,129,0.25),transparent_60%)]" />
-            <div className="absolute -right-16 -top-16 h-[180px] w-[180px] rounded-full bg-white/10 blur-2xl transition-colors duration-500 group-hover:bg-white/15" />
           </div>
-
           <div className="relative space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
@@ -229,25 +279,21 @@ export default function Dashboard() {
                 </div>
                 <h3 className="text-[16px] font-bold tracking-[-0.02em]">{t("dashboard.opportunityMode")}</h3>
               </div>
-              <Badge className="border-white/20 bg-white/15 text-white backdrop-blur-sm hover:bg-white/20">NEW • LIVE</Badge>
+              <Badge className="border-white/20 bg-white/15 text-white backdrop-blur-sm hover:bg-white/20">LIVE</Badge>
             </div>
 
             <div className="flex items-end gap-6">
               <div>
                 <div className="flex items-baseline gap-1 text-[58px] font-extrabold leading-[0.9] tracking-[-0.05em]">
-                  72<span className="text-[32px] font-bold opacity-90">%</span>
+                  {readiness}
+                  <span className="text-[32px] font-bold opacity-90">%</span>
                 </div>
-                <div className="mt-2 flex items-center gap-2 text-[13px] font-medium text-white/80">
-                  <span>Career Readiness</span>
-                  <span className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/15 px-2 py-0.5 text-[11px] font-bold">
-                    <TrendingUp className="h-3 w-3" /> +8% this week
-                  </span>
-                </div>
+                <div className="mt-2 text-[13px] font-medium text-white/80">Career Readiness</div>
               </div>
               <div className="ml-auto hidden sm:block">
-                <CircularProgress value={72} size={88} strokeWidth={7} variant="default">
+                <CircularProgress value={readiness} size={88} strokeWidth={7} variant="default">
                   <div className="text-center">
-                    <div className="text-[17px] font-bold tracking-tight text-white">72%</div>
+                    <div className="text-[17px] font-bold tracking-tight text-white">{readiness}%</div>
                     <div className="-mt-0.5 text-[9px] font-bold tracking-[0.1em] text-white/70">READY</div>
                   </div>
                 </CircularProgress>
@@ -257,24 +303,21 @@ export default function Dashboard() {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between text-[13px]">
                 <span className="flex items-center gap-2 font-medium text-white/90">
-                  <Target className="h-4 w-4 text-white/70" /> Target: Senior Backend Engineer
+                  <Target className="h-4 w-4 text-white/70" /> Target: {roadmap?.targetRole || "Set a career goal"}
                 </span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-white/60">92% potential</span>
               </div>
               <div className="h-[9px] w-full overflow-hidden rounded-full bg-white/15 p-[3px] backdrop-blur-sm">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: "72%" }}
+                  animate={{ width: `${Math.min(100, readiness)}%` }}
                   transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
                   className="relative h-full overflow-hidden rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.5)]"
-                >
-                  <span className="absolute inset-0 animate-[shimmer_1.6s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                </motion.div>
+                />
               </div>
-              <div className="flex items-center justify-between text-[11px]">
-                <span className="text-white/60">6 weeks • 3 skills • 2 projects</span>
+              <div className="flex items-center justify-between text-[11px] text-white/70">
+                <span>{roadmap?.steps?.length || 0} roadmap steps</span>
                 <span className="flex items-center gap-1 font-medium text-white/90">
-                  <Clock className="h-3 w-3" /> Est. 6 weeks
+                  <Clock className="h-3 w-3" /> {roadmap?.timeline || "Generate roadmap"}
                 </span>
               </div>
             </div>
@@ -290,7 +333,6 @@ export default function Dashboard() {
           </div>
         </motion.div>
 
-        {/* ── Top job matches ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -304,8 +346,12 @@ export default function Dashboard() {
                 <Building2 className="h-[18px] w-[18px]" />
               </div>
               <div>
-                <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("dashboard.stats.jobMatches")} • {jobs?.length || 0} new</h3>
-                <p className="text-[11.5px] font-medium text-muted-foreground">Highest match 89% • Paystack Senior Backend</p>
+                <h3 className="text-[15px] font-bold tracking-[-0.01em]">
+                  {t("dashboard.stats.jobMatches")} • {jobs.length}
+                </h3>
+                <p className="text-[11.5px] font-medium text-muted-foreground">
+                  {topMatch ? `Highest match ${topMatch.matchPercentage}% • ${topMatch.company}` : "No matches yet"}
+                </p>
               </div>
             </div>
             <Button variant="ghost" size="sm" asChild className="gap-1 rounded-full">
@@ -315,56 +361,53 @@ export default function Dashboard() {
             </Button>
           </div>
           <div className="space-y-2.5 p-4">
-            {[
-              { title: "Senior Backend Engineer", company: "Paystack • Lagos", location: "Remote", match: 89, logo: "PS", logoBg: "from-[#2563EB] to-[#4F46E5]", salary: "₦1.2M–₦1.8M", featured: true },
-              { title: "Backend Developer (Node.js)", company: "Flutterwave • Lekki", location: "Hybrid", match: 84, logo: "FW", logoBg: "from-[#F59E0B] to-[#F97316]", salary: "₦900K–₦1.4M" },
-              { title: "Node.js Engineer", company: "Kuda Bank • Yaba", location: "On-site", match: 81, logo: "KD", logoBg: "from-[#7C3AED] to-[#9333EA]", salary: "₦800K–₦1.2M" },
-            ].map((job) => (
-              <Link
-                key={job.title}
-                href="/jobs"
-                className={`group flex items-center justify-between rounded-[16px] border px-4 py-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
-                  job.featured
-                    ? "tint-blue hover:border-[#2563EB]/40"
-                    : "bg-card hover:border-[#0EA5E9]/40"
-                }`}
-              >
-                <div className="flex min-w-0 flex-1 items-center gap-3">
-                  <div className={`flex h-11 w-11 items-center justify-center rounded-[13px] bg-gradient-to-br ${job.logoBg} text-[13px] font-extrabold text-white shadow-md transition-transform group-hover:scale-105`}>
-                    {job.logo}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="truncate text-[13.5px] font-semibold tracking-[-0.01em] transition-colors group-hover:text-[#2563EB] dark:group-hover:text-[#7FA8FF]">
-                        {job.title}
-                      </span>
-                      {job.featured && (
-                        <Badge variant="ai" size="sm" className="hidden sm:inline-flex">Top Match</Badge>
-                      )}
+            {topJobs.length ? (
+              topJobs.map((job, index) => (
+                <Link
+                  key={job.id}
+                  href="/jobs"
+                  className={`group flex items-center justify-between rounded-[16px] border px-4 py-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
+                    index === 0 ? "tint-blue hover:border-[#2563EB]/40" : "bg-card hover:border-[#0EA5E9]/40"
+                  }`}
+                >
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-[13px] bg-gradient-to-br ${LOGO_GRADIENTS[index % LOGO_GRADIENTS.length]} text-[13px] font-extrabold text-white shadow-md`}>
+                      {(job.logoPlaceholder || job.company).slice(0, 2).toUpperCase()}
                     </div>
-                    <div className="mt-1 flex items-center gap-2 text-[12px] text-muted-foreground">
-                      <span>{job.company}</span>
-                      <Badge variant={job.location === "Remote" ? "remote" : job.location === "Hybrid" ? "hybrid" : "onsite"} size="sm" className="text-[10px]">
-                        {job.location}
-                      </Badge>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="truncate text-[13.5px] font-semibold tracking-[-0.01em]">{job.title}</span>
+                        {index === 0 && (
+                          <Badge variant="ai" size="sm" className="hidden sm:inline-flex">
+                            Top Match
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="mt-1 flex items-center gap-2 text-[12px] text-muted-foreground">
+                        <span className="truncate">
+                          {job.company}
+                          {job.location ? ` • ${job.location}` : ""}
+                        </span>
+                        <Badge variant={job.remote ? "remote" : "onsite"} size="sm" className="text-[10px]">
+                          {job.remote ? "Remote" : job.type}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="ml-3 flex shrink-0 items-center gap-3 text-right">
-                  <div>
-                    <div className="text-[15px] font-extrabold tabular-nums tracking-[-0.02em] text-[#10B981] dark:text-[#34D399]">{job.match}%</div>
-                    <div className="text-[10px] font-bold uppercase tracking-[0.05em] text-muted-foreground">{job.salary}</div>
+                  <div className="ml-3 shrink-0 text-right">
+                    <div className="text-[15px] font-extrabold tabular-nums tracking-[-0.02em] text-[#10B981] dark:text-[#34D399]">{job.matchPercentage || 0}%</div>
+                    <div className="text-[10px] font-bold uppercase tracking-[0.05em] text-muted-foreground">{job.salary || "—"}</div>
                   </div>
-                  <div className="hidden h-7 w-7 items-center justify-center rounded-full border border-border bg-card opacity-0 transition-opacity group-hover:opacity-100 sm:flex">
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))
+            ) : (
+              <div className="rounded-[16px] border border-dashed px-4 py-8 text-center text-[13px] text-muted-foreground">
+                No matched jobs yet. Upload a resume or open the jobs page to search.
+              </div>
+            )}
           </div>
         </motion.div>
 
-        {/* ── AI Recommendations ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -379,28 +422,26 @@ export default function Dashboard() {
               </div>
               <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("dashboard.aiRecommendations")}</h3>
             </div>
-            <Badge variant="emerald" size="sm" dot pulse>Live</Badge>
+            <Badge variant="emerald" size="sm" dot>
+              Backend
+            </Badge>
           </div>
           <div className="space-y-3 px-4 pb-4">
-            {[
-              { text: "Add Kubernetes experience — potential match +18%", impact: "High", tint: "tint-emerald", dot: "bg-[#10B981]" },
-              { text: "Complete AWS certification before end of month", impact: "Medium", tint: "tint-amber", dot: "bg-[#F59E0B]" },
-              { text: "Build a portfolio project showcasing CI/CD", impact: "High", tint: "tint-blue", dot: "bg-[#2563EB]" },
-            ].map((rec, i) => (
-              <Link key={i} href="/resources" className={cnRec(rec.tint)}>
-                <span className={`mt-[3px] h-[18px] w-[18px] shrink-0 rounded-full bg-card shadow-sm ring-1 ring-border/70 flex items-center justify-center`}>
-                  <span className={`h-2 w-2 rounded-full ${rec.dot}`} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-[500] leading-[1.5] tracking-[-0.01em]">{rec.text}</span>
-                  <span className="mt-1 flex items-center gap-2">
-                    <Badge variant={rec.impact === "High" ? "emerald" : "amber"} size="sm" className="text-[10px]">{rec.impact} Impact</Badge>
-                    <span className="text-[11px] text-muted-foreground">2 weeks • Free</span>
+            {recommendations.length ? (
+              recommendations.map((text, i) => (
+                <Link key={`${text}-${i}`} href="/resources" className={cnRec(["tint-emerald", "tint-amber", "tint-blue"][i % 3])}>
+                  <span className="mt-[3px] flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-card shadow-sm ring-1 ring-border/70">
+                    <span className={`h-2 w-2 rounded-full ${["bg-[#10B981]", "bg-[#F59E0B]", "bg-[#2563EB]"][i % 3]}`} />
                   </span>
-                </span>
-                <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-              </Link>
-            ))}
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[13px] font-[500] leading-[1.5] tracking-[-0.01em]">{text}</span>
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                </Link>
+              ))
+            ) : (
+              <div className="rounded-[14px] border border-dashed p-4 text-[13px] text-muted-foreground">Recommendations appear after resume analysis or job matching.</div>
+            )}
             <Button variant="outline" asChild className="w-full gap-2 rounded-full">
               <Link href="/resources">
                 <BookOpen className="h-4 w-4 text-[#14B8A6]" />
@@ -410,7 +451,6 @@ export default function Dashboard() {
           </div>
         </motion.div>
 
-        {/* ── Career roadmap ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -430,45 +470,50 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className="p-4">
-            <div className="relative space-y-0">
-              <div className="absolute bottom-[12px] left-[15px] top-[12px] w-[2px] rounded-full bg-gradient-to-b from-[#10B981] via-[#2563EB] to-border" />
-              {roadmap?.steps.slice(0, 4).map((step, idx) => (
-                <div
-                  key={step.id}
-                  className={`relative -mx-2 flex gap-4 rounded-[14px] px-2 py-3 transition-colors ${
-                    step.status === "current" ? "tint-purple" : "hover:bg-card-muted/60"
-                  }`}
-                >
+            {roadmap?.steps?.length ? (
+              <div className="relative space-y-0">
+                <div className="absolute bottom-[12px] left-[15px] top-[12px] w-[2px] rounded-full bg-gradient-to-b from-[#10B981] via-[#2563EB] to-border" />
+                {roadmap.steps.slice(0, 4).map((step, idx) => (
                   <div
-                    className={`relative z-10 flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border-[2.5px] text-[12px] font-bold transition-all ${
-                      step.status === "completed"
-                        ? "border-[#10B981] bg-[#10B981] text-white shadow-[0_4px_12px_-2px_rgba(16,185,129,0.5)]"
-                        : step.status === "current"
-                          ? "animate-pulse-glow border-[#7C3AED] bg-[#7C3AED] text-white"
-                          : "border-border-strong bg-card text-muted-foreground"
+                    key={step.id}
+                    className={`relative -mx-2 flex gap-4 rounded-[14px] px-2 py-3 transition-colors ${
+                      step.status === "current" ? "tint-purple" : "hover:bg-card-muted/60"
                     }`}
                   >
-                    {step.status === "completed" ? <CheckCircle2 className="h-4 w-4" /> : idx + 1}
-                  </div>
-                  <div className="min-w-0 flex-1 pb-1">
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="text-[13.5px] font-semibold tracking-[-0.01em]">{step.title}</div>
-                        <div className="mt-0.5 text-[12px] leading-[1.5] text-muted-foreground">{step.description}</div>
+                    <div
+                      className={`relative z-10 flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border-[2.5px] text-[12px] font-bold transition-all ${
+                        step.status === "completed"
+                          ? "border-[#10B981] bg-[#10B981] text-white shadow-[0_4px_12px_-2px_rgba(16,185,129,0.5)]"
+                          : step.status === "current"
+                            ? "animate-pulse-glow border-[#7C3AED] bg-[#7C3AED] text-white"
+                            : "border-border-strong bg-card text-muted-foreground"
+                      }`}
+                    >
+                      {step.status === "completed" ? <CheckCircle2 className="h-4 w-4" /> : idx + 1}
+                    </div>
+                    <div className="min-w-0 flex-1 pb-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="text-[13.5px] font-semibold tracking-[-0.01em]">{step.title}</div>
+                          <div className="mt-0.5 text-[12px] leading-[1.5] text-muted-foreground">{step.description}</div>
+                        </div>
+                        <Badge variant={step.status === "completed" ? "emerald" : step.status === "current" ? "indigo" : "secondary"} size="sm" className="shrink-0">
+                          {step.status === "completed" ? "Done" : step.status === "current" ? "Now" : step.estimatedWeeks ? `${step.estimatedWeeks}w` : "Soon"}
+                        </Badge>
                       </div>
-                      <Badge variant={step.status === "completed" ? "emerald" : step.status === "current" ? "indigo" : "secondary"} size="sm" className="shrink-0">
-                        {step.status === "completed" ? "Done" : step.status === "current" ? "Now" : `${step.estimatedWeeks}w`}
-                      </Badge>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-[14px] border border-dashed px-4 py-8 text-center text-[13px] text-muted-foreground">
+                No roadmap yet. The backend will generate one from your career domain.
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
 
-      {/* ── Quick actions ── */}
       <div>
         <h3 className="mb-3 flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
           <Zap className="h-4 w-4 text-[#F59E0B]" />
@@ -477,16 +522,11 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
             { href: "/upload", icon: Upload, label: t("nav.upload"), desc: "Analyze your CV", tint: "tint-amber", iconColor: "text-[#D97706] dark:text-[#FBBF24]" },
-            { href: "/jobs", icon: Target, label: t("nav.jobs"), desc: "47 new matches", tint: "tint-sky", iconColor: "text-[#0284C7] dark:text-[#5CC8FA]" },
+            { href: "/jobs", icon: Target, label: t("nav.jobs"), desc: `${jobs.length} matches`, tint: "tint-sky", iconColor: "text-[#0284C7] dark:text-[#5CC8FA]" },
             { href: "/chat", icon: MessageCircle, label: "Liberty AI", desc: "Ask anything", tint: "tint-purple", iconColor: "text-[#7C3AED] dark:text-[#B691FF]" },
             { href: "/opportunity-hub", icon: Globe, label: "Opportunities", desc: "Scholarships & more", tint: "tint-emerald", iconColor: "text-[#059669] dark:text-[#4ADEAC]" },
           ].map((action, i) => (
-            <motion.div
-              key={action.href}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.48 + i * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <motion.div key={action.href} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.48 + i * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
               <Link href={action.href} className={`group flex items-center gap-3 rounded-[18px] border p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${action.tint}`}>
                 <div className={`flex h-11 w-11 items-center justify-center rounded-[13px] bg-card shadow-sm ring-1 ring-border/60 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 ${action.iconColor}`}>
                   <action.icon className="h-5 w-5" />
@@ -502,7 +542,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* ── Recent activity ── */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -517,31 +556,36 @@ export default function Dashboard() {
             </div>
             <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("dashboard.recentActivity")}</h3>
           </div>
-          <Badge variant="secondary" size="sm">Today</Badge>
+          <Badge variant="secondary" size="sm">
+            Session
+          </Badge>
         </div>
         <div className="grid grid-cols-1 gap-3 px-4 pb-4 md:grid-cols-3">
-          {(recent ?? []).map((item, i) => (
-            <div key={item.id} className="group flex items-center gap-3 rounded-[14px] border border-transparent bg-card-muted/70 p-3.5 transition-all hover:border-amber hover:bg-card hover:shadow-md">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-card shadow-sm ring-1 ring-border/70 transition-all group-hover:shadow">
-                {[Upload, Zap, CheckCircle2][i % 3] &&
-                  React.createElement([Upload, Zap, CheckCircle2][i % 3], {
+          {recent.length ? (
+            recent.map((item, i) => (
+              <div key={item.id} className="group flex items-center gap-3 rounded-[14px] border border-transparent bg-card-muted/70 p-3.5 transition-all hover:border-amber hover:bg-card hover:shadow-md">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-card shadow-sm ring-1 ring-border/70">
+                  {React.createElement([Upload, Zap, CheckCircle2][i % 3], {
                     className: ["h-4 w-4 text-[#2563EB]", "h-4 w-4 text-[#F59E0B]", "h-4 w-4 text-[#10B981]"][i % 3],
                   })}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[13px] font-[500] tracking-[-0.01em]">{item.action}</div>
+                  <div className="text-[11px] text-muted-foreground">{item.time}</div>
+                </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[13px] font-[500] tracking-[-0.01em]">{item.action}</div>
-                <div className="text-[11px] text-muted-foreground">{item.time}</div>
-              </div>
-              <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#22C55E]" />
+            ))
+          ) : (
+            <div className="col-span-full rounded-[14px] border border-dashed px-4 py-8 text-center text-[13px] text-muted-foreground">
+              Activity will appear as you upload resumes, match jobs, and generate roadmaps.
             </div>
-          ))}
+          )}
         </div>
       </motion.div>
     </div>
   );
 }
 
-/* Link-styled recommendation row */
 function cnRec(tint: string) {
   return `group flex items-start gap-3 rounded-[14px] border p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${tint}`;
 }

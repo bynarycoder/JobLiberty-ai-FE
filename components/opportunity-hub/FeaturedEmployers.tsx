@@ -163,7 +163,7 @@ export function FeaturedEmployers({ employers, isLoading }: FeaturedEmployersPro
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mb-3">
-                  {employer.tags.slice(0, 2).map((tag) => (
+                  {(employer.tags ?? []).slice(0, 2).map((tag) => (
                     <Badge key={tag} variant="outline" size="sm">
                       {tag}
                     </Badge>

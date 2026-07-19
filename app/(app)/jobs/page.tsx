@@ -3,7 +3,7 @@
 import React from "react";
 import { useI18n } from "@/providers/I18nProvider";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/services/api";
+import { api, getStoredResumeId } from "@/lib/services/api";
 import { JobCard } from "@/components/ui/JobCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -11,6 +11,7 @@ import { PageHero } from "@/components/dashboard/PageHero";
 import { Sparkles, SlidersHorizontal, ArrowUpDown, MapPin, Briefcase, Search, Command, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { EmptyState, ErrorState } from "@/components/ui/QueryState";
 
 const FILTERS = [
   { key: "all", label: "All", icon: "🌐" },
@@ -22,20 +23,41 @@ const FILTERS = [
 export default function JobsPage() {
   const { t } = useI18n();
   const [search, setSearch] = React.useState("");
+  const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [sort, setSort] = React.useState("match");
   const [filter, setFilter] = React.useState<"all" | "remote" | "onsite" | "hybrid">("all");
+  const [useMatch, setUseMatch] = React.useState(Boolean(getStoredResumeId()));
   const searchRef = React.useRef<HTMLInputElement>(null);
 
-  /* ⌘K focuses search — dispatched from the app shell */
   React.useEffect(() => {
     const handler = () => searchRef.current?.focus();
     window.addEventListener("jobliberty:cmdk", handler);
     return () => window.removeEventListener("jobliberty:cmdk", handler);
   }, []);
 
-  const { data: jobs = [], isLoading } = useQuery({
-    queryKey: ["jobs", search],
-    queryFn: ({ signal }) => api.searchJobs(search, signal),
+  React.useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const {
+    data: jobs = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["jobs", debouncedSearch, useMatch],
+    queryFn: async ({ signal }) => {
+      if (useMatch && getStoredResumeId() && !debouncedSearch) {
+        try {
+          return await api.fetchJobMatches(signal);
+        } catch {
+          // Fall back to plain search if match endpoint fails.
+        }
+      }
+      return api.searchJobs(debouncedSearch, signal);
+    },
   });
 
   const sortedJobs = React.useMemo(() => {
@@ -43,42 +65,45 @@ export default function JobsPage() {
     if (filter !== "all") {
       const filtered = result.filter((j) => {
         if (filter === "remote") return j.remote;
-        if (filter === "onsite") return j.type === "Full-time" && !j.remote;
+        if (filter === "onsite") return !j.remote && j.type === "Full-time";
         return !j.remote && j.type !== "Full-time";
       });
       result.splice(0, result.length, ...filtered);
     }
-    if (sort === "match") result.sort((a, b) => b.matchPercentage - a.matchPercentage);
-    else result.sort((a, b) => new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime());
+    if (sort === "match") result.sort((a, b) => (b.matchPercentage || 0) - (a.matchPercentage || 0));
+    else result.sort((a, b) => new Date(b.postedDate || 0).getTime() - new Date(a.postedDate || 0).getTime());
     return result;
   }, [jobs, sort, filter]);
 
   const remoteCount = jobs.filter((j) => j.remote).length;
+  const topMatch = sortedJobs.reduce((max, job) => Math.max(max, job.matchPercentage || 0), 0);
+  const avgMatch = sortedJobs.length
+    ? Math.round(sortedJobs.reduce((sum, job) => sum + (job.matchPercentage || 0), 0) / sortedJobs.length)
+    : 0;
 
   return (
     <div className="space-y-6">
-      {/* ── Cyan gradient hero ── */}
       <PageHero
         gradient="cyan"
         icon={Briefcase}
         eyebrow={t("jobs.aiRanked")}
         title={t("jobs.title")}
-        subtitle={t("jobs.subtitle") + " — every role is scored against your resume in real time."}
+        subtitle={t("jobs.subtitle") + " — roles are fetched from the JobLiberty jobs API (search, aggregate, and match)."}
         stats={[
-          { label: "Live matches", value: sortedJobs.length || 47, sub: "+12 today" },
-          { label: "Remote friendly", value: remoteCount || 9, sub: "Work from anywhere" },
-          { label: "Top match", value: 89, suffix: "%", sub: "Paystack Backend" },
-          { label: "Avg match", value: 74, suffix: "%", sub: "Above market" },
+          { label: "Live matches", value: sortedJobs.length, sub: useMatch ? "Match endpoint" : "Search endpoint" },
+          { label: "Remote friendly", value: remoteCount, sub: "From results" },
+          { label: "Top match", value: topMatch, suffix: topMatch ? "%" : "", sub: topMatch ? "Best compatibility" : "No scores yet" },
+          { label: "Avg match", value: avgMatch, suffix: avgMatch ? "%" : "", sub: avgMatch ? "Across results" : "—" },
         ]}
         actions={
-          <div className="flex w-full max-w-[440px] items-center gap-2">
+          <div className="flex w-full max-w-[520px] flex-col gap-2 sm:flex-row sm:items-center">
             <div className="group relative flex-1">
               <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/60" />
               <input
                 ref={searchRef}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={t("jobs.searchPlaceholder") + " — backend, Lagos, Paystack"}
+                placeholder={t("jobs.searchPlaceholder") + " — backend, Lagos, remote"}
                 className="h-[42px] w-full rounded-full border border-white/25 bg-white/15 pl-10 pr-10 text-[13.5px] font-medium text-white shadow-inner backdrop-blur-md transition-all placeholder:text-white/60 hover:bg-white/20 focus:border-white/50 focus:bg-white/25 focus:outline-none focus:ring-4 focus:ring-white/15"
               />
               {search ? (
@@ -106,7 +131,6 @@ export default function JobsPage() {
         }
       />
 
-      {/* ── Filter bar ── */}
       <div className="flex flex-wrap items-center gap-2.5">
         <div className="flex items-center rounded-full border border-border bg-card/70 p-1 shadow-sm backdrop-blur-sm">
           {FILTERS.map((f) => (
@@ -126,55 +150,70 @@ export default function JobsPage() {
           ))}
         </div>
 
+        <button
+          onClick={() => setUseMatch((v) => !v)}
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold shadow-sm transition-all",
+            useMatch ? "tint-purple text-[#7C3AED] dark:text-[#B691FF]" : "bg-card text-muted-foreground"
+          )}
+        >
+          <Sparkles className="h-3.5 w-3.5" />
+          {useMatch ? "AI match on" : "AI match off"}
+        </button>
+
         <div className="flex flex-wrap items-center gap-2">
-          {[
-            { icon: MapPin, label: "Lagos • 12", tint: "tint-rose", color: "text-[#DC2626] dark:text-[#F98B8B]" },
-            { icon: Briefcase, label: "Backend • 18", tint: "tint-sky", color: "text-[#0284C7] dark:text-[#5CC8FA]" },
-            { icon: Sparkles, label: "85%+ match • 9", tint: "tint-purple", color: "text-[#7C3AED] dark:text-[#B691FF]" },
-          ].map((chip) => (
-            <span
-              key={chip.label}
-              className={cn("inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold shadow-sm transition-all hover:-translate-y-0.5 hover:shadow", chip.tint)}
-            >
-              <chip.icon className={cn("h-3.5 w-3.5", chip.color)} />
-              {chip.label}
-            </span>
-          ))}
+          <span className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold shadow-sm tint-sky text-[#0284C7] dark:text-[#5CC8FA]">
+            <MapPin className="h-3.5 w-3.5" />
+            {sortedJobs.length} roles
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold shadow-sm tint-emerald text-[#059669] dark:text-[#4ADEAC]">
+            <Briefcase className="h-3.5 w-3.5" />
+            {remoteCount} remote
+          </span>
           <Badge variant="secondary" size="sm" className="gap-1 py-1.5">
             <SlidersHorizontal className="h-3 w-3" />
-            Advanced filters
+            Client filters only
           </Badge>
         </div>
 
         <span className="ml-auto hidden items-center gap-1.5 text-[12px] font-semibold text-muted-foreground md:flex">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#22C55E]" />
-          {sortedJobs.length} live roles • refreshed 2h ago
+          {sortedJobs.length} live roles from backend
         </span>
       </div>
 
-      {/* ── Job grid ── */}
       {isLoading ? (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="shimmer h-[300px] rounded-[22px]" />
           ))}
         </div>
+      ) : isError ? (
+        <ErrorState error={error} onRetry={() => refetch()} title="Could not load jobs" />
       ) : (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {sortedJobs.length > 0 ? (
-            sortedJobs.map((job, idx) => <JobCard key={job.id} job={job} featured={idx === 0} />)
+            sortedJobs.map((job, idx) => (
+              <JobCard
+                key={job.id}
+                job={job}
+                featured={idx === 0}
+                onApply={job.url ? () => window.open(job.url, "_blank", "noopener,noreferrer") : undefined}
+              />
+            ))
           ) : (
-            <div className="col-span-full rounded-[26px] border-2 border-dashed border-sky bg-card/60 py-16 text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#0EA5E9] to-[#22D3EE] shadow-[0_12px_24px_-8px_rgba(14,165,233,0.6)]">
-                <Briefcase className="h-7 w-7 text-white" />
+            <div className="col-span-full">
+              <EmptyState
+                title={t("jobs.noJobs")}
+                description="Try another search, disable filters, or upload a resume to enable AI job matching."
+                actionHref="/upload"
+                actionLabel="Upload resume"
+              />
+              <div className="mt-3 text-center">
+                <Button variant="outline" size="sm" className="rounded-full" onClick={() => { setSearch(""); setFilter("all"); }}>
+                  Clear filters
+                </Button>
               </div>
-              <div className="text-[16px] font-bold tracking-tight">{t("jobs.noJobs")}</div>
-              <p className="mx-auto mt-1 max-w-[34ch] text-[13px] text-muted-foreground">
-                Try adjusting filters or update your resume to get higher match scores.
-              </p>
-              <Button variant="outline" size="sm" className="mt-4 rounded-full" onClick={() => setSearch("")}>
-                Clear search
-              </Button>
             </div>
           )}
         </motion.div>

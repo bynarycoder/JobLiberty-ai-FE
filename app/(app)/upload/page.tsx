@@ -3,7 +3,7 @@
 import React from "react";
 import { UploadZone } from "@/components/ui/UploadZone";
 import { useI18n } from "@/providers/I18nProvider";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/services/api";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
@@ -11,34 +11,54 @@ import { toast } from "sonner";
 import { Sparkles, Shield, Zap, FileText, ArrowRight, CheckCircle2, Upload, Target, Lock, Wand2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/dashboard/PageHero";
+import { getApiError } from "@/lib/api/client";
 
 export default function UploadPage() {
   const { t } = useI18n();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [file, setFile] = React.useState<File | null>(null);
   const [progress, setProgress] = React.useState(0);
   const [isAnalyzing, setIsAnalyzing] = React.useState(false);
 
   const uploadMutation = useMutation({
     mutationFn: async (selectedFile: File) => {
-      setProgress(10); // Uploading
+      setProgress(15);
       const resume = await api.uploadResume(selectedFile);
-      setProgress(45); // Extracting / parsing is performed by the API
+      setProgress(55);
       setIsAnalyzing(true);
       const analyzed = await api.analyzeResume(resume.id);
-      setProgress(100); // Complete
+      setProgress(100);
       return analyzed;
     },
-    onSuccess: () => {
+    onSuccess: async (analyzed) => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["resume"] }),
+        queryClient.invalidateQueries({ queryKey: ["ats"] }),
+        queryClient.invalidateQueries({ queryKey: ["jobs"] }),
+        queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["skill-gap"] }),
+        queryClient.invalidateQueries({ queryKey: ["report"] }),
+        queryClient.invalidateQueries({ queryKey: ["roadmap"] }),
+      ]);
+      if (analyzed?.id) queryClient.setQueryData(["resume"], analyzed);
       toast.success(t("upload.success"));
       router.push("/resume");
     },
-    onError: () => toast.error("We could not process your resume. Please try again."),
+    onError: (error) => {
+      setIsAnalyzing(false);
+      setProgress(0);
+      toast.error(getApiError(error).message);
+    },
   });
 
   const handleFileSelect = (selectedFile: File) => {
     if (selectedFile.size > 5 * 1024 * 1024) {
       toast.error("File too large. Max 5MB");
+      return;
+    }
+    if (selectedFile.type && selectedFile.type !== "application/pdf" && !selectedFile.name.toLowerCase().endsWith(".pdf")) {
+      toast.error("Please upload a PDF resume");
       return;
     }
     setFile(selectedFile);
@@ -47,7 +67,6 @@ export default function UploadPage() {
 
   return (
     <div className="mx-auto max-w-[860px] space-y-8 pb-6">
-      {/* ── Amber gradient hero ── */}
       <PageHero
         gradient="amber"
         icon={Upload}
@@ -55,10 +74,10 @@ export default function UploadPage() {
         title={t("upload.title")}
         subtitle={t("upload.subtitle")}
         stats={[
-          { label: "Avg scan time", value: 4, suffix: "s", sub: "Lightning fast" },
-          { label: "Signals checked", value: 27, sub: "ATS-grade parsing" },
-          { label: "Resumes scanned", value: 192, suffix: "k", sub: "And counting" },
-          { label: "Score lift", value: 24, suffix: "%", sub: "After AI fixes" },
+          { label: "Supported format", value: "PDF", sub: "Max 5MB" },
+          { label: "Pipeline", value: "Upload → Analyze", sub: "Backend Gemini" },
+          { label: "Next step", value: "Resume", sub: "View analysis" },
+          { label: "Also available", value: "ATS", sub: "Score & tips" },
         ]}
         actions={
           <div className="flex flex-wrap items-center gap-2">
@@ -103,8 +122,8 @@ export default function UploadPage() {
 
       <div className="mx-auto grid max-w-[720px] grid-cols-1 gap-3 md:grid-cols-3">
         {[
-          { title: "ATS-optimized parsing", desc: "Formatting, keywords & readability checked like real ATS", icon: Target, tint: "tint-purple", color: "text-[#7C3AED] dark:text-[#B691FF]" },
-          { title: "Skill extraction", desc: "AI extracts 30+ skills, tools and experience signals", icon: Sparkles, tint: "tint-blue", color: "text-[#2563EB] dark:text-[#7FA8FF]" },
+          { title: "ATS-optimized parsing", desc: "Formatting, keywords & readability checked by the backend ATS engine", icon: Target, tint: "tint-purple", color: "text-[#7C3AED] dark:text-[#B691FF]" },
+          { title: "Skill extraction", desc: "Gemini extracts skills, experience and education on the server", icon: Sparkles, tint: "tint-blue", color: "text-[#2563EB] dark:text-[#7FA8FF]" },
           { title: "Private & secure", desc: "Encrypted at rest, never shared without consent", icon: Shield, tint: "tint-emerald", color: "text-[#059669] dark:text-[#4ADEAC]" },
         ].map((feat, i) => (
           <motion.div
@@ -125,7 +144,7 @@ export default function UploadPage() {
       </div>
 
       <p className="text-center text-[11px] font-bold uppercase tracking-[0.06em] text-muted-foreground/80">
-        Trusted by 47k+ job seekers • 3MTT NextGen Showcase 2026
+        Powered by JobLiberty backend • Gemini analysis • ATS feedback
       </p>
     </div>
   );

@@ -30,7 +30,10 @@ export default function ChatPage() {
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const chatMutation = useMutation({ mutationFn: (request: import("@/lib/types").ChatRequest) => chatWithAI(request) });
+  const chatMutation = useMutation({
+    mutationFn: ({ request, signal }: { request: import("@/lib/types").ChatRequest; signal?: AbortSignal }) =>
+      chatWithAI(request, signal),
+  });
 
   // Derive active messages
   const activeConversation = conversations.find((c) => c.id === activeConversationId) ?? null;
@@ -122,19 +125,22 @@ export default function ChatPage() {
         pushMessage(convId, userMessage);
       }
 
-      // Call AI
+      // Call AI via backend POST /api/v1/chat (Groq is server-side only)
       setIsLoading(true);
       try {
+        const history = activeConversation?.messages ?? [];
         const response = await chatMutation.mutateAsync({
-          message: content,
-          history: activeConversation?.messages ?? [],
-          language,
+          request: {
+            message: content,
+            history: history.map((m) => ({ role: m.role, content: m.content })),
+            language,
+          },
         });
 
         const aiMessage: ChatMessage = {
           id: generateId(),
           role: "assistant",
-          content: response.reply,
+          content: response.reply || "No reply was returned by Liberty AI.",
           timestamp: new Date().toISOString(),
         };
 
@@ -142,11 +148,12 @@ export default function ChatPage() {
       } catch (error) {
         console.error("Chat error:", error);
         setIsError(true);
+        toast.error("Liberty AI could not respond. Please try again.");
       } finally {
         setIsLoading(false);
       }
     },
-    [activeConversationId, activeConversation, language, createConversation, pushMessage]
+    [activeConversationId, activeConversation, language, createConversation, pushMessage, chatMutation]
   );
 
   const handleRegenerate = useCallback(
@@ -171,16 +178,19 @@ export default function ChatPage() {
       removeLastAssistantMessage(convId);
 
       try {
+        const history = conv.messages.slice(0, msgIndex - 1).map((m) => ({ role: m.role, content: m.content }));
         const response = await chatMutation.mutateAsync({
-          message: userMessage.content,
-          history: conv.messages.slice(0, msgIndex - 1),
-          language,
+          request: {
+            message: userMessage.content,
+            history,
+            language,
+          },
         });
 
         const aiMessage: ChatMessage = {
           id: generateId(),
           role: "assistant",
-          content: response.reply,
+          content: response.reply || "No reply was returned by Liberty AI.",
           timestamp: new Date().toISOString(),
         };
 
@@ -188,12 +198,13 @@ export default function ChatPage() {
       } catch (error) {
         console.error("Regenerate error:", error);
         setIsError(true);
+        toast.error("Could not regenerate the response.");
       } finally {
         setIsRegenerating(false);
         setRegeneratingMessageId(null);
       }
     },
-    [activeConversationId, conversations, language, pushMessage, removeLastAssistantMessage]
+    [activeConversationId, conversations, language, pushMessage, removeLastAssistantMessage, chatMutation]
   );
 
   const handleClearConversation = useCallback(() => {
