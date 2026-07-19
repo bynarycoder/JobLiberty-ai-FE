@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { getUserProfile, getInitials } from "@/lib/api/user-profile";
 
 type Accent = "blue" | "emerald" | "purple" | "sky" | "amber" | "teal" | "rose" | "slate";
 
@@ -139,6 +140,8 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
   const pathname = usePathname();
   const { t } = useI18n();
   const isMobile = variant === "mobile";
+  const profile = getUserProfile();
+  const profileInitials = getInitials(profile.name);
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === "/dashboard";
@@ -348,14 +351,14 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
             >
               <div className="relative">
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[13px] font-bold text-white shadow-[0_4px_12px_-2px_rgba(79,70,229,0.5)] transition-transform group-hover:scale-105">
-                  CO
+                  {profileInitials}
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#22C55E] ring-2 ring-card" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="truncate text-[13px] font-semibold tracking-[-0.01em]">Abdulwahab Abdulyekeen</div>
+                <div className="truncate text-[13px] font-semibold tracking-[-0.01em]">{profile.name}</div>
                 <div className="flex items-center gap-1 truncate text-[11px] text-muted-foreground">
-                  <Sparkles className="h-3 w-3 text-[#F59E0B]" /> Pro • Software Engineer
+                  <Sparkles className="h-3 w-3 text-[#F59E0B]" /> Pro{profile.location ? ` • ${profile.location}` : ""}
                 </div>
               </div>
               <Settings className="h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:rotate-90 group-hover:text-foreground" />
@@ -372,7 +375,7 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
           <div className="flex flex-col items-center gap-2.5 py-1">
             <Link href="/settings" title="Settings">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[13px] font-bold text-white shadow-[0_4px_12px_-2px_rgba(79,70,229,0.5)] transition-transform hover:scale-105">
-                CO
+                {profileInitials}
               </div>
             </Link>
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#22C55E]" />
