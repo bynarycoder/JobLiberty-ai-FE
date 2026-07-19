@@ -14,7 +14,6 @@ export const resumeApi = {
         method: "POST",
         url: "/api/v1/resumes/upload",
         data: body,
-        headers: { "Content-Type": "multipart/form-data" },
         timeout: 120_000,
       },
       signal
