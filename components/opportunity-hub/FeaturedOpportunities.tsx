@@ -81,7 +81,7 @@ export function FeaturedOpportunities({ opportunities, isLoading, bookmarkedIds,
                 <Badge variant="secondary" size="sm" className="text-[11px]">
                   {op.category}
                 </Badge>
-                {op.tags.slice(0, 2).map((tag) => (
+                {(op.tags ?? []).slice(0, 2).map((tag) => (
                   <Badge key={tag} variant="outline" size="sm" className="text-[11px]">
                     {tag}
                   </Badge>

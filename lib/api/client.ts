@@ -42,15 +42,25 @@ function normalizeError(error: unknown): ApiError {
 
 export async function request<T>(config: AxiosRequestConfig, signal?: AbortSignal): Promise<T> {
   let attempt = 0;
+  // Long-running AI endpoints set their own timeout; do not thrash them with aggressive retries.
+  const maxAttempts = (typeof config.timeout === "number" && config.timeout > 30_000) ? 1 : 2;
   while (true) {
-    try { return (await apiClient.request<T>({ ...config, signal })).data; }
-    catch (error) {
+    try {
+      return (await apiClient.request<T>({ ...config, signal })).data;
+    } catch (error) {
       const normalized = normalizeError(error);
       const retryable = ["offline", "timeout", "rate_limited", "server"].includes(normalized.code);
-      if (!retryable || attempt >= 2 || signal?.aborted) throw normalized;
+      if (!retryable || attempt >= maxAttempts || signal?.aborted) throw normalized;
       await new Promise<void>((resolve, reject) => {
         const timer = setTimeout(resolve, 300 * 2 ** attempt);
-        signal?.addEventListener("abort", () => { clearTimeout(timer); reject(signal.reason); }, { once: true });
+        signal?.addEventListener(
+          "abort",
+          () => {
+            clearTimeout(timer);
+            reject(signal.reason);
+          },
+          { once: true }
+        );
       });
       attempt += 1;
     }

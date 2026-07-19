@@ -141,12 +141,15 @@ export function JobCard({ job, onApply, featured }: JobCardProps) {
           <span className="text-[10.5px] font-bold uppercase tracking-[0.07em] text-muted-foreground">Matched skills</span>
         </div>
         <div className="flex flex-wrap gap-1.5">
-          {job.matchedSkills.slice(0, 4).map((s, i) => (
+          {(job.matchedSkills ?? []).slice(0, 4).map((s, i) => (
             <Badge key={i} variant="emerald" size="sm" className="font-semibold">
               {s}
             </Badge>
           ))}
-          {job.matchedSkills.length > 4 && <Badge variant="secondary" size="sm">+{job.matchedSkills.length - 4}</Badge>}
+          {(job.matchedSkills?.length ?? 0) > 4 && <Badge variant="secondary" size="sm">+{(job.matchedSkills?.length ?? 0) - 4}</Badge>}
+          {(job.matchedSkills?.length ?? 0) === 0 && (
+            <span className="text-[12px] text-muted-foreground">No matched skills returned</span>
+          )}
         </div>
       </div>
 

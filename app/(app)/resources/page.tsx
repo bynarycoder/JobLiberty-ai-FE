@@ -7,9 +7,10 @@ import { api } from "@/lib/services/api";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { PageHero } from "@/components/dashboard/PageHero";
-import { BookOpen, Clock, Star, ArrowUpRight, Sparkles, GraduationCap, PlayCircle, FileCode2, FileText, Users, Award, Globe } from "lucide-react";
+import { BookOpen, Clock, ArrowUpRight, Sparkles, GraduationCap, PlayCircle, FileCode2, FileText, Users, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { EmptyState, ErrorState } from "@/components/ui/QueryState";
 
 const TYPE_META: Record<string, { icon: React.ElementType; tint: string; iconBox: string; strip: string }> = {
   course: { icon: GraduationCap, tint: "tint-blue", iconBox: "bg-[#2563EB] shadow-[0_8px_18px_-6px_rgba(37,99,235,0.65)]", strip: "bg-gradient-to-r from-[#2563EB] to-[#4F46E5]" },
@@ -22,40 +23,53 @@ const TYPE_META: Record<string, { icon: React.ElementType; tint: string; iconBox
 
 export default function CareerResources() {
   const { t } = useI18n();
-  const { data: resources = [] } = useQuery({ queryKey: ["resources"], queryFn: () => api.fetchCareerResources() });
+  const { data: resources = [], isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["resources"],
+    queryFn: ({ signal }) => api.fetchCareerResources(signal),
+    retry: 1,
+  });
   const [saved, setSaved] = React.useState<string[]>([]);
 
   const freeCount = resources.filter((r) => r.free).length;
 
   return (
     <div className="space-y-6">
-      {/* ── Teal gradient hero ── */}
       <PageHero
         gradient="teal"
         icon={BookOpen}
-        eyebrow="Curated by Liberty AI"
+        eyebrow="Composed from roadmap + resume recommendations"
         title={t("resources.title")}
-        subtitle={t("resources.subtitle") + " — hand-picked for your target role, verified for African learners, updated weekly."}
+        subtitle={t("resources.subtitle") + " — learning items come from backend roadmap and resume recommendation payloads."}
         stats={[
-          { label: "Resources", value: resources.length || 24, sub: "Across 6 formats" },
-          { label: "Free forever", value: freeCount || 18, sub: "No card required" },
-          { label: "Your progress", value: 64, suffix: "%", sub: "3 courses active" },
-          { label: "Certificates", value: 5, sub: "Ready to claim" },
+          { label: "Resources", value: resources.length, sub: "From supported APIs" },
+          { label: "Free", value: freeCount, sub: "No paywall assumed" },
+          { label: "Courses", value: resources.filter((r) => r.type === "course").length, sub: "Learning path" },
+          { label: "Projects", value: resources.filter((r) => r.type === "project").length, sub: "Portfolio" },
         ]}
         actions={
-          <Button size="sm" className="h-[40px] gap-1.5 rounded-full bg-white px-5 text-[#0F766E] shadow-lg shadow-black/10 hover:bg-white/90">
-            <Sparkles className="h-4 w-4" /> Generate my learning plan
+          <Button size="sm" asChild className="h-[40px] gap-1.5 rounded-full bg-white px-5 text-[#0F766E] shadow-lg shadow-black/10 hover:bg-white/90">
+            <a href="/chat">
+              <Sparkles className="h-4 w-4" /> Ask Liberty AI
+            </a>
           </Button>
         }
       />
 
-      {/* ── Resource grid ── */}
-      {resources.length === 0 ? (
+      {isLoading ? (
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="shimmer h-[240px] rounded-[22px]" />
           ))}
         </div>
+      ) : isError ? (
+        <ErrorState error={error} onRetry={() => refetch()} title="Could not load resources" />
+      ) : resources.length === 0 ? (
+        <EmptyState
+          title="No learning resources yet"
+          description="Generate a career roadmap or analyze a resume so recommendations can populate this page."
+          actionHref="/upload"
+          actionLabel="Upload resume"
+        />
       ) : (
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {resources.map((res, i) => {
@@ -71,76 +85,58 @@ export default function CareerResources() {
                 whileHover={{ y: -5 }}
                 className="group relative flex h-full flex-col overflow-hidden rounded-[22px] border bg-card shadow-sm transition-shadow duration-300 hover:shadow-xl"
               >
-                {/* Gradient accent strip */}
                 <div className={cn("h-[5px] w-full transition-all duration-300", meta.strip)} />
                 <div className={cn("absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100", meta.tint)} />
-
                 <div className="relative flex flex-1 flex-col p-5">
                   <div className="mb-3 flex items-start justify-between gap-3">
                     <div className="flex min-w-0 flex-1 items-start gap-3">
-                      <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-white transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6", meta.iconBox)}>
+                      <div className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-white", meta.iconBox)}>
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="min-w-0">
-                        <h3 className="text-[15px] font-bold leading-[1.3] tracking-[-0.01em] transition-colors group-hover:text-[#0D9488] dark:group-hover:text-[#4FE0D0]">
-                          {res.title}
-                        </h3>
-                        <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[12px] font-medium text-muted-foreground">
-                          <span>{res.provider}</span>
-                          {res.duration && (
-                            <>
-                              <span className="h-2.5 w-px bg-border" />
-                              <span className="flex items-center gap-1">
-                                <Clock className="h-3 w-3" />
-                                {res.duration}
-                              </span>
-                            </>
-                          )}
-                        </div>
+                        <h3 className="text-[14.5px] font-bold tracking-[-0.01em] leading-snug">{res.title}</h3>
+                        <p className="mt-1 text-[12px] font-medium text-muted-foreground">{res.provider}</p>
                       </div>
                     </div>
-                    <Badge variant={res.free ? "emerald" : "amber"} size="sm" className="shrink-0">
-                      {res.free ? t("resources.free") : t("resources.paid")}
+                    <Badge variant={res.free ? "emerald" : "amber"} size="sm">
+                      {res.free ? "Free" : "Paid"}
                     </Badge>
                   </div>
-
-                  <p className="flex-1 text-[13px] leading-[1.65] text-muted-foreground">{res.description}</p>
-
-                  <div className="mt-4 flex flex-wrap items-center gap-1.5">
-                    <Badge
-                      variant={res.difficulty === "Beginner" ? "emerald" : res.difficulty === "Intermediate" ? "amber" : "rose"}
-                      size="sm"
-                      className="text-[10px]"
-                    >
+                  <p className="mb-4 line-clamp-3 text-[13px] leading-[1.6] text-muted-foreground">{res.description}</p>
+                  <div className="mt-auto flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary" size="sm">
+                      {res.type}
+                    </Badge>
+                    <Badge variant="secondary" size="sm">
                       {res.difficulty}
                     </Badge>
-                    {res.tags.slice(0, 3).map((tag) => (
-                      <Badge key={tag} variant="secondary" size="sm" className="text-[11px]">
-                        {tag}
-                      </Badge>
-                    ))}
+                    {res.duration && (
+                      <span className="inline-flex items-center gap-1 text-[11.5px] text-muted-foreground">
+                        <Clock className="h-3 w-3" />
+                        {res.duration}
+                      </span>
+                    )}
                   </div>
-
-                  <div className="mt-5 flex items-center gap-2">
-                    <a href={res.url} target="_blank" rel="noopener" className="flex-1">
-                      <Button variant="outline" size="sm" className="w-full gap-1.5 rounded-full transition-colors group-hover:border-[#14B8A6]/40 group-hover:text-[#0D9488] dark:group-hover:text-[#4FE0D0]">
-                        {t("resources.startLearning")}
-                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </Button>
-                    </a>
-                    <motion.button
-                      whileTap={{ scale: 0.8 }}
-                      onClick={() => setSaved((s) => (isSaved ? s.filter((x) => x !== res.id) : [...s, res.id]))}
-                      aria-label="Save resource"
-                      className={cn(
-                        "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all",
-                        isSaved
-                          ? "border-[#F59E0B]/40 bg-[#FEF3DF] text-[#D97706] shadow-sm dark:bg-[#F59E0B]/15 dark:text-[#FBBF24]"
-                          : "border-border bg-card text-muted-foreground hover:border-[#F59E0B]/40 hover:text-[#D97706]"
-                      )}
+                  <div className="mt-4 flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      className="flex-1 gap-1.5 rounded-full"
+                      onClick={() => {
+                        if (res.url && res.url !== "#") window.open(res.url, "_blank", "noopener,noreferrer");
+                      }}
                     >
-                      <Star className={cn("h-4 w-4", isSaved && "fill-current")} />
-                    </motion.button>
+                      Open <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="rounded-full"
+                      onClick={() =>
+                        setSaved((prev) => (prev.includes(res.id) ? prev.filter((id) => id !== res.id) : [...prev, res.id]))
+                      }
+                    >
+                      {isSaved ? "Saved" : "Save"}
+                    </Button>
                   </div>
                 </div>
               </motion.div>
@@ -148,30 +144,6 @@ export default function CareerResources() {
           })}
         </div>
       )}
-
-      {/* ── Community strip ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative overflow-hidden rounded-[22px] bg-[linear-gradient(120deg,#0F766E,#14B8A6_55%,#0EA5E9)] p-6 text-white shadow-lg sm:p-7"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(at_90%_-20%,rgba(255,255,255,0.25)_0,transparent_50%)]" />
-        <div className="relative flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[15px] bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
-              <Globe className="h-6 w-6" />
-            </div>
-            <div>
-              <div className="text-[16px] font-bold tracking-[-0.01em]">Join 12,000+ learners in the 3MTT community</div>
-              <div className="mt-0.5 text-[12.5px] font-medium text-white/80">Study groups, project reviews and mentor office hours — free for all fellows.</div>
-            </div>
-          </div>
-          <Button size="sm" className="h-[40px] gap-1.5 rounded-full bg-white px-5 text-[#0F766E] shadow-lg shadow-black/10 hover:bg-white/90">
-            <Users className="h-4 w-4" /> Join community
-          </Button>
-        </div>
-      </motion.div>
     </div>
   );
 }

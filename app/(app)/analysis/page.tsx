@@ -12,6 +12,7 @@ import { PageHero } from "@/components/dashboard/PageHero";
 import { CheckCircle2, AlertTriangle, Sparkles, FileText, ArrowRight, TrendingUp, BarChart3, Wand2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { EmptyState, ErrorState, PageSkeleton } from "@/components/ui/QueryState";
 
 const CATEGORY_STYLE = [
   { stripDot: "bg-[#2563EB]", variant: "default" as const, tint: "tint-blue" },
@@ -22,26 +23,31 @@ const CATEGORY_STYLE = [
 
 export default function ATSAnalysisPage() {
   const { t } = useI18n();
-  const { data: ats } = useQuery({ queryKey: ["ats"], queryFn: () => api.fetchATSAnalysis() });
+  const { data: ats, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["ats"],
+    queryFn: ({ signal }) => api.fetchATSAnalysis(signal),
+    retry: 1,
+  });
 
-  if (!ats)
+  if (isLoading) return <PageSkeleton cards={4} />;
+  if (isError) return <ErrorState error={error} onRetry={() => refetch()} title="Could not load ATS feedback" />;
+  if (!ats) {
     return (
-      <div className="space-y-5">
-        <div className="shimmer h-[190px] rounded-[24px]" />
-        <div className="grid gap-5 lg:grid-cols-2">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="shimmer h-[260px] rounded-[24px]" />
-          ))}
-        </div>
-      </div>
+      <EmptyState
+        title="No ATS analysis yet"
+        description="Upload and analyze a resume first. ATS scoring is calculated only by the backend."
+      />
     );
+  }
 
   const scoreData = [
     { name: "Keyword Match", value: ats.keywordMatch, desc: "Relevant skills & job terms", icon: "🎯" },
     { name: "Formatting", value: ats.formatting, desc: "Layout & ATS parsing", icon: "📄" },
     { name: "Readability", value: ats.readability, desc: "Clarity & conciseness", icon: "✍️" },
     { name: "Skills Depth", value: ats.skills, desc: "Technical breadth", icon: "💡" },
-  ];
+    { name: "Experience", value: ats.experience, desc: "Role depth & impact", icon: "💼" },
+    { name: "Education", value: ats.education, desc: "Credentials alignment", icon: "🎓" },
+  ].filter((item) => item.value > 0 || ["Keyword Match", "Formatting", "Readability", "Skills Depth"].includes(item.name));
 
   const overall =
     ats.overallScore >= 85
@@ -52,27 +58,28 @@ export default function ATSAnalysisPage() {
 
   return (
     <div className="space-y-6">
-      {/* ── Purple gradient hero ── */}
       <PageHero
         gradient="purple"
         icon={BarChart3}
-        eyebrow="AI Verified • Real ATS systems • 97% accuracy"
+        eyebrow="Backend ATS engine • Career-aware recommendations"
         title={t("analysis.title")}
-        subtitle="We ran your resume against the exact parsers used by Workday, Greenhouse and Lever. Here's precisely how it performs — and how to fix every gap."
+        subtitle="ATS score and recommendations are calculated exclusively by the JobLiberty backend. This page only renders the response."
         stats={[
-          { label: t("analysis.overallScore"), value: ats.overallScore, suffix: "%", sub: "+6% vs last scan" },
-          { label: "Pass rate", value: 92, suffix: "%", sub: "Top 18% percentile" },
-          { label: "Keywords matched", value: ats.keywordMatch, suffix: "%", sub: "Industry standard 70%" },
-          { label: "Total scans", value: 1240, sub: "Across our users" },
+          { label: t("analysis.overallScore"), value: ats.overallScore, suffix: "%", sub: overall.label },
+          { label: "Keywords", value: ats.keywordMatch, suffix: "%", sub: "Match rate" },
+          { label: "Formatting", value: ats.formatting, suffix: "%", sub: "Parse quality" },
+          { label: "Skills", value: ats.skills, suffix: "%", sub: "Coverage" },
         ]}
         actions={
           <>
-            <Button size="sm" className="h-[40px] gap-1.5 rounded-full bg-white px-5 text-[#6D28D9] shadow-lg shadow-black/10 hover:bg-white/90">
-              <Wand2 className="h-4 w-4" /> Auto-fix with AI
+            <Button size="sm" asChild className="h-[40px] gap-1.5 rounded-full bg-white px-5 text-[#6D28D9] shadow-lg shadow-black/10 hover:bg-white/90">
+              <Link href="/chat">
+                <Wand2 className="h-4 w-4" /> Discuss with AI
+              </Link>
             </Button>
             <Button size="sm" variant="ghost" asChild className="h-[40px] gap-1.5 rounded-full border border-white/25 bg-white/10 px-5 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white">
               <Link href="/reports">
-                <FileText className="h-4 w-4" /> Export PDF
+                <FileText className="h-4 w-4" /> Export report
               </Link>
             </Button>
           </>
@@ -80,44 +87,32 @@ export default function ATSAnalysisPage() {
       />
 
       <div className="grid gap-5 lg:grid-cols-12">
-        {/* Score visualization */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="group relative overflow-hidden rounded-[22px] border bg-card shadow-sm transition-shadow hover:shadow-xl lg:col-span-5"
+          className="relative overflow-hidden rounded-[22px] border bg-card shadow-sm lg:col-span-5"
         >
           <div className="absolute inset-x-0 top-0 h-[4px] bg-gradient-to-r from-[#7C3AED] to-[#2563EB]" />
-          <div className="tint-purple absolute inset-0 opacity-40" />
-          <div className="relative p-6">
+          <div className="p-6">
             <div className="mb-2 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[12px] bg-[#7C3AED] text-white shadow-[0_8px_18px_-6px_rgba(124,58,237,0.65)]">
-                  <Sparkles className="h-[18px] w-[18px]" />
-                </div>
-                <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("analysis.overallScore")}</h3>
-              </div>
-              <Badge variant={overall.variant} size="sm" dot pulse>{overall.label}</Badge>
+              <h3 className="text-[15px] font-bold tracking-[-0.01em]">Overall ATS score</h3>
+              <Badge variant={overall.variant} size="sm" dot>
+                {overall.label}
+              </Badge>
             </div>
-
-            <div className="flex flex-col items-center py-5">
-              <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
-                <CircularProgress value={ats.overallScore} size={172} strokeWidth={12} variant="indigo">
-                  <div className="text-center">
-                    <div className="text-[46px] font-extrabold leading-none tabular-nums tracking-[-0.04em]">{ats.overallScore}</div>
-                    <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground">Overall</div>
-                    <div className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-[#F0EAFE] px-2 py-0.5 text-[10px] font-extrabold text-[#7C3AED] ring-1 ring-[#7C3AED]/20 dark:bg-[#7C3AED]/15 dark:text-[#B691FF]">
-                      <span className="h-1 w-1 animate-pulse rounded-full bg-current" /> LIVE
-                    </div>
-                  </div>
-                </CircularProgress>
-              </motion.div>
-
+            <div className="flex flex-col items-center py-4">
+              <CircularProgress value={ats.overallScore} size={172} strokeWidth={12} variant="indigo">
+                <div className="text-center">
+                  <div className="text-[46px] font-extrabold leading-none tabular-nums tracking-[-0.04em]">{ats.overallScore}</div>
+                  <div className="mt-1 text-[10px] font-bold tracking-[0.12em] text-muted-foreground">SCORE</div>
+                </div>
+              </CircularProgress>
               <div className="mt-7 grid w-full grid-cols-3 gap-2.5">
                 {[
-                  { label: "Pass Rate", value: "92%", tint: "tint-emerald", c: "text-[#059669] dark:text-[#4ADEAC]" },
-                  { label: "Percentile", value: "Top 18%", tint: "tint-blue", c: "text-[#2563EB] dark:text-[#7FA8FF]" },
-                  { label: "Scans Run", value: "1,240", tint: "tint-purple", c: "text-[#7C3AED] dark:text-[#B691FF]" },
+                  { label: "Keywords", value: `${ats.keywordMatch}%`, tint: "tint-emerald", c: "text-[#059669] dark:text-[#4ADEAC]" },
+                  { label: "Format", value: `${ats.formatting}%`, tint: "tint-blue", c: "text-[#2563EB] dark:text-[#7FA8FF]" },
+                  { label: "Skills", value: `${ats.skills}%`, tint: "tint-purple", c: "text-[#7C3AED] dark:text-[#B691FF]" },
                 ].map((stat) => (
                   <div key={stat.label} className={cn("rounded-[13px] border p-3 text-center shadow-sm", stat.tint)}>
                     <div className={cn("text-[15px] font-extrabold tracking-tight", stat.c)}>{stat.value}</div>
@@ -129,7 +124,6 @@ export default function ATSAnalysisPage() {
           </div>
         </motion.div>
 
-        {/* Category breakdown */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -145,10 +139,10 @@ export default function ATSAnalysisPage() {
                 </div>
                 <div>
                   <h3 className="text-[15px] font-bold tracking-[-0.01em]">Category Breakdown</h3>
-                  <p className="text-[11.5px] font-medium text-muted-foreground">How each section performs against ATS filters</p>
+                  <p className="text-[11.5px] font-medium text-muted-foreground">Scores returned by the ATS feedback endpoint</p>
                 </div>
               </div>
-              <Button variant="ghost" size="sm" className="h-8 gap-1 rounded-full text-[12px]">
+              <Button variant="ghost" size="sm" className="h-8 gap-1 rounded-full text-[12px]" onClick={() => refetch()}>
                 <Sparkles className="h-3.5 w-3.5 text-[#7C3AED]" /> Re-scan
               </Button>
             </div>
@@ -184,17 +178,9 @@ export default function ATSAnalysisPage() {
                 );
               })}
             </div>
-
-            <div className="mt-5 flex items-center justify-between border-t border-border/70 pt-4">
-              <span className="text-[12px] font-medium text-muted-foreground">Last scanned 2h ago • Next auto-scan in 24h</span>
-              <span className="flex items-center gap-1.5 text-[11px] font-bold text-[#7C3AED] dark:text-[#B691FF]">
-                <Sparkles className="h-3 w-3" /> Powered by Liberty AI
-              </span>
-            </div>
           </div>
         </motion.div>
 
-        {/* Suggestions */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -210,32 +196,32 @@ export default function ATSAnalysisPage() {
               </div>
               <div>
                 <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("analysis.suggestions")}</h3>
-                <p className="text-[11.5px] font-medium text-muted-foreground">Prioritized by impact • tap to apply with AI</p>
+                <p className="text-[11.5px] font-medium text-muted-foreground">Backend recommendations</p>
               </div>
             </div>
-            <ul className="space-y-2.5">
-              {ats.suggestions.map((sug, i) => (
-                <motion.li
-                  key={sug}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.24 + i * 0.06 }}
-                  className="group flex cursor-pointer items-start gap-3 rounded-[13px] border bg-card/90 p-3 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#F59E0B]/40 hover:shadow-lg"
-                >
-                  <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F59E0B] to-[#D97706] text-[10px] font-extrabold text-white shadow-sm">
-                    {i + 1}
-                  </span>
-                  <span className="flex-1 text-[13px] font-[500] leading-[1.55]">{sug}</span>
-                  <Badge variant="amber" size="sm" className="shrink-0 opacity-0 transition-opacity group-hover:opacity-100">
-                    +{5 + i * 2}%
-                  </Badge>
-                </motion.li>
-              ))}
-            </ul>
+            {ats.suggestions.length ? (
+              <ul className="space-y-2.5">
+                {ats.suggestions.map((sug, i) => (
+                  <motion.li
+                    key={`${sug}-${i}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.24 + i * 0.06 }}
+                    className="group flex items-start gap-3 rounded-[13px] border bg-card/90 p-3 shadow-sm"
+                  >
+                    <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F59E0B] to-[#D97706] text-[10px] font-extrabold text-white shadow-sm">
+                      {i + 1}
+                    </span>
+                    <span className="flex-1 text-[13px] font-[500] leading-[1.55]">{sug}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-[13px] text-muted-foreground">No suggestions were returned for this resume.</p>
+            )}
           </div>
         </motion.div>
 
-        {/* Diagnostic */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -258,14 +244,18 @@ export default function ATSAnalysisPage() {
                   </div>
                   Strengths
                 </div>
-                <ul className="space-y-2.5">
-                  {ats.strengths.map((s) => (
-                    <li key={s} className="flex gap-2 text-[12.5px] font-medium leading-[1.5]">
-                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#10B981]" />
-                      {s}
-                    </li>
-                  ))}
-                </ul>
+                {ats.strengths.length ? (
+                  <ul className="space-y-2.5">
+                    {ats.strengths.map((s) => (
+                      <li key={s} className="flex gap-2 text-[12.5px] font-medium leading-[1.5]">
+                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#10B981]" />
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-[12.5px] text-muted-foreground">No strengths listed.</p>
+                )}
               </div>
               <div className="tint-rose rounded-[16px] border p-4">
                 <div className="mb-3 flex items-center gap-2 text-[11.5px] font-extrabold uppercase tracking-[0.06em] text-[#B91C1C] dark:text-[#F98B8B]">
@@ -274,14 +264,18 @@ export default function ATSAnalysisPage() {
                   </div>
                   Improve
                 </div>
-                <ul className="space-y-2.5">
-                  {ats.weaknesses.map((w) => (
-                    <li key={w} className="flex gap-2 text-[12.5px] font-medium leading-[1.5]">
-                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#EF4444]" />
-                      {w}
-                    </li>
-                  ))}
-                </ul>
+                {ats.weaknesses.length ? (
+                  <ul className="space-y-2.5">
+                    {ats.weaknesses.map((w) => (
+                      <li key={w} className="flex gap-2 text-[12.5px] font-medium leading-[1.5]">
+                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#EF4444]" />
+                        {w}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-[12.5px] text-muted-foreground">No improvement areas listed.</p>
+                )}
               </div>
             </div>
           </div>

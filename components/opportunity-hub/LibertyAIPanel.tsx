@@ -13,7 +13,7 @@ export function LibertyAIPanel() {
   const { t } = useI18n();
 
   const actions = [
-    { key: "findOpportunities", icon: Search, desc: "1,247 jobs • 89% match", color: "blue" },
+    { key: "findOpportunities", icon: Search, desc: "Search backend recommendations", color: "blue" },
     { key: "recommendScholarships", icon: GraduationCap, desc: "89 scholarships • Lagos", color: "indigo" },
     { key: "findRemoteJobs", icon: Monitor, desc: "342 remote roles", color: "emerald" },
     { key: "recommendCourses", icon: BookOpen, desc: "Personalized roadmap", color: "amber" },

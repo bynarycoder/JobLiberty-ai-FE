@@ -8,8 +8,47 @@ export interface User {
   joinedAt: string;
 }
 
+export interface ResumeExperience {
+  id: string;
+  title: string;
+  company: string;
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+  highlights?: string[];
+}
+
+export interface ResumeEducation {
+  id: string;
+  institution: string;
+  degree?: string;
+  field?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+}
+
+/** Structured analysis payload returned by the backend resume analyzer. */
+export interface ResumeAnalysis {
+  careerSummary?: string;
+  professionalSummary?: string;
+  skills: string[];
+  experience: ResumeExperience[];
+  education: ResumeEducation[];
+  recommendations: string[];
+  careerReadiness: number;
+  careerTwin?: string;
+  projects?: string[];
+  certifications?: string[];
+  strengths?: string[];
+  weaknesses?: string[];
+}
+
 export interface Resume {
   id: string;
+  /** Present on some upload responses. */
+  resume_id?: string;
   fileName: string;
   fileSize: number;
   uploadDate: string;
@@ -17,6 +56,8 @@ export interface Resume {
   score: number;
   atsScore: number;
   status: 'analyzed' | 'processing' | 'uploaded';
+  /** Populated after analyze / details when the backend returns analysis fields. */
+  analysis?: ResumeAnalysis;
 }
 
 export interface Job {
@@ -34,6 +75,8 @@ export interface Job {
   missingSkills: string[];
   requirements: string[];
   logoPlaceholder?: string;
+  url?: string;
+  recommendations?: string[];
 }
 
 export interface ATSAnalysis {
@@ -111,6 +154,10 @@ export interface CareerRoadmap {
     estimatedWeeks: number;
   }[];
   overallReadiness: number;
+  certifications?: string[];
+  learningPath?: string[];
+  projects?: string[];
+  timeline?: string;
 }
 
 export interface Notification {
@@ -451,7 +498,7 @@ export interface Conversation {
 
 export interface ChatRequest {
   message: string;
-  history: ChatMessage[];
+  history: Array<Pick<ChatMessage, "role" | "content"> | ChatMessage>;
   language: Language;
 }
 
