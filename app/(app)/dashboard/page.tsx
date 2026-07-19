@@ -33,23 +33,8 @@ import {
 import { motion } from "framer-motion";
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar, Cell } from "recharts";
 
-const weeklyActivity = [
-  { day: "Mon", applications: 2, matches: 6, profile: 4 },
-  { day: "Tue", applications: 4, matches: 9, profile: 6 },
-  { day: "Wed", applications: 3, matches: 12, profile: 8 },
-  { day: "Thu", applications: 6, matches: 14, profile: 7 },
-  { day: "Fri", applications: 5, matches: 18, profile: 10 },
-  { day: "Sat", applications: 8, matches: 22, profile: 12 },
-  { day: "Sun", applications: 7, matches: 19, profile: 11 },
-];
-
-const skillMix = [
-  { name: "Backend", value: 88, color: "#2563EB" },
-  { name: "Cloud", value: 64, color: "#10B981" },
-  { name: "DevOps", value: 52, color: "#7C3AED" },
-  { name: "Testing", value: 71, color: "#F59E0B" },
-  { name: "System Design", value: 58, color: "#0EA5E9" },
-];
+const weeklyActivity: { day: string; applications: number; matches: number; profile: number }[] = [];
+const skillMix: { name: string; value: number; color: string }[] = [];
 
 function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: { name: string; value: number; color?: string }[]; label?: string }) {
   if (!active || !payload?.length) return null;
@@ -110,19 +95,19 @@ export default function Dashboard() {
           </>
         }
         stats={[
-          { label: t("dashboard.stats.resumeScore"), value: stats?.resumeScore ?? 82, suffix: "%", sub: "+4% this week" },
-          { label: t("dashboard.stats.atsScore"), value: stats?.atsScore ?? 78, suffix: "%", sub: "ATS friendly" },
-          { label: t("dashboard.stats.jobMatches"), value: stats?.jobMatches ?? 47, sub: "+12 today" },
-          { label: t("dashboard.stats.careerReadiness"), value: stats?.careerReadiness ?? 72, suffix: "%", sub: "Target 92%" },
+          { label: t("dashboard.stats.resumeScore"), value: stats?.resumeScore ?? 0, suffix: "%", sub: "+4% this week" },
+          { label: t("dashboard.stats.atsScore"), value: stats?.atsScore ?? 0, suffix: "%", sub: "ATS friendly" },
+          { label: t("dashboard.stats.jobMatches"), value: stats?.jobMatches ?? 0, sub: "+12 today" },
+          { label: t("dashboard.stats.careerReadiness"), value: stats?.careerReadiness ?? 0, suffix: "%", sub: "Target 92%" },
         ]}
       />
 
       {/* ── Analytics cards ── */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <AnalyticsCard index={0} label={t("dashboard.stats.resumeScore")} value={stats?.resumeScore ?? 82} suffix="%" icon={FileText} accent="blue" trend={{ value: "+4%", up: true }} sparkline={[62, 66, 64, 71, 74, 79, 82]} sub="Excellent structure" />
-        <AnalyticsCard index={1} label={t("dashboard.stats.atsScore")} value={stats?.atsScore ?? 78} suffix="%" icon={Target} accent="emerald" trend={{ value: "+6%", up: true }} ring={stats?.atsScore ?? 78} sub="Beats 68% of candidates" />
-        <AnalyticsCard index={2} label={t("dashboard.stats.jobMatches")} value={stats?.jobMatches ?? 47} icon={Users} accent="purple" trend={{ value: "+12", up: true }} sparkline={[8, 14, 11, 19, 24, 33, 47]} sub="9 remote-friendly" />
-        <AnalyticsCard index={3} label={t("dashboard.stats.applications")} value={stats?.applications ?? 12} icon={Award} accent="amber" trend={{ value: "+3", up: true }} sparkline={[2, 3, 3, 5, 7, 9, 12]} sub="2 interviews lined up" />
+        <AnalyticsCard index={0} label={t("dashboard.stats.resumeScore")} value={stats?.resumeScore ?? 0} suffix="%" icon={FileText} accent="blue" trend={{ value: "+4%", up: true }} sparkline={[62, 66, 64, 71, 74, 79, 82]} sub="Excellent structure" />
+        <AnalyticsCard index={1} label={t("dashboard.stats.atsScore")} value={stats?.atsScore ?? 0} suffix="%" icon={Target} accent="emerald" trend={{ value: "+6%", up: true }} ring={stats?.atsScore ?? 0} sub="Beats 68% of candidates" />
+        <AnalyticsCard index={2} label={t("dashboard.stats.jobMatches")} value={stats?.jobMatches ?? 0} icon={Users} accent="purple" trend={{ value: "+12", up: true }} sparkline={[8, 14, 11, 19, 24, 33, 47]} sub="9 remote-friendly" />
+        <AnalyticsCard index={3} label={t("dashboard.stats.applications")} value={stats?.applications ?? 0} icon={Award} accent="amber" trend={{ value: "+3", up: true }} sparkline={[2, 3, 3, 5, 7, 9, 12]} sub="2 interviews lined up" />
       </div>
 
       {/* ── Charts row ── */}
@@ -319,7 +304,7 @@ export default function Dashboard() {
                 <Building2 className="h-[18px] w-[18px]" />
               </div>
               <div>
-                <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("dashboard.stats.jobMatches")} • {jobs?.length || 47} new</h3>
+                <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("dashboard.stats.jobMatches")} • {jobs?.length || 0} new</h3>
                 <p className="text-[11.5px] font-medium text-muted-foreground">Highest match 89% • Paystack Senior Backend</p>
               </div>
             </div>
@@ -535,11 +520,7 @@ export default function Dashboard() {
           <Badge variant="secondary" size="sm">Today</Badge>
         </div>
         <div className="grid grid-cols-1 gap-3 px-4 pb-4 md:grid-cols-3">
-          {(recent || [
-            { id: 1, action: "Uploaded new resume", time: "2 hours ago" },
-            { id: 2, action: "Applied to Flutterwave role", time: "Yesterday" },
-            { id: 3, action: "Completed Docker course", time: "3 days ago" },
-          ]).map((item, i) => (
+          {(recent ?? []).map((item, i) => (
             <div key={item.id} className="group flex items-center gap-3 rounded-[14px] border border-transparent bg-card-muted/70 p-3.5 transition-all hover:border-amber hover:bg-card hover:shadow-md">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-card shadow-sm ring-1 ring-border/70 transition-all group-hover:shadow">
                 {[Upload, Zap, CheckCircle2][i % 3] &&
