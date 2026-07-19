@@ -15,6 +15,9 @@ export const resumeApi = {
         url: "/api/v1/resumes/upload",
         data: body,
         timeout: 120_000,
+        // Explicitly remove any default Content-Type header so Axios
+        // auto-generates "multipart/form-data; boundary=..." for FormData.
+        headers: { "Content-Type": undefined },
       },
       signal
     );
