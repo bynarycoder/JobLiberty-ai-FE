@@ -1,5 +1,6 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
+/** Normalized errors shared by every backend-backed feature. */
 export class ApiError extends Error {
   status?: number;
   code: "offline" | "timeout" | "rate_limited" | "unauthorized" | "not_found" | "server" | "unknown";
@@ -11,10 +12,13 @@ export class ApiError extends Error {
   }
 }
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+// The deployed API is the default so production and local builds work without
+// a separately configured proxy. NEXT_PUBLIC_API_URL can still point at a
+// staging instance during development.
+export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "https://jobliberty-backend.onrender.com").replace(/\/$/, "");
 
 export const apiClient = axios.create({
-  baseURL,
+  baseURL: API_BASE_URL,
   timeout: 30_000,
   headers: { Accept: "application/json" },
 });
@@ -30,30 +34,27 @@ apiClient.interceptors.request.use((config) => {
 function normalizeError(error: unknown): ApiError {
   if (!axios.isAxiosError(error)) return new ApiError("Something went wrong. Please try again.");
   const status = error.response?.status;
+  const payload = error.response?.data as { detail?: string; message?: string } | undefined;
   const code = error.code === "ECONNABORTED" ? "timeout" : status === 401 ? "unauthorized" : status === 404 ? "not_found" : status === 429 ? "rate_limited" : status && status >= 500 ? "server" : !error.response ? "offline" : "unknown";
-  const message = code === "offline" ? "We could not reach JobLiberty. Check your connection and try again." : code === "timeout" ? "The request took too long. Please try again." : code === "rate_limited" ? "Too many requests. Please wait a moment and try again." : code === "unauthorized" ? "Your session has expired. Please sign in again." : code === "not_found" ? "We could not find that information." : code === "server" ? "JobLiberty is having trouble right now. Please try again shortly." : "We could not complete that request. Please try again.";
-  return new ApiError(message, status, code);
+  const fallback = code === "offline" ? "We could not reach JobLiberty. Check your connection and try again." : code === "timeout" ? "The request took too long. Please try again." : code === "rate_limited" ? "Too many requests. Please wait a moment and try again." : code === "unauthorized" ? "Your session has expired. Please sign in again." : code === "not_found" ? "We could not find that information." : code === "server" ? "JobLiberty is having trouble right now. Please try again shortly." : "We could not complete that request. Please try again.";
+  return new ApiError(payload?.detail || payload?.message || fallback, status, code);
 }
 
 export async function request<T>(config: AxiosRequestConfig, signal?: AbortSignal): Promise<T> {
   let attempt = 0;
   while (true) {
-    try {
-      const response = await apiClient.request<T>({ ...config, signal });
-      return response.data;
-    } catch (error) {
+    try { return (await apiClient.request<T>({ ...config, signal })).data; }
+    catch (error) {
       const normalized = normalizeError(error);
-      const retryable = normalized.code === "offline" || normalized.code === "timeout" || normalized.code === "rate_limited" || normalized.code === "server";
+      const retryable = ["offline", "timeout", "rate_limited", "server"].includes(normalized.code);
       if (!retryable || attempt >= 2 || signal?.aborted) throw normalized;
       await new Promise<void>((resolve, reject) => {
-        const timer = window.setTimeout(resolve, 300 * 2 ** attempt);
-        signal?.addEventListener("abort", () => { window.clearTimeout(timer); reject(signal.reason); }, { once: true });
+        const timer = setTimeout(resolve, 300 * 2 ** attempt);
+        signal?.addEventListener("abort", () => { clearTimeout(timer); reject(signal.reason); }, { once: true });
       });
       attempt += 1;
     }
   }
 }
 
-export function getApiError(error: unknown): ApiError {
-  return error instanceof ApiError ? error : normalizeError(error);
-}
+export function getApiError(error: unknown): ApiError { return error instanceof ApiError ? error : normalizeError(error); }
