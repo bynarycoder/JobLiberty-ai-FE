@@ -222,8 +222,17 @@ export const api = {
   },
 
   async fetchJobMatches(signal?: AbortSignal): Promise<Job[]> {
-    const resume_id = getStoredResumeId();
-    return jobsApi.match({ resume_id }, signal);
+    const id = getStoredResumeId();
+    let resume: Resume | null = null;
+    try {
+      if (id) resume = await resumeApi.details(id, signal);
+    } catch {
+      resume = null;
+    }
+    if (!resume?.analysis) {
+      throw new ApiError("Please analyze or upload a resume first to enable AI job matching.", 400, "missing_candidate");
+    }
+    return jobsApi.match({ candidate: resume.analysis }, signal);
   },
 
   async searchJobs(query: string, signal?: AbortSignal): Promise<Job[]> {
@@ -246,7 +255,10 @@ export const api = {
       resume = null;
     }
     try {
-      jobs = await jobsApi.match({ resume_id: id }, signal);
+      if (id) {
+        const resumeDetail = await resumeApi.details(id, signal);
+        if (resumeDetail?.analysis) jobs = await jobsApi.match({ candidate: resumeDetail.analysis }, signal);
+      }
     } catch {
       jobs = [];
     }
@@ -304,7 +316,10 @@ export const api = {
       ats = null;
     }
     try {
-      jobs = await jobsApi.match({ resume_id: id }, signal);
+      if (id) {
+        const r = await resumeApi.details(id, signal).catch(() => null);
+        if (r?.analysis) jobs = await jobsApi.match({ candidate: r.analysis }, signal);
+      }
     } catch {
       try {
         jobs = await jobsApi.search({}, signal);
@@ -352,7 +367,13 @@ export const api = {
     const [resumeResult, atsResult, jobsResult, roadmapResult, aggregateResult] = await Promise.allSettled([
       id ? resumeApi.details(id, signal) : Promise.resolve(null),
       id ? resumeApi.atsFeedback(id, signal) : Promise.resolve(null),
-      jobsApi.match({ resume_id: id }, signal).catch(() => jobsApi.search({}, signal)),
+      (async () => {
+        try {
+          const r = id ? await resumeApi.details(id, signal).catch(() => null) : null;
+          if (r?.analysis) return await jobsApi.match({ candidate: r.analysis }, signal);
+        } catch {}
+        return jobsApi.search({}, signal);
+      })(),
       roadmapApi.get(getStoredCareerDomain(), signal).catch(() => null),
       jobsApi.aggregate({ query: undefined }, signal).catch(() => ({})),
     ]);
@@ -370,7 +391,13 @@ export const api = {
     const id = getStoredResumeId();
     const [resumeResult, jobsResult, roadmapResult] = await Promise.allSettled([
       id ? resumeApi.details(id, signal) : Promise.resolve(null),
-      jobsApi.match({ resume_id: id }, signal).catch(() => []),
+      (async () => {
+        try {
+          const r = id ? await resumeApi.details(id, signal).catch(() => null) : null;
+          if (r?.analysis) return await jobsApi.match({ candidate: r.analysis }, signal);
+        } catch {}
+        return [];
+      })(),
       roadmapApi.get(getStoredCareerDomain(), signal).catch(() => null),
     ]);
     const resume = resumeResult.status === "fulfilled" ? resumeResult.value : null;

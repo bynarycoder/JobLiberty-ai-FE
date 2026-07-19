@@ -27,6 +27,8 @@ export default function JobsPage() {
   const [sort, setSort] = React.useState("match");
   const [filter, setFilter] = React.useState<"all" | "remote" | "onsite" | "hybrid">("all");
   const [useMatch, setUseMatch] = React.useState(Boolean(getStoredResumeId()));
+  const { data: resume } = useQuery({ queryKey: ["resume"], queryFn: ({ signal }) => api.fetchResume(signal).catch(() => null), enabled: Boolean(getStoredResumeId()) });
+  const hasCandidate = Boolean(resume?.analysis);
   const searchRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -152,13 +154,16 @@ export default function JobsPage() {
 
         <button
           onClick={() => setUseMatch((v) => !v)}
+          disabled={!hasCandidate}
+          title={!hasCandidate ? "Analyze or upload a resume first to enable AI job matching" : undefined}
           className={cn(
             "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12px] font-semibold shadow-sm transition-all",
+            !hasCandidate ? "cursor-not-allowed opacity-50" : "",
             useMatch ? "tint-purple text-[#7C3AED] dark:text-[#B691FF]" : "bg-card text-muted-foreground"
           )}
         >
           <Sparkles className="h-3.5 w-3.5" />
-          {useMatch ? "AI match on" : "AI match off"}
+          {useMatch ? "AI match on" : !hasCandidate ? "Analyze resume to match" : "AI match off"}
         </button>
 
         <div className="flex flex-wrap items-center gap-2">
