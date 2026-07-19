@@ -14,8 +14,8 @@ export function LibertyAIPanel() {
 
   const actions = [
     { key: "findOpportunities", icon: Search, desc: "Search backend recommendations", color: "blue" },
-    { key: "recommendScholarships", icon: GraduationCap, desc: "89 scholarships • Lagos", color: "indigo" },
-    { key: "findRemoteJobs", icon: Monitor, desc: "342 remote roles", color: "emerald" },
+    { key: "recommendScholarships", icon: GraduationCap, desc: "Personalized scholarships", color: "indigo" },
+    { key: "findRemoteJobs", icon: Monitor, desc: "Remote opportunities", color: "emerald" },
     { key: "recommendCourses", icon: BookOpen, desc: "Personalized roadmap", color: "amber" },
   ];
 
@@ -36,7 +36,7 @@ export function LibertyAIPanel() {
                 {t("opportunityHub.libertyAI.title")}
                 <Badge className="bg-white/15 border-white/20 text-white">AI • Live</Badge>
               </CardTitle>
-              <p className="text-[11px] font-medium text-white/70">{t("opportunityHub.libertyAI.subtitle")} • 47k users</p>
+              <p className="text-[11px] font-medium text-white/70">{t("opportunityHub.libertyAI.subtitle")}</p>
             </div>
           </div>
         </CardHeader>
@@ -91,11 +91,11 @@ export function LibertyAIPanel() {
         <div className="space-y-2.5 text-[12px]">
           <div className="flex justify-between items-center rounded-[10px] border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-white/[0.03] px-3 py-2">
             <span className="text-slate-600 dark:text-slate-400">Profile completeness</span>
-            <span className="font-bold text-slate-900 dark:text-white">82% • Good</span>
+            <span className="font-bold text-slate-900 dark:text-white">Upload resume to check</span>
           </div>
           <div className="flex justify-between items-center rounded-[10px] border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-white/[0.03] px-3 py-2">
             <span className="text-slate-600 dark:text-slate-400">Opportunities saved</span>
-            <span className="font-bold text-slate-900 dark:text-white">12 • +3 today</span>
+            <span className="font-bold text-slate-900 dark:text-white">Sign in to track</span>
           </div>
         </div>
       </Card>

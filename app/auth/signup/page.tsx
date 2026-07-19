@@ -16,7 +16,7 @@ const inputCls =
 export default function SignUp() {
   const { t } = useI18n();
   const router = useRouter();
-  const [formData, setFormData] = React.useState({ name: "", email: "", password: "", location: "Abuja, Nigeria" });
+  const [formData, setFormData] = React.useState({ name: "", email: "", password: "", location: "" });
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,7 +44,7 @@ export default function SignUp() {
           <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.fullName")}</label>
           <div className="relative">
             <User className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-            <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputCls} placeholder="Chinedu Okafor" required />
+            <input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={inputCls} placeholder="Enter your full name" required />
           </div>
         </div>
         <div>
@@ -59,14 +59,14 @@ export default function SignUp() {
             <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.password")}</label>
             <div className="relative">
               <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-              <input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className={inputCls} placeholder="••••••••" required />
+              <input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className={inputCls} placeholder="Create a password" required />
             </div>
           </div>
           <div>
             <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.location")}</label>
             <div className="relative">
               <MapPin className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-              <input value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} className={inputCls} />
+              <input value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} className={inputCls} placeholder="Your location" />
             </div>
           </div>
         </div>

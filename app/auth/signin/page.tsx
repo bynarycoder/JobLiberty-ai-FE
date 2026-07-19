@@ -16,8 +16,8 @@ const inputCls =
 export default function SignIn() {
   const { t } = useI18n();
   const router = useRouter();
-  const [email, setEmail] = React.useState("chinedu.okoro@email.com");
-  const [password, setPassword] = React.useState("password123");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,14 +45,14 @@ export default function SignIn() {
           <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.email")}</label>
           <div className="relative">
             <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className={inputCls} required />
+            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="you@example.com" className={inputCls} required />
           </div>
         </div>
         <div>
           <label className="mb-1.5 block text-[12.5px] font-bold tracking-[-0.01em]">{t("auth.password")}</label>
           <div className="relative">
             <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-muted-foreground" />
-            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className={inputCls} required />
+            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter your password" className={inputCls} required />
           </div>
         </div>
 

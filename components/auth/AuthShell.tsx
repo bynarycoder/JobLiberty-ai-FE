@@ -79,7 +79,7 @@ export function AuthShell({ children, title, subtitle }: { children: React.React
           </div>
 
           <div className="flex flex-wrap items-center gap-5 text-[12px] font-semibold text-white/75">
-            <span className="flex items-center gap-1.5"><TrendingUp className="h-4 w-4 text-[#34D399]" /> 87% success rate</span>
+            <span className="flex items-center gap-1.5"><TrendingUp className="h-4 w-4 text-[#34D399]" /> AI-powered matching</span>
             <span className="flex items-center gap-1.5"><Globe className="h-4 w-4 text-[#7DD3FC]" /> 4 languages</span>
             <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#FCD34D]" /> Private by design</span>
           </div>
