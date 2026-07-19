@@ -133,7 +133,7 @@ export function OpportunitySearch() {
                   <Search className="h-5 w-5 text-slate-400" />
                 </div>
                 <div className="text-[13px] font-medium text-slate-600 dark:text-slate-400">No results found</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-500 mt-1">Try “backend Lagos” or “scholarship”</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-500 mt-1">Try “backend engineer” or “scholarship”</div>
               </div>
             )}
 

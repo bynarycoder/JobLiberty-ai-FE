@@ -103,7 +103,7 @@ export default function JobsPage() {
                 ref={searchRef}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={t("jobs.searchPlaceholder") + " — backend, Lagos, remote"}
+                placeholder={t("jobs.searchPlaceholder") + " — backend, remote, fintech"}
                 className="h-[42px] w-full rounded-full border border-white/25 bg-white/15 pl-10 pr-10 text-[13.5px] font-medium text-white shadow-inner backdrop-blur-md transition-all placeholder:text-white/60 hover:bg-white/20 focus:border-white/50 focus:bg-white/25 focus:outline-none focus:ring-4 focus:ring-white/15"
               />
               {search ? (
