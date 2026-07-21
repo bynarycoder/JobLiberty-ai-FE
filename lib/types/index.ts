@@ -47,8 +47,8 @@ export interface ResumeAnalysis {
 
 export interface Resume {
   id: string;
-  /** Present on some upload responses. */
-  resume_id?: string;
+  /** Backend resume identifier. Details/analyze calls fall back to the requested id. */
+  resume_id: string;
   fileName: string;
   fileSize: number;
   uploadDate: string;
