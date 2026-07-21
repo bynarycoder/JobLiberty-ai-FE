@@ -60,6 +60,14 @@ export interface Resume {
   analysis?: ResumeAnalysis;
 }
 
+/**
+ * Strict response shape returned by POST /api/v1/resumes/upload.
+ * The backend ALWAYS returns { "resume_id": "<uuid>" } on success.
+ */
+export interface UploadResumeResponse {
+  resume_id: string;
+}
+
 export interface Job {
   id: string;
   title: string;

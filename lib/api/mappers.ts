@@ -8,6 +8,7 @@ import type {
   ResumeAnalysis,
   ResumeExperience,
   ResumeEducation,
+  UploadResumeResponse,
 } from "@/lib/types";
 import {
   asArray,
@@ -19,6 +20,21 @@ import {
   pick,
   scoreOf,
 } from "./normalize";
+
+/**
+ * Maps the raw response from POST /api/v1/resumes/upload to UploadResumeResponse.
+ * The backend contract guarantees { "resume_id": "<uuid>" } on success.
+ * Runtime validation in the caller ensures the field is present.
+ */
+export function mapUploadResponse(raw: unknown): UploadResumeResponse {
+  const root = asRecord(raw);
+  const nested = asRecord(pick(root, "data", "result"));
+  const source = Object.keys(nested).length ? { ...nested, ...root } : root;
+
+  const resume_id = firstString(pick(source, "resume_id", "resumeId"));
+  // Validation happens at the call site; this mapper always returns the field.
+  return { resume_id };
+}
 
 function mapExperience(raw: unknown, index: number): ResumeExperience {
   const item = asRecord(raw);
