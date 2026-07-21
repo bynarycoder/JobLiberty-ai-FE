@@ -204,14 +204,14 @@ function composeRecentActivity(resume: Resume | null, jobs: Job[], roadmap: Care
 export const api = {
   async uploadResume(file: File, signal?: AbortSignal): Promise<Resume> {
     const response = await resumeApi.upload(file, signal);
-    const id = response.id || response.resume_id;
-    if (id) setStoredResumeId(id);
-    return { ...response, id: String(id ?? response.id ?? "") };
+    const workflowId = response.resume_id ?? String(response.id);
+    if (workflowId) setStoredResumeId(workflowId);
+    return response;
   },
 
-  async analyzeResume(id: string, signal?: AbortSignal): Promise<Resume> {
-    const analyzed = await resumeApi.analyze(id, signal);
-    const resolvedId = analyzed.id || analyzed.resume_id || id;
+  async analyzeResume(workflowId: string, signal?: AbortSignal): Promise<Resume> {
+    const analyzed = await resumeApi.analyze(workflowId, signal);
+    const resolvedId = analyzed.resume_id ?? analyzed.id ?? workflowId;
     setStoredResumeId(resolvedId);
     return { ...analyzed, id: resolvedId };
   },
