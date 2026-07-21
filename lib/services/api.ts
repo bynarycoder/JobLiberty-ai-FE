@@ -11,6 +11,7 @@ import type {
   Notification,
   RecentActivity,
   SignUpInput,
+  UploadResumeResponse,
 } from "@/lib/types";
 import { ApiError } from "@/lib/api/client";
 import { resumeApi } from "@/lib/api/resume";
@@ -202,10 +203,16 @@ function composeRecentActivity(resume: Resume | null, jobs: Job[], roadmap: Care
 }
 
 export const api = {
-  async uploadResume(file: File, signal?: AbortSignal): Promise<Resume> {
+  async uploadResume(file: File, signal?: AbortSignal): Promise<UploadResumeResponse> {
     const response = await resumeApi.upload(file, signal);
-    const workflowId = response.resume_id ?? String(response.id);
-    if (workflowId) setStoredResumeId(workflowId);
+    if (!response.resume_id) {
+      throw new ApiError(
+        "Upload succeeded but backend did not return resume_id.",
+        500,
+        "server"
+      );
+    }
+    setStoredResumeId(response.resume_id);
     return response;
   },
 

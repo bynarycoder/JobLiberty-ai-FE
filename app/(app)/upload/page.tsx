@@ -25,6 +25,11 @@ export default function UploadPage() {
     mutationFn: async (selectedFile: File) => {
       setProgress(15);
       const resume = await api.uploadResume(selectedFile);
+      if (!resume.resume_id) {
+        throw new Error(
+          "Upload succeeded but backend did not return resume_id."
+        );
+      }
       setProgress(55);
       setIsAnalyzing(true);
       const analyzed = await api.analyzeResume(resume.resume_id);

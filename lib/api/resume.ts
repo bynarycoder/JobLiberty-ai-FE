@@ -1,11 +1,11 @@
 import { request } from "./client";
-import { mapATSAnalysis, mapResume } from "./mappers";
-import type { ATSAnalysis, Resume } from "@/lib/types";
+import { mapATSAnalysis, mapResume, mapUploadResponse } from "./mappers";
+import type { ATSAnalysis, Resume, UploadResumeResponse } from "@/lib/types";
 
-export type ResumeUploadResponse = Resume;
+export type { UploadResumeResponse };
 
 export const resumeApi = {
-  async upload(file: File, signal?: AbortSignal): Promise<Resume> {
+  async upload(file: File, signal?: AbortSignal): Promise<UploadResumeResponse> {
     const body = new FormData();
     // Common FastAPI field names — send the file under "file".
     body.append("file", file);
@@ -21,7 +21,7 @@ export const resumeApi = {
       },
       signal
     );
-    return mapResume(raw);
+    return mapUploadResponse(raw);
   },
 
   async analyze(resumeId: string, signal?: AbortSignal): Promise<Resume> {
