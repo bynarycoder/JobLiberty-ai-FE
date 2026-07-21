@@ -27,7 +27,7 @@ export default function UploadPage() {
       const resume = await api.uploadResume(selectedFile);
       setProgress(55);
       setIsAnalyzing(true);
-      const analyzed = await api.analyzeResume(resume.id);
+      const analyzed = await api.analyzeResume(resume.resume_id);
       setProgress(100);
       return analyzed;
     },
