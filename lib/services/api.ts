@@ -218,9 +218,9 @@ export const api = {
 
   async analyzeResume(workflowId: string, signal?: AbortSignal): Promise<Resume> {
     const analyzed = await resumeApi.analyze(workflowId, signal);
-    const resolvedId = analyzed.resume_id ?? analyzed.id ?? workflowId;
+    const resolvedId = analyzed.resume_id || analyzed.id || workflowId;
     setStoredResumeId(resolvedId);
-    return { ...analyzed, id: resolvedId };
+    return { ...analyzed, id: resolvedId, resume_id: resolvedId };
   },
 
   async fetchResume(signal?: AbortSignal): Promise<Resume> {

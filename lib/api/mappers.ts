@@ -183,7 +183,7 @@ export function mapResume(raw: unknown): Resume {
 
   return {
     id,
-    resume_id: firstString(pick(source, "resume_id", "resumeId"), id) || undefined,
+    resume_id: firstString(pick(source, "resume_id", "resumeId"), id),
     fileName: firstString(
       pick(source, "fileName", "file_name", "filename", "name", "original_filename", "originalFilename"),
       "Resume.pdf"
