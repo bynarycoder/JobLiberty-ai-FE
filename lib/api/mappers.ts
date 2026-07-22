@@ -71,10 +71,79 @@ export function mapResumeAnalysis(raw: unknown): ResumeAnalysis | undefined {
     pick(root, "analysis", "resume_analysis", "result", "data") ?? root
   );
 
-  const skills = asStringArray(
+  // Extract flat skills if present (backward compat)
+  let skills = asStringArray(
     pick(analysis, "skills", "extracted_skills", "skill_list", "key_skills") ??
       pick(root, "skills", "extracted_skills")
   );
+
+  // Preserve all backend detailed skill fields (support snake_case + camelCase)
+  const skillsFoundRaw = pick(analysis, "skills_found", "skillsFound") ??
+    pick(root, "skills_found", "skillsFound");
+
+  const technicalSkills = asStringArray(
+    pick(analysis, "technical_skills", "technicalSkills", "technical_skills_list") ??
+      pick(root, "technical_skills", "technicalSkills")
+  );
+
+  const frameworks = asStringArray(
+    pick(analysis, "frameworks", "framework_list") ??
+      pick(root, "frameworks")
+  );
+
+  const tools = asStringArray(
+    pick(analysis, "tools", "tool_list") ??
+      pick(root, "tools")
+  );
+
+  const programmingLanguages = asStringArray(
+    pick(analysis, "programming_languages", "programmingLanguages", "programming_languages_list") ??
+      pick(root, "programming_languages", "programmingLanguages")
+  );
+
+  const softSkills = asStringArray(
+    pick(analysis, "soft_skills", "softSkills", "soft_skills_list") ??
+      pick(root, "soft_skills", "softSkills")
+  );
+
+  const keywords = asStringArray(
+    pick(analysis, "keywords", "keyword_list") ??
+      pick(root, "keywords")
+  );
+
+  const atsFeedbackRaw = pick(analysis, "ats_feedback", "atsFeedback", "ats") ??
+    pick(root, "ats_feedback", "atsFeedback");
+  const atsFeedback = atsFeedbackRaw ? (asRecord(atsFeedbackRaw) as any) : undefined;
+
+  const atsScore = scoreOf(
+    analysis,
+    "ats_score",
+    "atsScore"
+  ) || scoreOf(root, "ats_score", "atsScore") || undefined;
+
+  // Generate flat skills intelligently if not provided
+  if (skills.length === 0) {
+    const merged = [
+      ...technicalSkills,
+      ...frameworks,
+      ...tools,
+      ...programmingLanguages,
+      ...softSkills,
+      ...keywords,
+    ];
+    skills = Array.from(new Set(merged.filter(Boolean)));
+  }
+
+  // Compute authoritative skillsFound
+  const skillsFound = asNumber(skillsFoundRaw, 0) ||
+    new Set([
+      ...technicalSkills,
+      ...frameworks,
+      ...tools,
+      ...programmingLanguages,
+      ...softSkills,
+      ...skills,
+    ]).size;
 
   const experienceRaw = asArray(
     pick(analysis, "experience", "experiences", "work_experience", "workHistory", "work_history") ??
@@ -128,7 +197,10 @@ export function mapResumeAnalysis(raw: unknown): ResumeAnalysis | undefined {
     experienceRaw.length > 0 ||
     educationRaw.length > 0 ||
     recommendations.length > 0 ||
-    readiness > 0;
+    readiness > 0 ||
+    skillsFound > 0 ||
+    technicalSkills.length > 0 ||
+    frameworks.length > 0;
 
   if (!hasSignal) return undefined;
 
@@ -145,6 +217,17 @@ export function mapResumeAnalysis(raw: unknown): ResumeAnalysis | undefined {
     certifications,
     strengths,
     weaknesses,
+
+    // Preserved backend fields (camelCase)
+    skillsFound,
+    technicalSkills,
+    frameworks,
+    tools,
+    programmingLanguages,
+    softSkills,
+    keywords,
+    atsFeedback,
+    atsScore,
   };
 }
 

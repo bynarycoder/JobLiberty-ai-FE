@@ -79,6 +79,18 @@ export default function ResumeAnalysis() {
 
   const analysis = resume.analysis;
   const skills = analysis?.skills ?? [];
+  const skillsFound =
+    analysis?.skillsFound ??
+    new Set([
+      ...(analysis?.technicalSkills ?? []),
+      ...(analysis?.frameworks ?? []),
+      ...(analysis?.tools ?? []),
+      ...(analysis?.programmingLanguages ?? []),
+      ...(analysis?.softSkills ?? []),
+      ...skills,
+    ]).size ??
+    skills.length;
+
   const experience = analysis?.experience ?? [];
   const education = analysis?.education ?? [];
   const projects = analysis?.projects ?? [];
@@ -98,7 +110,7 @@ export default function ResumeAnalysis() {
         stats={[
           { label: "Overall score", value: resume.score || readiness, suffix: "%", sub: resume.status },
           { label: "ATS compatible", value: resume.atsScore || 0, suffix: "%", sub: "From backend" },
-          { label: "Skills found", value: skills.length, sub: "Extracted" },
+          { label: "Skills found", value: skillsFound, sub: "Extracted" },
           { label: "Experience", value: experience.length, sub: "Roles parsed" },
         ]}
         actions={
@@ -142,7 +154,7 @@ export default function ResumeAnalysis() {
                   <div className="text-[9.5px] font-bold uppercase tracking-wide text-muted-foreground">Readiness</div>
                 </div>
                 <div className="tint-blue rounded-[12px] border p-2.5 text-center">
-                  <div className="text-[18px] font-extrabold tracking-[-0.02em]">{skills.length}</div>
+                  <div className="text-[18px] font-extrabold tracking-[-0.02em]">{skillsFound}</div>
                   <div className="text-[9.5px] font-bold uppercase tracking-wide text-muted-foreground">Skills</div>
                 </div>
               </div>
@@ -179,7 +191,7 @@ export default function ResumeAnalysis() {
           )}
           <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
-              { k: "Skills", v: String(skills.length), c: "text-[#059669] dark:text-[#4ADEAC]" },
+              { k: "Skills", v: String(skillsFound), c: "text-[#059669] dark:text-[#4ADEAC]" },
               { k: "Roles", v: String(experience.length), c: "text-[#2563EB] dark:text-[#7FA8FF]" },
               { k: "Education", v: String(education.length), c: "text-[#7C3AED] dark:text-[#B691FF]" },
               { k: "Readiness", v: `${readiness || 0}%`, c: "text-[#D97706] dark:text-[#FBBF24]" },
@@ -200,7 +212,7 @@ export default function ResumeAnalysis() {
           </SectionCard>
         )}
 
-        <SectionCard index={4} className="lg:col-span-5" strip="bg-gradient-to-r from-[#2563EB] to-[#4F46E5]" icon={Code2} iconBox="bg-[#2563EB] shadow-[0_8px_18px_-6px_rgba(37,99,235,0.65)]" title={t("resume.skills")} desc={`${skills.length} skills extracted`}>
+        <SectionCard index={4} className="lg:col-span-5" strip="bg-gradient-to-r from-[#2563EB] to-[#4F46E5]" icon={Code2} iconBox="bg-[#2563EB] shadow-[0_8px_18px_-6px_rgba(37,99,235,0.65)]" title={t("resume.skills")} desc={`${skillsFound} skills extracted`}>
           {skills.length ? (
             <div className="flex flex-wrap gap-2">
               {skills.map((s) => (
