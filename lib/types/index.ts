@@ -114,15 +114,21 @@ export interface Job {
 
 export interface ATSAnalysis {
   overallScore: number;
+  /** Legacy category metrics; the current ATS endpoint does not provide these. */
   keywordMatch: number;
   formatting: number;
   readability: number;
   education: number;
   experience: number;
   skills: number;
+  /** Legacy normalized recommendation fields retained for existing consumers. */
   suggestions: string[];
   strengths: string[];
   weaknesses: string[];
+  /** Fields returned by the current backend ats_feedback contract. */
+  improvements: string[];
+  missingKeywords: string[];
+  domainSpecificAdvice: string[];
 }
 
 export interface Skill {
