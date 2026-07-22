@@ -29,6 +29,20 @@ export interface ResumeEducation {
   description?: string;
 }
 
+export interface ATSFeedback {
+  overallScore?: number;
+  keywordMatch?: number;
+  formatting?: number;
+  readability?: number;
+  education?: number;
+  experience?: number;
+  skills?: number;
+  suggestions?: string[];
+  strengths?: string[];
+  weaknesses?: string[];
+  [key: string]: unknown;
+}
+
 /** Structured analysis payload returned by the backend resume analyzer. */
 export interface ResumeAnalysis {
   careerSummary?: string;
@@ -43,6 +57,17 @@ export interface ResumeAnalysis {
   certifications?: string[];
   strengths?: string[];
   weaknesses?: string[];
+
+  // New preserved backend fields (camelCase)
+  skillsFound?: number;
+  technicalSkills?: string[];
+  frameworks?: string[];
+  tools?: string[];
+  programmingLanguages?: string[];
+  softSkills?: string[];
+  keywords?: string[];
+  atsFeedback?: ATSFeedback;
+  atsScore?: number;
 }
 
 export interface Resume {
