@@ -286,7 +286,11 @@ export function mapResume(raw: unknown): Resume {
 
 export function mapATSAnalysis(raw: unknown): ATSAnalysis {
   const root = asRecord(raw);
-  const source = asRecord(pick(root, "ats", "feedback", "analysis", "result", "data") ?? root);
+  // The current ATS endpoint wraps its authoritative result in `ats_feedback`.
+  // Check it first so fields are read from the feedback object rather than its wrapper.
+  const source = asRecord(
+    pick(root, "ats_feedback", "atsFeedback", "ats", "feedback", "analysis", "result", "data") ?? root
+  );
 
   const overallScore = scoreOf(
     source,
@@ -297,20 +301,30 @@ export function mapATSAnalysis(raw: unknown): ATSAnalysis {
     "atsScore",
     "total"
   );
+  const improvements = asStringArray(
+    pick(source, "improvements", "suggestions", "recommendations", "action_items", "tips")
+  );
 
   return {
     overallScore,
+    // Retain legacy metric normalization for other endpoint variants. The current
+    // ATS UI intentionally does not render these absent backend metrics.
     keywordMatch: scoreOf(source, "keywordMatch", "keyword_match", "keywords", "keyword_score", "keywords_score"),
     formatting: scoreOf(source, "formatting", "format", "formatting_score", "layout"),
     readability: scoreOf(source, "readability", "readability_score", "clarity"),
     education: scoreOf(source, "education", "education_score"),
     experience: scoreOf(source, "experience", "experience_score"),
     skills: scoreOf(source, "skills", "skills_score", "skill_match", "skillMatch"),
-    suggestions: asStringArray(
-      pick(source, "suggestions", "recommendations", "improvements", "action_items", "tips")
-    ),
+    // Keep legacy fields populated for existing consumers without losing the
+    // backend's explicit improvements field.
+    suggestions: improvements,
     strengths: asStringArray(pick(source, "strengths", "positives")),
     weaknesses: asStringArray(pick(source, "weaknesses", "gaps", "issues", "areas_to_improve")),
+    improvements,
+    missingKeywords: asStringArray(pick(source, "missing_keywords", "missingKeywords")),
+    domainSpecificAdvice: asStringArray(
+      pick(source, "domain_specific_advice", "domainSpecificAdvice")
+    ),
   };
 }
 

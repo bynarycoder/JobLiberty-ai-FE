@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useI18n } from "@/providers/I18nProvider";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/services/api";
-import { Progress, CircularProgress } from "@/components/ui/Progress";
+import { CircularProgress } from "@/components/ui/Progress";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { PageHero } from "@/components/dashboard/PageHero";
@@ -40,14 +40,12 @@ export default function ATSAnalysisPage() {
     );
   }
 
-  const scoreData = [
-    { name: "Keyword Match", value: ats.keywordMatch, desc: "Relevant skills & job terms", icon: "🎯" },
-    { name: "Formatting", value: ats.formatting, desc: "Layout & ATS parsing", icon: "📄" },
-    { name: "Readability", value: ats.readability, desc: "Clarity & conciseness", icon: "✍️" },
-    { name: "Skills Depth", value: ats.skills, desc: "Technical breadth", icon: "💡" },
-    { name: "Experience", value: ats.experience, desc: "Role depth & impact", icon: "💼" },
-    { name: "Education", value: ats.education, desc: "Credentials alignment", icon: "🎓" },
-  ].filter((item) => item.value > 0 || ["Keyword Match", "Formatting", "Readability", "Skills Depth"].includes(item.name));
+  const feedbackData = [
+    { name: "Missing Keywords", value: ats.missingKeywords.length, desc: "Terms to add or address", icon: "🎯" },
+    { name: "Strengths", value: ats.strengths.length, desc: "Positive ATS findings", icon: "✓" },
+    { name: "Improvements", value: ats.improvements.length, desc: "Recommended changes", icon: "↗" },
+    { name: "Career Advice", value: ats.domainSpecificAdvice.length, desc: "Domain-specific guidance", icon: "💡" },
+  ];
 
   const overall =
     ats.overallScore >= 85
@@ -66,9 +64,9 @@ export default function ATSAnalysisPage() {
         subtitle="ATS score and recommendations are calculated exclusively by the JobLiberty backend. This page only renders the response."
         stats={[
           { label: t("analysis.overallScore"), value: ats.overallScore, suffix: "%", sub: overall.label },
-          { label: "Keywords", value: ats.keywordMatch, suffix: "%", sub: "Match rate" },
-          { label: "Formatting", value: ats.formatting, suffix: "%", sub: "Parse quality" },
-          { label: "Skills", value: ats.skills, suffix: "%", sub: "Coverage" },
+          { label: "Missing Keywords", value: ats.missingKeywords.length, sub: "Terms to address" },
+          { label: "Improvements", value: ats.improvements.length, sub: "Recommended changes" },
+          { label: "Career Advice", value: ats.domainSpecificAdvice.length, sub: "Guidance items" },
         ]}
         actions={
           <>
@@ -110,9 +108,9 @@ export default function ATSAnalysisPage() {
               </CircularProgress>
               <div className="mt-7 grid w-full grid-cols-3 gap-2.5">
                 {[
-                  { label: "Keywords", value: `${ats.keywordMatch}%`, tint: "tint-emerald", c: "text-[#059669] dark:text-[#4ADEAC]" },
-                  { label: "Format", value: `${ats.formatting}%`, tint: "tint-blue", c: "text-[#2563EB] dark:text-[#7FA8FF]" },
-                  { label: "Skills", value: `${ats.skills}%`, tint: "tint-purple", c: "text-[#7C3AED] dark:text-[#B691FF]" },
+                  { label: "Missing keywords", value: ats.missingKeywords.length, tint: "tint-amber", c: "text-[#D97706] dark:text-[#FBBF24]" },
+                  { label: "Strengths", value: ats.strengths.length, tint: "tint-emerald", c: "text-[#059669] dark:text-[#4ADEAC]" },
+                  { label: "Improvements", value: ats.improvements.length, tint: "tint-purple", c: "text-[#7C3AED] dark:text-[#B691FF]" },
                 ].map((stat) => (
                   <div key={stat.label} className={cn("rounded-[13px] border p-3 text-center shadow-sm", stat.tint)}>
                     <div className={cn("text-[15px] font-extrabold tracking-tight", stat.c)}>{stat.value}</div>
@@ -139,7 +137,7 @@ export default function ATSAnalysisPage() {
                 </div>
                 <div>
                   <h3 className="text-[15px] font-bold tracking-[-0.01em]">Category Breakdown</h3>
-                  <p className="text-[11.5px] font-medium text-muted-foreground">Scores returned by the ATS feedback endpoint</p>
+                  <p className="text-[11.5px] font-medium text-muted-foreground">Findings returned by the ATS feedback endpoint</p>
                 </div>
               </div>
               <Button variant="ghost" size="sm" className="h-8 gap-1 rounded-full text-[12px]" onClick={() => refetch()}>
@@ -148,7 +146,7 @@ export default function ATSAnalysisPage() {
             </div>
 
             <div className="space-y-5">
-              {scoreData.map((item, i) => {
+              {feedbackData.map((item, i) => {
                 const style = CATEGORY_STYLE[i % CATEGORY_STYLE.length];
                 return (
                   <motion.div
@@ -164,16 +162,10 @@ export default function ATSAnalysisPage() {
                         {item.name}
                         <span className="text-[11px] font-medium text-muted-foreground">• {item.desc}</span>
                       </span>
-                      <span
-                        className={cn(
-                          "rounded-full border bg-card px-2.5 py-0.5 text-[12px] font-extrabold shadow-sm",
-                          item.value >= 80 ? "text-[#059669] dark:text-[#4ADEAC]" : item.value >= 60 ? "text-[#2563EB] dark:text-[#7FA8FF]" : "text-[#D97706] dark:text-[#FBBF24]"
-                        )}
-                      >
-                        {item.value}%
+                      <span className="rounded-full border bg-card px-2.5 py-0.5 text-[12px] font-extrabold shadow-sm">
+                        {item.value}
                       </span>
                     </div>
-                    <Progress value={item.value} variant={style.variant} size="default" />
                   </motion.div>
                 );
               })}
@@ -195,15 +187,15 @@ export default function ATSAnalysisPage() {
                 <AlertTriangle className="h-[18px] w-[18px]" />
               </div>
               <div>
-                <h3 className="text-[15px] font-bold tracking-[-0.01em]">{t("analysis.suggestions")}</h3>
-                <p className="text-[11.5px] font-medium text-muted-foreground">Backend recommendations</p>
+                <h3 className="text-[15px] font-bold tracking-[-0.01em]">Domain-specific advice</h3>
+                <p className="text-[11.5px] font-medium text-muted-foreground">Guidance returned by the backend ATS engine</p>
               </div>
             </div>
-            {ats.suggestions.length ? (
+            {ats.domainSpecificAdvice.length ? (
               <ul className="space-y-2.5">
-                {ats.suggestions.map((sug, i) => (
+                {ats.domainSpecificAdvice.map((advice, i) => (
                   <motion.li
-                    key={`${sug}-${i}`}
+                    key={`${advice}-${i}`}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.24 + i * 0.06 }}
@@ -212,12 +204,12 @@ export default function ATSAnalysisPage() {
                     <span className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F59E0B] to-[#D97706] text-[10px] font-extrabold text-white shadow-sm">
                       {i + 1}
                     </span>
-                    <span className="flex-1 text-[13px] font-[500] leading-[1.55]">{sug}</span>
+                    <span className="flex-1 text-[13px] font-[500] leading-[1.55]">{advice}</span>
                   </motion.li>
                 ))}
               </ul>
             ) : (
-              <p className="text-[13px] text-muted-foreground">No suggestions were returned for this resume.</p>
+              <p className="text-[13px] text-muted-foreground">No domain-specific advice was returned for this resume.</p>
             )}
           </div>
         </motion.div>
@@ -264,9 +256,9 @@ export default function ATSAnalysisPage() {
                   </div>
                   Improve
                 </div>
-                {ats.weaknesses.length ? (
+                {ats.improvements.length ? (
                   <ul className="space-y-2.5">
-                    {ats.weaknesses.map((w) => (
+                    {ats.improvements.map((w) => (
                       <li key={w} className="flex gap-2 text-[12.5px] font-medium leading-[1.5]">
                         <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#EF4444]" />
                         {w}
@@ -277,6 +269,20 @@ export default function ATSAnalysisPage() {
                   <p className="text-[12.5px] text-muted-foreground">No improvement areas listed.</p>
                 )}
               </div>
+            </div>
+            <div className="mt-4 rounded-[16px] border bg-card p-4">
+              <h4 className="mb-3 text-[11.5px] font-extrabold uppercase tracking-[0.06em] text-[#B45309] dark:text-[#FBBF24]">
+                Missing Keywords
+              </h4>
+              {ats.missingKeywords.length ? (
+                <div className="flex flex-wrap gap-2">
+                  {ats.missingKeywords.map((keyword) => (
+                    <Badge key={keyword} variant="amber" size="sm">{keyword}</Badge>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-[12.5px] text-muted-foreground">No missing keywords were returned for this resume.</p>
+              )}
             </div>
           </div>
         </motion.div>
