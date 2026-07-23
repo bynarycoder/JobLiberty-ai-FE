@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { I18nProvider } from "@/providers/I18nProvider";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "@/components/ui/Toaster";
 
 export const metadata: Metadata = {
@@ -61,8 +62,10 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
           <I18nProvider>
             <QueryProvider>
-              {children}
-              <Toaster />
+              <AuthProvider>
+                {children}
+                <Toaster />
+              </AuthProvider>
             </QueryProvider>
           </I18nProvider>
         </ThemeProvider>

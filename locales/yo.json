@@ -28,7 +28,10 @@
     "notifications": "Àwón ìkìlọ̀",
     "quickActions": "Àwón ìşẹ́ kíákíá",
     "viewProfile": "Wo profaili",
-    "searchEverything": "Wa isé, àwọn ògbón..."
+    "searchEverything": "Wa isé, àwọn ògbón...",
+    "profile": "Profaili",
+    "savedJobs": "Iṣẹ́ Tí A Fipamọ́",
+    "applications": "Àwọn Ìbéèrè"
   },
   "auth": {
     "signIn": "Wọle",

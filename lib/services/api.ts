@@ -448,21 +448,35 @@ export const api = {
     return unsupported("Opportunity insights");
   },
 
-  async signIn(_email: string, _password: string) {
-    // Auth is intentionally frontend-only until backend auth is published.
-    return unsupported("Sign in");
+  /**
+   * @deprecated Use `authService.login()` / `useAuth().login()` instead.
+   * Retained for backwards compatibility with older call sites.
+   */
+  async signIn(email: string, password: string) {
+    const { authService } = await import("@/lib/services/auth");
+    return authService.login({ email, password });
   },
 
+  /**
+   * @deprecated Use `authService.register()` / `useAuth().register()` instead.
+   */
   async signUp(data: SignUpInput) {
-    // Persist the profile locally so the UI can display real user info.
+    const { authService } = await import("@/lib/services/auth");
     setUserProfile({ name: data.name, email: data.email, location: data.location });
-    return unsupported("Sign up");
+    return authService.register({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      location: data.location,
+    });
   },
 
+  /**
+   * @deprecated Use `authService.logout()` / `useAuth().logout()` instead.
+   */
   async signOut() {
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("jobliberty_access_token");
-    }
+    const { authService } = await import("@/lib/services/auth");
+    await authService.logout();
     clearUserProfile();
     return { success: true };
   },

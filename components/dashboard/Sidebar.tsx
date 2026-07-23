@@ -26,6 +26,8 @@ import {
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { useOptionalAuth } from "@/contexts/AuthContext";
+import { User as UserIcon, Bookmark, ClipboardList } from "lucide-react";
 
 type Accent = "blue" | "emerald" | "purple" | "sky" | "amber" | "teal" | "rose" | "slate";
 
@@ -139,9 +141,34 @@ interface SidebarProps {
 export function Sidebar({ collapsed = false, onToggleCollapse, variant = "desktop", onNavigate }: SidebarProps) {
   const pathname = usePathname();
   const { t } = useI18n();
+  const auth = useOptionalAuth();
   const isMobile = variant === "mobile";
-  const profile = getUserProfile();
+  const fallbackProfile = getUserProfile();
+  const profile = auth?.user
+    ? {
+        name: auth.user.fullName || auth.user.name || auth.user.email,
+        email: auth.user.email,
+        location: auth.user.location,
+      }
+    : fallbackProfile;
   const profileInitials = getInitials(profile.name);
+
+  const sections = React.useMemo(() => {
+    if (!auth?.isAuthenticated) return SECTIONS;
+    const withAccount: typeof SECTIONS = [
+      ...SECTIONS.slice(0, 2),
+      {
+        label: "Account",
+        items: [
+          { href: "/profile", icon: UserIcon, labelKey: "nav.profile", accent: "purple" },
+          { href: "/saved-jobs", icon: Bookmark, labelKey: "nav.savedJobs", accent: "emerald" },
+          { href: "/applications", icon: ClipboardList, labelKey: "nav.applications", accent: "sky" },
+        ],
+      },
+      ...SECTIONS.slice(2),
+    ];
+    return withAccount;
+  }, [auth?.isAuthenticated]);
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === "/dashboard";
@@ -288,7 +315,7 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
       {/* ── Navigation ── */}
       <div className="premium-scrollbar flex-1 overflow-y-auto px-3 py-3">
         <div className="space-y-5">
-          {SECTIONS.map((section) => (
+          {sections.map((section) => (
             <div key={section.label}>
               {(isMobile || !collapsed) && (
                 <div className="mb-1.5 flex items-center gap-2 px-3">

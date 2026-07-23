@@ -28,7 +28,10 @@
     "notifications": "Notifications",
     "quickActions": "Quick Actions",
     "viewProfile": "View profile",
-    "searchEverything": "Search jobs, skills, resources..."
+    "searchEverything": "Search jobs, skills, resources...",
+    "profile": "Profile",
+    "savedJobs": "Saved Jobs",
+    "applications": "Applications"
   },
   "auth": {
     "signIn": "Sign In",

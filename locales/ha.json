@@ -28,7 +28,10 @@
     "notifications": "Sanarwa",
     "quickActions": "Ayyuka Cikin Sauri",
     "viewProfile": "Duba bayanan martaba",
-    "searchEverything": "Nemo ayyuka, ƙwarewa..."
+    "searchEverything": "Nemo ayyuka, ƙwarewa...",
+    "profile": "Bayanin",
+    "savedJobs": "Ayyukan da aka Ajiye",
+    "applications": "Aikace-aikace"
   },
   "auth": {
     "signIn": "Shiga",

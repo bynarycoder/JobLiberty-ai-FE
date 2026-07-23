@@ -40,6 +40,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { api } from "@/lib/services/api";
 import { cn } from "@/lib/utils";
 import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NOTIF_ICONS = {
   info: Info,
@@ -62,7 +63,15 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
   const [notifications, setNotifications] = React.useState<
     { id: string; title: string; message: string; type: keyof typeof NOTIF_ICONS; timestamp: string; read: boolean }[]
   >([]);
-  const profile = getUserProfile();
+  const { user, isAuthenticated, logout } = useAuth();
+  const fallbackProfile = getUserProfile();
+  const profile = user
+    ? {
+        name: user.fullName || user.name || user.email,
+        email: user.email,
+        location: user.location,
+      }
+    : fallbackProfile;
   const profileInitials = getInitials(profile.name);
 
   React.useEffect(() => {
@@ -317,11 +326,23 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator className="my-1" />
-              <DropdownMenuItem asChild className="cursor-pointer rounded-[10px] px-2.5 py-2 focus:bg-danger-soft">
-                <Link href="/auth/signin" className="flex items-center gap-2.5 text-[13px] font-medium text-[#DC2626] dark:text-[#F98B8B]">
+              {isAuthenticated ? (
+                <DropdownMenuItem
+                  onSelect={(e) => {
+                    e.preventDefault();
+                    logout();
+                  }}
+                  className="cursor-pointer rounded-[10px] px-2.5 py-2 text-[13px] font-medium text-[#DC2626] focus:bg-danger-soft dark:text-[#F98B8B]"
+                >
                   <LogOut className="h-4 w-4" /> {t("nav.logout")}
-                </Link>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem asChild className="cursor-pointer rounded-[10px] px-2.5 py-2 focus:bg-primary-soft/70">
+                  <Link href="/auth/signin" className="flex items-center gap-2.5 text-[13px] font-medium text-[#2563EB] dark:text-[#7FA8FF]">
+                    <LogOut className="h-4 w-4 rotate-180" /> {t("nav.signIn")}
+                  </Link>
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
