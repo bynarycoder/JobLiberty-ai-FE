@@ -539,6 +539,7 @@ export interface ChatRequest {
   message: string;
   history: Array<Pick<ChatMessage, "role" | "content"> | ChatMessage>;
   language: Language;
+  resume_id?: string;
 }
 
 export interface ChatResponse {

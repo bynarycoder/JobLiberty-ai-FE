@@ -1,10 +1,12 @@
 import { request } from "./client";
 import { mapChatResponse } from "./mappers";
+import { getStoredResumeId } from "@/lib/services/api";
 import type { ChatRequest, ChatResponse } from "@/lib/types";
 
 export const chatApi = {
   async send(payload: ChatRequest, signal?: AbortSignal): Promise<ChatResponse> {
     // Backend owns provider selection (Groq). Send a lean history payload.
+    const resumeId = payload.resume_id ?? getStoredResumeId();
     const body = {
       message: payload.message,
       language: payload.language,
@@ -12,6 +14,7 @@ export const chatApi = {
         role: m.role,
         content: m.content,
       })),
+      resume_id: resumeId,
     };
 
     const raw = await request<unknown>(
