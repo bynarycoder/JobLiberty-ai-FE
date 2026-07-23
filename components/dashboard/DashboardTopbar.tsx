@@ -39,7 +39,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { api } from "@/lib/services/api";
 import { cn } from "@/lib/utils";
-import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { getInitials } from "@/lib/api/user-profile";
 import { useAuth } from "@/contexts/AuthContext";
 
 const NOTIF_ICONS = {
@@ -48,6 +48,8 @@ const NOTIF_ICONS = {
   warning: AlertTriangle,
   opportunity: TrendingUp,
 } as const;
+
+const GUEST_PROFILE = { name: "Guest User", email: "guest@jobliberty.ai", location: undefined };
 
 const NOTIF_COLORS = {
   info: "bg-[#E2F3FE] text-[#0284C7] dark:bg-[#0EA5E9]/15 dark:text-[#5CC8FA]",
@@ -63,16 +65,16 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
   const [notifications, setNotifications] = React.useState<
     { id: string; title: string; message: string; type: keyof typeof NOTIF_ICONS; timestamp: string; read: boolean }[]
   >([]);
-  const { user, isAuthenticated, logout } = useAuth();
-  const fallbackProfile = getUserProfile();
+  const { user, isAuthenticated, isHydrated, logout } = useAuth();
   const profile = user
     ? {
         name: user.fullName || user.name || user.email,
         email: user.email,
         location: user.location,
       }
-    : fallbackProfile;
+    : GUEST_PROFILE;
   const profileInitials = getInitials(profile.name);
+  const isProfileHydrating = !isHydrated;
 
   React.useEffect(() => {
     let mounted = true;
@@ -288,16 +290,35 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
           {/* Profile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="group flex items-center gap-2.5 rounded-full border border-border bg-card/70 py-1 pl-1 pr-2.5 shadow-sm transition-all hover:border-border-strong hover:bg-card hover:shadow-md">
-                <div className="relative flex h-[32px] w-[32px] items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[12px] font-bold text-white transition-transform group-hover:scale-105">
-                  {profileInitials}
-                  <span className="absolute -bottom-0.5 -right-0.5 h-[10px] w-[10px] rounded-full bg-[#22C55E] ring-2 ring-card" />
+              <button
+                className="group flex items-center gap-2.5 rounded-full border border-border bg-card/70 py-1 pl-1 pr-2.5 shadow-sm transition-all hover:border-border-strong hover:bg-card hover:shadow-md"
+                aria-busy={isProfileHydrating || undefined}
+                aria-label={isProfileHydrating ? "Loading profile" : undefined}
+              >
+                <div className={cn(
+                  "relative flex h-[32px] w-[32px] items-center justify-center rounded-full text-[12px] font-bold text-white transition-transform group-hover:scale-105",
+                  isProfileHydrating ? "bg-muted" : "bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB]"
+                )}>
+                  {isProfileHydrating ? (
+                    <span className="h-3 w-3 animate-pulse rounded-full bg-muted-foreground/25" aria-hidden="true" />
+                  ) : (
+                    profileInitials
+                  )}
+                  {!isProfileHydrating && <span className="absolute -bottom-0.5 -right-0.5 h-[10px] w-[10px] rounded-full bg-[#22C55E] ring-2 ring-card" />}
                 </div>
                 <span className="hidden text-left leading-tight md:block">
-                  <span className="block text-[12.5px] font-semibold tracking-[-0.01em]">{profile.name}</span>
-                  <span className="flex items-center gap-1 text-[10.5px] font-medium text-muted-foreground">
-                    Pro <Zap className="h-2.5 w-2.5 text-[#F59E0B]" />
-                  </span>
+                  {isProfileHydrating ? (
+                    <span className="block h-3 w-20 animate-pulse rounded bg-muted" aria-hidden="true" />
+                  ) : (
+                    <span className="block text-[12.5px] font-semibold tracking-[-0.01em]">{profile.name}</span>
+                  )}
+                  {isProfileHydrating ? (
+                    <span className="mt-1 block h-2.5 w-12 animate-pulse rounded bg-muted" aria-hidden="true" />
+                  ) : (
+                    <span className="flex items-center gap-1 text-[10.5px] font-medium text-muted-foreground">
+                      Pro <Zap className="h-2.5 w-2.5 text-[#F59E0B]" />
+                    </span>
+                  )}
                 </span>
                 <ChevronDown className="hidden h-3.5 w-3.5 text-muted-foreground transition-transform duration-300 group-data-[state=open]:rotate-180 md:block" />
               </button>

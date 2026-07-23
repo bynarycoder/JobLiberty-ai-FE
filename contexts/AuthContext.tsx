@@ -17,6 +17,8 @@ import { getApiError } from "@/lib/api/client";
 export interface AuthContextValue {
   user: AuthUser | null;
   loading: boolean;
+  /** True only after persisted client-side auth state has been resolved. */
+  isHydrated: boolean;
   isAuthenticated: boolean;
   login: (input: LoginInput) => Promise<AuthUser>;
   register: (input: RegisterInput) => Promise<AuthUser>;
@@ -45,46 +47,44 @@ function syncLegacyProfile(user: AuthUser | null) {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  // Lazy-initialise from localStorage so a page refresh keeps the user
-  // signed in without a flash of "logged-out" UI. The initializer is only
-  // invoked in the browser thanks to the guard inside `readCurrentUser`.
-  const [user, setUserState] = React.useState<AuthUser | null>(() => readCurrentUser());
-  const [loading, setLoading] = React.useState<boolean>(() => Boolean(readCurrentUser() || getAccessToken()));
+  // Keep the server render and the first browser render identical. Persisted
+  // session state is intentionally read only after React has hydrated.
+  const [user, setUserState] = React.useState<AuthUser | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [isHydrated, setIsHydrated] = React.useState(false);
 
   const setUser = React.useCallback((next: AuthUser | null) => {
     setUserState(next);
     syncLegacyProfile(next);
   }, []);
 
-  // Keep the legacy profile store in sync with the initial cached user.
-  React.useEffect(() => {
-    if (user) syncLegacyProfile(user);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  /* Validate the cached session against /auth/me in the background. */
+  /* Read and validate the persisted session only after the initial render. */
   React.useEffect(() => {
     let cancelled = false;
 
-    (async () => {
-      if (!getAccessToken()) {
-        if (!cancelled) setLoading(false);
-        return;
-      }
+    const hydrateSession = async () => {
       try {
-        const fresh = await authService.refreshCurrentUser();
+        const accessToken = getAccessToken();
+        const cachedUser = readCurrentUser();
+
+        // Preserve the legacy-profile synchronization that previously ran for
+        // the cached user, without exposing it during hydration.
+        if (cachedUser) syncLegacyProfile(cachedUser);
+
+        const fresh = accessToken ? await authService.refreshCurrentUser() : null;
         if (cancelled) return;
-        if (fresh) {
-          setUserState(fresh);
-          syncLegacyProfile(fresh);
-        } else {
-          setUserState(null);
-          syncLegacyProfile(null);
-        }
+
+        setUserState(fresh);
+        if (accessToken) syncLegacyProfile(fresh);
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+          setIsHydrated(true);
+        }
       }
-    })();
+    };
+
+    void hydrateSession();
 
     return () => {
       cancelled = true;
@@ -168,6 +168,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     () => ({
       user,
       loading,
+      isHydrated,
       isAuthenticated: Boolean(user),
       login,
       register,
@@ -175,7 +176,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       refreshUser,
       setUser,
     }),
-    [user, loading, login, register, logout, refreshUser, setUser]
+    [user, loading, isHydrated, login, register, logout, refreshUser, setUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

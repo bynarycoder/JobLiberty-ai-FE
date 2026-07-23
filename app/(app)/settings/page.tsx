@@ -11,7 +11,7 @@ import { Settings, Moon, Sun, Monitor, Bell, Globe, User, Shield, Trash2, Check,
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { getInitials } from "@/lib/api/user-profile";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -55,14 +55,13 @@ function SettingsPageInner() {
   const { theme, setTheme } = useTheme();
   const { user, logout } = useAuth();
   const [notif, setNotif] = React.useState({ email: true, jobs: true, weekly: false });
-  const fallbackProfile = getUserProfile();
   const profile = user
     ? {
         name: user.fullName || user.name || user.email,
         email: user.email,
         location: user.location,
       }
-    : fallbackProfile;
+    : { name: "Guest User", email: "guest@jobliberty.ai", location: undefined };
   const profileInitials = getInitials(profile.name);
 
   /* next-themes is undefined during SSR — "Auto" renders until mounted */
