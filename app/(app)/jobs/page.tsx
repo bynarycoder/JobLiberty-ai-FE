@@ -26,10 +26,25 @@ export default function JobsPage() {
   const [debouncedSearch, setDebouncedSearch] = React.useState("");
   const [sort, setSort] = React.useState("match");
   const [filter, setFilter] = React.useState<"all" | "remote" | "onsite" | "hybrid">("all");
-  const [useMatch, setUseMatch] = React.useState(Boolean(getStoredResumeId()));
-  const { data: resume } = useQuery({ queryKey: ["resume"], queryFn: ({ signal }) => api.fetchResume(signal).catch(() => null), enabled: Boolean(getStoredResumeId()) });
+  const [resumeId, setResumeId] = React.useState<string | undefined>();
+  const [useMatch, setUseMatch] = React.useState(false);
+  const { data: resume } = useQuery({
+    queryKey: ["resume"],
+    queryFn: ({ signal }) => api.fetchResume(signal).catch(() => null),
+    enabled: Boolean(resumeId),
+  });
   const hasCandidate = Boolean(resume?.analysis);
   const searchRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    const storedResumeId = getStoredResumeId();
+    const timer = window.setTimeout(() => {
+      setResumeId(storedResumeId);
+      setUseMatch(Boolean(storedResumeId));
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   React.useEffect(() => {
     const handler = () => searchRef.current?.focus();
@@ -49,9 +64,9 @@ export default function JobsPage() {
     error,
     refetch,
   } = useQuery({
-    queryKey: ["jobs", debouncedSearch, useMatch],
+    queryKey: ["jobs", debouncedSearch, useMatch, resumeId],
     queryFn: async ({ signal }) => {
-      if (useMatch && getStoredResumeId() && !debouncedSearch) {
+      if (useMatch && resumeId && !debouncedSearch) {
         try {
           return await api.fetchJobMatches(signal);
         } catch {

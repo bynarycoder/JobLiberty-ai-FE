@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { getInitials } from "@/lib/api/user-profile";
 import { useOptionalAuth } from "@/contexts/AuthContext";
 import { User as UserIcon, Bookmark, ClipboardList } from "lucide-react";
 
@@ -102,6 +102,8 @@ const ACCENTS: Record<
   },
 };
 
+const GUEST_PROFILE = { name: "Guest User", email: "guest@jobliberty.ai", location: undefined };
+
 const SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: "Workspace",
@@ -143,18 +145,18 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
   const { t } = useI18n();
   const auth = useOptionalAuth();
   const isMobile = variant === "mobile";
-  const fallbackProfile = getUserProfile();
+  const isHydrating = !auth?.isHydrated;
   const profile = auth?.user
     ? {
         name: auth.user.fullName || auth.user.name || auth.user.email,
         email: auth.user.email,
         location: auth.user.location,
       }
-    : fallbackProfile;
+    : GUEST_PROFILE;
   const profileInitials = getInitials(profile.name);
 
   const sections = React.useMemo(() => {
-    if (!auth?.isAuthenticated) return SECTIONS;
+    if (isHydrating || !auth?.isAuthenticated) return SECTIONS;
     const withAccount: typeof SECTIONS = [
       ...SECTIONS.slice(0, 2),
       {
@@ -168,7 +170,7 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
       ...SECTIONS.slice(2),
     ];
     return withAccount;
-  }, [auth?.isAuthenticated]);
+  }, [auth?.isAuthenticated, isHydrating]);
 
   const isActive = (href: string) => {
     if (href === "/dashboard") return pathname === "/dashboard";
@@ -369,7 +371,25 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
 
       {/* ── Bottom profile ── */}
       <div className="shrink-0 border-t border-border/70 p-3">
-        {isMobile || !collapsed ? (
+        {isHydrating ? (
+          isMobile || !collapsed ? (
+            <div className="flex items-center gap-3 rounded-[15px] p-2" aria-busy="true" aria-label="Loading profile">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted">
+                <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-muted-foreground/25" />
+              </div>
+              <div className="min-w-0 flex-1 space-y-1.5" aria-hidden="true">
+                <span className="block h-3 w-24 animate-pulse rounded bg-muted" />
+                <span className="block h-2.5 w-16 animate-pulse rounded bg-muted" />
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-2.5 py-1" aria-busy="true" aria-label="Loading profile">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted">
+                <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-muted-foreground/25" />
+              </div>
+            </div>
+          )
+        ) : isMobile || !collapsed ? (
           <>
             <Link
               href="/settings"

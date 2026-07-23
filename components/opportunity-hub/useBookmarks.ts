@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
-const BOOKMARKS_KEY = 'jobliberty-opportunity-bookmarks';
+const BOOKMARKS_KEY = "jobliberty-opportunity-bookmarks";
 
-function getInitialBookmarks(): Set<string> {
-  if (typeof window === 'undefined') return new Set();
+function readBookmarks(): Set<string> {
   try {
     const stored = window.localStorage.getItem(BOOKMARKS_KEY);
     if (stored) {
@@ -13,18 +12,35 @@ function getInitialBookmarks(): Set<string> {
       return new Set(parsed);
     }
   } catch {
-    // ignore parsing errors
+    // Ignore unavailable storage and malformed saved values.
   }
   return new Set();
 }
 
 export function useBookmarks() {
-  const [bookmarks, setBookmarks] = useState<Set<string>>(getInitialBookmarks);
+  // Start from the same empty state on the server and during the first client
+  // render. The persisted value is restored after hydration.
+  const [bookmarks, setBookmarks] = useState<Set<string>>(() => new Set());
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    window.localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(Array.from(bookmarks)));
-  }, [bookmarks]);
+    const storedBookmarks = readBookmarks();
+    const timer = window.setTimeout(() => {
+      setBookmarks(storedBookmarks);
+      setIsHydrated(true);
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    try {
+      window.localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(Array.from(bookmarks)));
+    } catch {
+      // Ignore unavailable storage and quota errors.
+    }
+  }, [bookmarks, isHydrated]);
 
   const toggleBookmark = useCallback((id: string) => {
     setBookmarks((prev) => {
@@ -38,10 +54,7 @@ export function useBookmarks() {
     });
   }, []);
 
-  const isBookmarked = useCallback(
-    (id: string) => bookmarks.has(id),
-    [bookmarks]
-  );
+  const isBookmarked = useCallback((id: string) => bookmarks.has(id), [bookmarks]);
 
   return { bookmarks, toggleBookmark, isBookmarked };
 }
