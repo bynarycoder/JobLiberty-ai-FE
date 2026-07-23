@@ -28,7 +28,10 @@
     "notifications": "Ọkwa",
     "quickActions": "Ihe ngwa ngwa",
     "viewProfile": "Lelee profaịlụ",
-    "searchEverything": "Chọọ ọrụ, nkà..."
+    "searchEverything": "Chọọ ọrụ, nkà...",
+    "profile": "Profaịlụ",
+    "savedJobs": "Ọrụ Echekwara",
+    "applications": "Njiri Mara"
   },
   "auth": {
     "signIn": "Banye",

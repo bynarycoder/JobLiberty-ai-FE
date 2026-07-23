@@ -12,6 +12,8 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { getUserProfile, getInitials } from "@/lib/api/user-profile";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { useAuth } from "@/contexts/AuthContext";
 
 function Toggle({ enabled, onChange, tint }: { enabled: boolean; onChange: (v: boolean) => void; tint: string }) {
   return (
@@ -48,11 +50,19 @@ function SettingRow({ icon: Icon, iconBox, title, desc, children }: { icon: Reac
   );
 }
 
-export default function SettingsPage() {
+function SettingsPageInner() {
   const { t, language, setLanguage, languages } = useI18n();
   const { theme, setTheme } = useTheme();
+  const { user, logout } = useAuth();
   const [notif, setNotif] = React.useState({ email: true, jobs: true, weekly: false });
-  const profile = getUserProfile();
+  const fallbackProfile = getUserProfile();
+  const profile = user
+    ? {
+        name: user.fullName || user.name || user.email,
+        email: user.email,
+        location: user.location,
+      }
+    : fallbackProfile;
   const profileInitials = getInitials(profile.name);
 
   /* next-themes is undefined during SSR — "Auto" renders until mounted */
@@ -244,10 +254,8 @@ export default function SettingsPage() {
                   <Shield className="h-4 w-4 text-[#10B981]" /> Privacy &amp; data
                 </Link>
               </Button>
-              <Button variant="outline" className="gap-2 rounded-full" asChild>
-                <Link href="/auth/signin">
-                  <LogOut className="h-4 w-4 text-[#D97706]" /> {t("nav.logout")}
-                </Link>
+              <Button variant="outline" className="gap-2 rounded-full" onClick={() => logout()}>
+                <LogOut className="h-4 w-4 text-[#D97706]" /> {t("nav.logout")}
               </Button>
             </div>
             <button
@@ -260,5 +268,13 @@ export default function SettingsPage() {
         </motion.section>
       </div>
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <ProtectedRoute>
+      <SettingsPageInner />
+    </ProtectedRoute>
   );
 }

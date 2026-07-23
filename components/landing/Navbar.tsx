@@ -6,11 +6,28 @@ import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { useI18n } from "@/providers/I18nProvider";
-import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/DropdownMenu";
+import { Menu, X, ArrowUpRight, Sparkles, LayoutDashboard, User, Settings as SettingsIcon, LogOut, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+function getInitials(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "JL";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
 
 export function Navbar() {
   const { t } = useI18n();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -19,6 +36,8 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const initials = user ? getInitials(user.fullName || user.name || user.email) : "JL";
 
   return (
     <nav
@@ -74,17 +93,68 @@ export function Navbar() {
           <LanguageSwitcher />
           <ThemeToggle />
           <div className="h-5 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
-          <Link href="/auth/signin">
-            <Button variant="ghost" size="sm" className="rounded-full font-[600]">
-              {t("nav.signIn")}
-            </Button>
-          </Link>
-          <Link href="/auth/signup">
-            <Button size="sm" className="rounded-full gap-1.5 pl-4 pr-3.5">
-              {t("nav.signUp")}
-              <ArrowUpRight className="h-4 w-4" />
-            </Button>
-          </Link>
+
+          {isAuthenticated && user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="group flex items-center gap-2 rounded-full border border-border bg-card/70 py-1 pl-1 pr-3 shadow-sm transition-all hover:border-border-strong hover:bg-card hover:shadow-md">
+                  <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[12px] font-bold text-white">
+                    {initials}
+                  </div>
+                  <span className="hidden lg:block text-[12.5px] font-semibold leading-tight max-w-[120px] truncate">
+                    {user.fullName || user.name || user.email}
+                  </span>
+                  <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[240px] rounded-[14px] border-border/70 p-1.5">
+                <DropdownMenuLabel className="px-2.5 py-2">
+                  <div className="text-[13px] font-bold leading-tight">{user.fullName || user.name || user.email}</div>
+                  <div className="text-[11px] font-medium text-muted-foreground truncate">{user.email}</div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild className="cursor-pointer rounded-[10px] px-2.5 py-2 focus:bg-primary-soft/70">
+                  <Link href="/dashboard" className="flex items-center gap-2.5 text-[13px] font-medium">
+                    <LayoutDashboard className="h-4 w-4 text-[#2563EB]" /> {t("nav.dashboard")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer rounded-[10px] px-2.5 py-2 focus:bg-primary-soft/70">
+                  <Link href="/profile" className="flex items-center gap-2.5 text-[13px] font-medium">
+                    <User className="h-4 w-4 text-[#7C3AED]" /> Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer rounded-[10px] px-2.5 py-2 focus:bg-primary-soft/70">
+                  <Link href="/settings" className="flex items-center gap-2.5 text-[13px] font-medium">
+                    <SettingsIcon className="h-4 w-4 text-muted-foreground" /> {t("nav.settings")}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onSelect={(e) => {
+                    e.preventDefault();
+                    logout();
+                  }}
+                  className="cursor-pointer rounded-[10px] px-2.5 py-2 text-[13px] font-medium text-[#DC2626] focus:bg-danger-soft dark:text-[#F98B8B]"
+                >
+                  <LogOut className="h-4 w-4" /> {t("nav.logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link href="/auth/signin">
+                <Button variant="ghost" size="sm" className="rounded-full font-[600]">
+                  {t("nav.signIn")}
+                </Button>
+              </Link>
+              <Link href="/auth/signup">
+                <Button size="sm" className="rounded-full gap-1.5 pl-4 pr-3.5">
+                  {t("nav.signUp")}
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         <div className="md:hidden flex items-center gap-1.5">
@@ -116,14 +186,39 @@ export function Navbar() {
                 Opportunity Hub <span className="rounded-full bg-[#10B981] px-2 py-0.5 text-[10px] font-bold text-white">NEW</span>
               </Link>
               <div className="mt-4 flex flex-col gap-2 pt-4 border-t border-slate-200/60 dark:border-slate-800/60">
-                <Link href="/auth/signin">
-                  <Button variant="outline" className="w-full rounded-full">
-                    {t("nav.signIn")}
-                  </Button>
-                </Link>
-                <Link href="/auth/signup">
-                  <Button className="w-full rounded-full">{t("nav.signUp")}</Button>
-                </Link>
+                {isAuthenticated && user ? (
+                  <>
+                    <div className="flex items-center gap-3 rounded-[12px] bg-card-muted/70 px-3 py-2.5">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] text-[13px] font-bold text-white">
+                        {initials}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-[13px] font-semibold">{user.fullName || user.name || user.email}</div>
+                        <div className="truncate text-[11px] text-muted-foreground">{user.email}</div>
+                      </div>
+                    </div>
+                    <Link href="/profile">
+                      <Button variant="outline" className="w-full rounded-full">Profile</Button>
+                    </Link>
+                    <Link href="/settings">
+                      <Button variant="outline" className="w-full rounded-full">{t("nav.settings")}</Button>
+                    </Link>
+                    <Button onClick={() => logout()} variant="outline" className="w-full rounded-full text-[#DC2626] dark:text-[#F98B8B]">
+                      <LogOut className="mr-2 h-4 w-4" /> {t("nav.logout")}
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/auth/signin">
+                      <Button variant="outline" className="w-full rounded-full">
+                        {t("nav.signIn")}
+                      </Button>
+                    </Link>
+                    <Link href="/auth/signup">
+                      <Button className="w-full rounded-full">{t("nav.signUp")}</Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
