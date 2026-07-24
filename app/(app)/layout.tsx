@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { DashboardTopbar } from "@/components/dashboard/DashboardTopbar";
+import { JobLibertyFooter } from "@/components/shared/JobLibertyFooter";
 import { cn } from "@/lib/utils";
 
 /**
@@ -102,16 +103,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* ── Footer ── */}
         <footer className="mx-auto w-full max-w-[1680px] px-4 pb-6 sm:px-5 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-2 rounded-[16px] border border-border/60 bg-card/50 px-5 py-3 text-[11.5px] text-muted-foreground backdrop-blur-sm sm:flex-row">
-            <span className="flex items-center gap-1.5">
-              <span className="flex h-4 w-4 items-center justify-center rounded-[5px] bg-gradient-to-br from-[#2563EB] to-[#7C3AED] text-[8px] font-extrabold text-white">JL</span>
-              JobLiberty © 2026 — Empowering Every Career Journey with AI
-            </span>
-            <span className="flex items-center gap-1.5 font-medium">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#22C55E]" />
-              All systems operational • 3MTT NextGen
-            </span>
-          </div>
+          <JobLibertyFooter compact />
         </footer>
       </div>
     </div>

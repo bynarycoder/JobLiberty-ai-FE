@@ -22,6 +22,7 @@ import {
   Briefcase,
   PieChart,
   Command,
+  Info,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -128,6 +129,7 @@ const SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/skills", icon: TrendingUp, labelKey: "nav.skills", accent: "rose" },
       { href: "/resources", icon: BookOpen, labelKey: "nav.resources", accent: "teal" },
       { href: "/reports", icon: PieChart, labelKey: "nav.reports", accent: "blue" },
+      { href: "/about", icon: Info, labelKey: "nav.about", accent: "purple" },
       { href: "/settings", icon: Settings, labelKey: "nav.settings", accent: "slate" },
     ],
   },
