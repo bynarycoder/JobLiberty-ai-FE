@@ -30,8 +30,8 @@ export function AuthShell({ children, title, subtitle }: { children: React.React
 
         <div className="relative z-10 flex w-full flex-col justify-between p-10 xl:p-14">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-white/15 shadow-lg ring-1 ring-white/25 backdrop-blur-md">
-              <span className="text-[18px] font-extrabold tracking-[-0.05em] text-white">JL</span>
+            <div className="flex h-11 w-11 items-center justify-center rounded-[14px] shadow-lg ring-1 ring-white/25 overflow-hidden">
+              <img src="/logo-icon.png" alt="JobLiberty" className="h-11 w-11" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -92,8 +92,8 @@ export function AuthShell({ children, title, subtitle }: { children: React.React
           {/* Mobile logo */}
           <div className="mb-7 flex justify-center lg:hidden">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-[13px] bg-gradient-to-br from-[#7C3AED] via-[#4F46E5] to-[#2563EB] shadow-[0_8px_18px_-4px_rgba(79,70,229,0.5)]">
-                <span className="text-[16px] font-extrabold tracking-[-0.05em] text-white">JL</span>
+              <div className="flex h-10 w-10 items-center justify-center rounded-[13px] overflow-hidden shadow-[0_8px_18px_-4px_rgba(79,70,229,0.5)]">
+                <img src="/logo-icon.png" alt="JobLiberty" className="h-10 w-10" />
               </div>
               <span className="text-[22px] font-bold tracking-tight">JobLiberty</span>
             </Link>

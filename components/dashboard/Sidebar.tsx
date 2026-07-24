@@ -268,8 +268,8 @@ export function Sidebar({ collapsed = false, onToggleCollapse, variant = "deskto
       {/* ── Logo ── */}
       <div className="flex h-[72px] shrink-0 items-center gap-3 border-b border-border/70 px-4">
         <Link href="/dashboard" onClick={onNavigate} className="flex min-w-0 flex-1 items-center gap-3">
-          <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#7C3AED] shadow-[0_6px_16px_-4px_rgba(79,70,229,0.5)]">
-            <span className="text-[16px] font-extrabold tracking-[-0.06em] text-white">JL</span>
+          <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center">
+            <img src="/logo-icon.png" alt="JobLiberty" className="h-[38px] w-[38px] rounded-[12px] shadow-[0_6px_16px_-4px_rgba(79,70,229,0.5)]" />
             <span className="absolute -right-0.5 -top-0.5 flex h-[10px] w-[10px]">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#10B981] opacity-75" />
               <span className="relative inline-flex h-[10px] w-[10px] rounded-full bg-[#10B981] ring-2 ring-card" />

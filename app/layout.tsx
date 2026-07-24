@@ -17,13 +17,14 @@ export const metadata: Metadata = {
   keywords: ["JobLiberty", "AI career", "Nigeria jobs", "resume analysis", "3MTT", "career companion", "job matching"],
   authors: [{ name: "Abdulwahab Abdulyekeen", url: "https://github.com/bynarycoder" }],
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
   },
   openGraph: {
     title: "JobLiberty - Empowering Every Career Journey with AI",
     description:
       "Premium AI career platform for African talent. ATS scoring, skill gaps, opportunity hub, and Liberty AI companion. Showcasing at 3MTT NextGen 2026.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "JobLiberty AI Career Platform" }],
+    images: [{ url: "/logo-full.png", width: 1200, height: 630, alt: "JobLiberty AI Career Platform" }],
     type: "website",
     locale: "en_NG",
   },

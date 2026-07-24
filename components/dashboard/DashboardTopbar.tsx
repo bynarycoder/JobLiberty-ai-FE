@@ -109,8 +109,8 @@ export function DashboardTopbar({ onMenuClick }: { onMenuClick?: () => void }) {
             <Menu className="h-5 w-5" />
           </Button>
           <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#7C3AED] shadow-[0_4px_12px_-2px_rgba(79,70,229,0.5)]">
-              <span className="text-[13px] font-extrabold tracking-[-0.05em] text-white">JL</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-[10px] overflow-hidden shadow-[0_4px_12px_-2px_rgba(79,70,229,0.5)]">
+              <img src="/logo-icon.png" alt="JobLiberty" className="h-8 w-8" />
             </div>
           </Link>
         </div>

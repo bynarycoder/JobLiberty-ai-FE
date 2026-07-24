@@ -172,7 +172,7 @@ function LogoMark({ large = false }: { large?: boolean }) {
         large ? "h-20 w-20 sm:h-24 sm:w-24" : "h-12 w-12"
       )}
     >
-      <span className={cn("font-extrabold tracking-[-0.08em] text-white", large ? "text-[34px] sm:text-[40px]" : "text-[19px]")}>JL</span>
+      <img src="/logo-icon.png" alt="JobLiberty" className={cn("object-cover", large ? "h-full w-full" : "h-full w-full")} />
       <span className="absolute -right-2 -top-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/15 text-[18px] shadow-lg backdrop-blur-md">
         🚀
       </span>
