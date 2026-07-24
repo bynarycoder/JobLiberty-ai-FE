@@ -46,8 +46,8 @@ export function JobLibertyFooter({ className, compact = false }: JobLibertyFoote
       <div className="relative grid gap-8 lg:grid-cols-[1.15fr_1fr_0.9fr]">
         <div className="max-w-sm">
           <Link href="/dashboard" className="group inline-flex items-center gap-3">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-[14px] bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#7C3AED] shadow-[0_10px_24px_-10px_rgba(79,70,229,0.9)] transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
-              <span className="text-[18px] font-extrabold tracking-[-0.06em] text-white">JL</span>
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-[14px] overflow-hidden shadow-[0_10px_24px_-10px_rgba(79,70,229,0.9)] transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">
+              <img src="/logo-icon.png" alt="JobLiberty" className="h-11 w-11" />
               <span className="absolute -right-1 -top-1 flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#10B981] opacity-75" />
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-[#10B981] ring-2 ring-card" />

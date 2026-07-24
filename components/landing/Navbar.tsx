@@ -50,8 +50,8 @@ export function Navbar() {
       <div className="max-w-[1280px] mx-auto px-6 h-[68px] flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-[11px] bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#4F46E5] shadow-[0_2px_8px_rgba(37,99,235,0.28)] group-hover:shadow-[0_4px_14px_rgba(37,99,235,0.32)] group-hover:scale-[1.02] transition-all duration-300">
-              <span className="text-[17px] font-extrabold tracking-[-0.06em] text-white">JL</span>
+            <div className="relative flex h-9 w-9 items-center justify-center group-hover:scale-[1.02] transition-all duration-300">
+              <img src="/logo-icon.png" alt="JobLiberty" className="h-9 w-9 rounded-[11px] shadow-[0_2px_8px_rgba(37,99,235,0.28)] group-hover:shadow-[0_4px_14px_rgba(37,99,235,0.32)] transition-all duration-300" />
               <span className="absolute -right-1 -top-1 flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10B981] ring-2 ring-white dark:ring-[#0F172A]" />
