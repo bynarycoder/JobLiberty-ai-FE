@@ -26,7 +26,12 @@ export class ApiError extends Error {
 // The deployed API is the default so production and local builds work without
 // a separately configured proxy. NEXT_PUBLIC_API_URL can still point at a
 // staging instance during development.
-export const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "https://jobliberty-backend.onrender.com").replace(/\/$/, "");
+export const API_BASE_URL = (
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.VITE_API_URL ||
+  process.env.API_BASE_URL ||
+  "https://jobliberty-backend.onrender.com"
+).replace(/\/$/, "");
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,

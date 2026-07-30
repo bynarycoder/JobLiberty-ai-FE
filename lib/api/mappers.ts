@@ -1,9 +1,11 @@
 import type {
   ATSAnalysis,
+  ATSFeedback,
   CareerRoadmap,
   ChatResponse,
   DashboardStats,
   Job,
+  OpportunityStats,
   Resume,
   ResumeAnalysis,
   ResumeExperience,
@@ -113,7 +115,7 @@ export function mapResumeAnalysis(raw: unknown): ResumeAnalysis | undefined {
 
   const atsFeedbackRaw = pick(analysis, "ats_feedback", "atsFeedback", "ats") ??
     pick(root, "ats_feedback", "atsFeedback");
-  const atsFeedback = atsFeedbackRaw ? (asRecord(atsFeedbackRaw) as any) : undefined;
+  const atsFeedback = atsFeedbackRaw ? (asRecord(atsFeedbackRaw) as ATSFeedback) : undefined;
 
   const atsScore = scoreOf(
     analysis,
@@ -559,4 +561,52 @@ export function mapOpportunity(raw: unknown, index = 0) {
 
 export function mapOpportunities(raw: unknown) {
   return asArray(raw).map((item, index) => mapOpportunity(item, index));
+}
+
+export function mapOpportunityStats(raw: unknown): OpportunityStats {
+  const root = asRecord(raw);
+  const source = asRecord(pick(root, "stats", "data", "result") ?? root);
+  const counts = asRecord(pick(source, "counts", "count", "categories") ?? source);
+
+  const availableJobs = asNumber(pick(counts, "jobs", "job", "available_jobs", "availableJobs"), 0);
+  const scholarships = asNumber(pick(counts, "scholarships", "scholarship"), 0);
+  const internships = asNumber(pick(counts, "internships", "internship"), 0);
+  const hackathons = asNumber(pick(counts, "hackathons", "hackathon", "competitions", "competition"), 0);
+  const learningResources = asNumber(
+    pick(counts, "learning_resources", "learningResources", "learning", "learning_resource"),
+    0
+  );
+
+  const sumCounts = availableJobs + scholarships + internships + hackathons + learningResources;
+  const totalOpportunities = asNumber(
+    pick(source, "totalOpportunities", "total_opportunities", "total", "today", "count"),
+    NaN
+  );
+
+  return {
+    totalOpportunities:
+      Number.isFinite(totalOpportunities) && totalOpportunities > 0 ? totalOpportunities : sumCounts,
+    availableJobs,
+    scholarships,
+    internships,
+    hackathons,
+    learningResources,
+  };
+}
+
+export function mapOpportunitiesDashboard(raw: unknown): {
+  stats: OpportunityStats;
+  opportunities: ReturnType<typeof mapOpportunity>[];
+} {
+  const root = asRecord(raw);
+  const source = asRecord(pick(root, "dashboard", "data", "result") ?? root);
+  const statsRaw = pick(source, "stats", "statistics", "counts") ?? raw;
+  const stats = mapOpportunityStats(statsRaw);
+  const items = asArray(
+    pick(source, "opportunities", "items", "jobs", "results", "featured") ?? raw
+  );
+  return {
+    stats,
+    opportunities: items.map((item, index) => mapOpportunity(item, index)),
+  };
 }

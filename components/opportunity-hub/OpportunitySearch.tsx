@@ -21,18 +21,25 @@ export function OpportunitySearch() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const search = useCallback(async (q: string) => {
     if (!q.trim()) {
       setResults([]);
+      setErrorMsg(null);
       setIsOpen(false);
       return;
     }
     setIsLoading(true);
+    setErrorMsg(null);
     try {
       const data = await opportunitiesApi.searchOpportunities(q);
       setResults(data);
+      setIsOpen(true);
+    } catch {
+      setErrorMsg("We could not reach JobLiberty. Please try again.");
+      setResults([]);
       setIsOpen(true);
     } finally {
       setIsLoading(false);
@@ -68,7 +75,6 @@ export function OpportunitySearch() {
           placeholder={t("opportunityHub.search.placeholder")}
           className="h-[48px] w-full rounded-[14px] border border-border bg-card pl-12 pr-[120px] text-[14px] font-[450] tracking-[-0.01em] text-foreground placeholder:text-muted-foreground shadow-sm transition-all duration-200 hover:border-border-strong focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10"
           aria-label={t("opportunityHub.search.ariaLabel")}
-          aria-expanded={isOpen}
         />
 
         <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
@@ -98,7 +104,18 @@ export function OpportunitySearch() {
             className="absolute z-50 mt-2 w-full rounded-[16px] border border-border bg-popover/95 backdrop-blur-xl p-2 shadow-xl"
             role="listbox"
           >
-            {results.length > 0 ? (
+            {isLoading ? (
+              <div className="py-10 text-center">
+                <Loader2 className="mx-auto h-6 w-6 animate-spin text-slate-400 mb-2" />
+                <div className="text-[13px] font-medium text-slate-600 dark:text-slate-400">
+                  Searching opportunities...
+                </div>
+              </div>
+            ) : errorMsg ? (
+              <div className="py-10 text-center">
+                <div className="text-[13px] font-medium text-red-600 dark:text-red-400">{errorMsg}</div>
+              </div>
+            ) : results.length > 0 ? (
               <ul className="space-y-0.5 max-h-[320px] overflow-y-auto">
                 {results.map((result) => (
                   <li key={result.id}>
@@ -110,6 +127,7 @@ export function OpportunitySearch() {
                       }}
                       className="flex w-full items-center gap-3 rounded-[12px] px-3 py-2.5 text-left text-[13.5px] transition-colors hover:bg-slate-50 dark:hover:bg-white/[0.06] focus-visible:bg-slate-50 dark:focus-visible:bg-white/[0.06] focus-visible:outline-none group"
                       role="option"
+                      aria-selected={false}
                     >
                       <div className="h-9 w-9 rounded-[10px] bg-slate-50 dark:bg-white/[0.06] border border-slate-200/60 dark:border-white/[0.08] flex items-center justify-center text-[12px] font-bold text-slate-600 dark:text-slate-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-[#1E3A8A]/20 group-hover:text-[#2563EB] dark:group-hover:text-[#60A5FA] group-hover:border-[#DBEAFE] dark:group-hover:border-[#1E3A8A]/30 transition-colors">
                         {result.organization[0]}

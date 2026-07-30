@@ -25,20 +25,31 @@ async function list(params: Record<string, unknown> = {}, signal?: AbortSignal) 
 }
 
 function asType(value: unknown): OpportunityType {
-  const raw = asString(value, "job").toLowerCase();
+  const raw = asString(value, "jobs").toLowerCase();
   const allowed: OpportunityType[] = [
     "job",
+    "jobs",
     "scholarship",
+    "scholarships",
     "fellowship",
     "internship",
+    "internships",
     "competition",
     "hackathon",
+    "hackathons",
     "learning",
+    "learning_resources",
     "networking",
     "volunteer",
     "opensource",
   ];
-  return (allowed.includes(raw as OpportunityType) ? raw : "job") as OpportunityType;
+  return (allowed.includes(raw as OpportunityType) ? raw : "jobs") as OpportunityType;
+}
+
+let oppSeq = 0;
+function cryptoRandom() {
+  oppSeq += 1;
+  return `opp_${oppSeq}`;
 }
 
 function toFeatured(item: Record<string, unknown>): FeaturedOpportunity {
@@ -59,36 +70,55 @@ function toFeatured(item: Record<string, unknown>): FeaturedOpportunity {
     tags: asStringArray(pick(item, "tags")),
     isFeatured: Boolean(pick(item, "isFeatured", "is_featured", "featured")),
     isRemote: Boolean(pick(item, "isRemote", "is_remote", "remote")),
-    category: firstString(pick(item, "category", "type"), "job"),
+    category: firstString(pick(item, "category", "type"), "jobs"),
     opportunityScore: scoreOf(item, "opportunityScore", "opportunity_score", "score", "confidence"),
     salary: firstString(pick(item, "salary", "stipend", "coverage")) || undefined,
     experienceLevel: (firstString(pick(item, "experienceLevel", "experience_level"), "all") as FeaturedOpportunity["experienceLevel"]) || "all",
   };
 }
 
-let oppSeq = 0;
-function cryptoRandom() {
-  oppSeq += 1;
-  return `opp_${oppSeq}`;
+function normalizeCategoryKey(typeRaw: string): string {
+  const t = typeRaw.toLowerCase();
+  if (t === "job" || t === "jobs") return "jobs";
+  if (t === "scholarship" || t === "scholarships") return "scholarships";
+  if (t === "internship" || t === "internships") return "internships";
+  if (t === "hackathon" || t === "hackathons" || t === "competition") return "hackathons";
+  if (t === "learning" || t === "learning_resources" || t === "bootcamp") return "learning_resources";
+  return t;
 }
 
 function filterByType(items: Record<string, unknown>[], types: string[]) {
   const set = new Set(types.map((t) => t.toLowerCase()));
-  return items.filter((item) => set.has(asString(pick(item, "type", "category"), "job").toLowerCase()));
+  return items.filter((item) => {
+    const type = asString(pick(item, "type", "category"), "jobs").toLowerCase();
+    if (set.has(type)) return true;
+    if (set.has(type + "s") || set.has(type.replace(/s$/, ""))) return true;
+    if (
+      (set.has("learning_resources") || set.has("learning")) &&
+      (type === "learning" || type === "learning_resources" || type === "bootcamp" || type === "course")
+    )
+      return true;
+    return false;
+  });
 }
 
 function buildCategories(items: Record<string, unknown>[]): OpportunityCategory[] {
   const counts = new Map<string, number>();
   for (const item of items) {
-    const type = asString(pick(item, "type", "category"), "job").toLowerCase();
+    const type = normalizeCategoryKey(asString(pick(item, "type", "category"), "jobs"));
     counts.set(type, (counts.get(type) ?? 0) + 1);
   }
   const meta: Record<string, { icon: string; titleKey: string; descriptionKey: string; color: string }> = {
+    jobs: { icon: "briefcase", titleKey: "opportunity.categories.jobs", descriptionKey: "opportunity.categories.jobsDesc", color: "#2563EB" },
     job: { icon: "briefcase", titleKey: "opportunity.categories.jobs", descriptionKey: "opportunity.categories.jobsDesc", color: "#2563EB" },
+    scholarships: { icon: "graduation", titleKey: "opportunity.categories.scholarships", descriptionKey: "opportunity.categories.scholarshipsDesc", color: "#7C3AED" },
     scholarship: { icon: "graduation", titleKey: "opportunity.categories.scholarships", descriptionKey: "opportunity.categories.scholarshipsDesc", color: "#7C3AED" },
     fellowship: { icon: "award", titleKey: "opportunity.categories.fellowships", descriptionKey: "opportunity.categories.fellowshipsDesc", color: "#0EA5E9" },
+    internships: { icon: "users", titleKey: "opportunity.categories.internships", descriptionKey: "opportunity.categories.internshipsDesc", color: "#10B981" },
     internship: { icon: "users", titleKey: "opportunity.categories.internships", descriptionKey: "opportunity.categories.internshipsDesc", color: "#10B981" },
+    hackathons: { icon: "zap", titleKey: "opportunity.categories.hackathons", descriptionKey: "opportunity.categories.hackathonsDesc", color: "#F59E0B" },
     hackathon: { icon: "zap", titleKey: "opportunity.categories.hackathons", descriptionKey: "opportunity.categories.hackathonsDesc", color: "#F59E0B" },
+    learning_resources: { icon: "book", titleKey: "opportunity.categories.learning", descriptionKey: "opportunity.categories.learningDesc", color: "#14B8A6" },
     learning: { icon: "book", titleKey: "opportunity.categories.learning", descriptionKey: "opportunity.categories.learningDesc", color: "#14B8A6" },
   };
 
@@ -113,14 +143,15 @@ function buildCategories(items: Record<string, unknown>[]): OpportunityCategory[
 }
 
 function buildStats(items: Record<string, unknown>[]): OpportunityStats {
-  const typeOf = (item: Record<string, unknown>) => asString(pick(item, "type", "category"), "").toLowerCase();
+  const typeOf = (item: Record<string, unknown>) =>
+    normalizeCategoryKey(asString(pick(item, "type", "category"), ""));
   return {
     totalOpportunities: items.length,
-    availableJobs: items.filter((i) => typeOf(i) === "job").length,
-    scholarships: items.filter((i) => typeOf(i) === "scholarship").length,
-    internships: items.filter((i) => typeOf(i) === "internship").length,
-    hackathons: items.filter((i) => typeOf(i) === "hackathon").length,
-    learningResources: items.filter((i) => typeOf(i) === "learning").length,
+    availableJobs: items.filter((i) => typeOf(i) === "jobs").length,
+    scholarships: items.filter((i) => typeOf(i) === "scholarships").length,
+    internships: items.filter((i) => typeOf(i) === "internships").length,
+    hackathons: items.filter((i) => typeOf(i) === "hackathons").length,
+    learningResources: items.filter((i) => typeOf(i) === "learning_resources").length,
   };
 }
 
@@ -325,13 +356,65 @@ export const opportunitiesApi = {
     return list({}, signal);
   },
 
+  async fetchDashboard(signal?: AbortSignal) {
+    return backend.dashboard({}, signal);
+  },
+
   async fetchCategories(signal?: AbortSignal): Promise<OpportunityCategory[]> {
-    const items = await list({}, signal);
-    return buildCategories(items as unknown as Record<string, unknown>[]);
+    try {
+      const stats = await backend.stats(signal);
+      return [
+        {
+          id: "jobs" as OpportunityType,
+          icon: "briefcase",
+          titleKey: "opportunity.categories.jobs",
+          descriptionKey: "opportunity.categories.jobsDesc",
+          count: stats.availableJobs,
+          color: "#2563EB",
+        },
+        {
+          id: "scholarships" as OpportunityType,
+          icon: "graduation",
+          titleKey: "opportunity.categories.scholarships",
+          descriptionKey: "opportunity.categories.scholarshipsDesc",
+          count: stats.scholarships,
+          color: "#7C3AED",
+        },
+        {
+          id: "internships" as OpportunityType,
+          icon: "users",
+          titleKey: "opportunity.categories.internships",
+          descriptionKey: "opportunity.categories.internshipsDesc",
+          count: stats.internships,
+          color: "#10B981",
+        },
+        {
+          id: "hackathons" as OpportunityType,
+          icon: "zap",
+          titleKey: "opportunity.categories.hackathons",
+          descriptionKey: "opportunity.categories.hackathonsDesc",
+          count: stats.hackathons,
+          color: "#F59E0B",
+        },
+        {
+          id: "learning_resources" as OpportunityType,
+          icon: "book",
+          titleKey: "opportunity.categories.learning",
+          descriptionKey: "opportunity.categories.learningDesc",
+          count: stats.learningResources,
+          color: "#14B8A6",
+        },
+      ];
+    } catch {
+      const items = await list({}, signal);
+      return buildCategories(items as unknown as Record<string, unknown>[]);
+    }
   },
 
   async fetchFeatured(signal?: AbortSignal): Promise<FeaturedOpportunity[]> {
-    const items = await list({ category: "job" }, signal).catch(() => list({}, signal));
+    const items = await list({ category: "jobs" }, signal)
+      .catch(() => list({ category: "job" }, signal))
+      .catch(() => list({}, signal));
     return (items as unknown as Record<string, unknown>[]).map(toFeatured);
   },
 
@@ -346,29 +429,41 @@ export const opportunitiesApi = {
   },
 
   async fetch3MTTCommunity(signal?: AbortSignal): Promise<CommunityCard[]> {
-    // No dedicated community endpoint — keep the signature for callers and ignore unused signal.
     void signal;
     return [];
   },
 
   async fetchScholarships(signal?: AbortSignal): Promise<Scholarship[]> {
-    const items = await list({ category: "scholarship" }, signal).catch(() => list({}, signal));
-    return filterByType(items as unknown as Record<string, unknown>[], ["scholarship"]).map(toScholarship);
+    const items = await list({ category: "scholarships" }, signal)
+      .catch(() => list({ category: "scholarship" }, signal))
+      .catch(() => list({}, signal));
+    return filterByType(items as unknown as Record<string, unknown>[], ["scholarships", "scholarship"]).map(toScholarship);
   },
 
   async fetchFellowships(signal?: AbortSignal): Promise<Fellowship[]> {
     const items = await list({ category: "fellowship" }, signal).catch(() => list({}, signal));
-    return filterByType(items as unknown as Record<string, unknown>[], ["fellowship"]).map(toFellowship);
+    return filterByType(items as unknown as Record<string, unknown>[], ["fellowship", "fellowships"]).map(toFellowship);
   },
 
   async fetchHackathons(signal?: AbortSignal): Promise<Hackathon[]> {
-    const items = await list({ category: "hackathon" }, signal).catch(() => list({}, signal));
-    return filterByType(items as unknown as Record<string, unknown>[], ["hackathon", "competition"]).map(toHackathon);
+    const items = await list({ category: "hackathons" }, signal)
+      .catch(() => list({ category: "hackathon" }, signal))
+      .catch(() => list({}, signal));
+    return filterByType(items as unknown as Record<string, unknown>[], ["hackathons", "hackathon", "competition"]).map(toHackathon);
   },
 
   async fetchLearningResources(signal?: AbortSignal): Promise<LearningResource[]> {
-    const items = await list({ category: "learning" }, signal).catch(() => list({}, signal));
-    return filterByType(items as unknown as Record<string, unknown>[], ["learning", "bootcamp"]).map(toLearning);
+    const items = await list({ category: "learning_resources" }, signal)
+      .catch(() => list({ category: "learning" }, signal))
+      .catch(() => list({}, signal));
+    return filterByType(items as unknown as Record<string, unknown>[], ["learning_resources", "learning", "bootcamp", "course"]).map(toLearning);
+  },
+
+  async fetchInternships(signal?: AbortSignal): Promise<FeaturedOpportunity[]> {
+    const items = await list({ category: "internships" }, signal)
+      .catch(() => list({ category: "internship" }, signal))
+      .catch(() => list({}, signal));
+    return filterByType(items as unknown as Record<string, unknown>[], ["internships", "internship"]).map(toFeatured);
   },
 
   async fetchRecommendations(signal?: AbortSignal): Promise<SmartRecommendation[]> {
@@ -377,8 +472,12 @@ export const opportunitiesApi = {
   },
 
   async fetchStats(signal?: AbortSignal): Promise<OpportunityStats> {
-    const items = await list({}, signal);
-    return buildStats(items as unknown as Record<string, unknown>[]);
+    try {
+      return await backend.stats(signal);
+    } catch {
+      const items = await list({}, signal);
+      return buildStats(items as unknown as Record<string, unknown>[]);
+    }
   },
 
   async fetchIndustries(signal?: AbortSignal): Promise<IndustrySector[]> {
@@ -405,7 +504,7 @@ export const opportunitiesApi = {
     query: string,
     signal?: AbortSignal
   ): Promise<{ id: string; title: string; type: OpportunityType; organization: string }[]> {
-    const items = await backend.list({ query }, signal);
+    const items = await backend.search({ query }, signal).catch(() => backend.list({ query }, signal));
     return (items as unknown as Record<string, unknown>[]).map((item, index) => ({
       id: firstString(pick(item, "id"), `search_${index}`),
       title: firstString(pick(item, "title"), "Opportunity"),
