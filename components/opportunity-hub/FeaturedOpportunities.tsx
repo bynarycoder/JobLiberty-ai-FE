@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/Badge";
 import { MapPin, Clock, Bookmark, Share2, ExternalLink, Sparkles } from "lucide-react";
 import { EmptyState } from "./EmptyState";
 import { SkeletonCards } from "./SkeletonCards";
+import { OpportunityLinkButton } from "./OpportunityLinkButton";
 import { formatDate } from "@/lib/utils";
 import type { FeaturedOpportunity } from "@/lib/types";
 
@@ -100,10 +101,10 @@ export function FeaturedOpportunities({ opportunities, isLoading, bookmarkedIds,
                   <Button variant="ghost" size="icon-sm" className="rounded-full">
                     <Share2 className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" className="rounded-full gap-1 h-8 px-3 text-[12px]">
+                  <OpportunityLinkButton url={op.url} size="sm" className="rounded-full gap-1 h-8 px-3 text-[12px]">
                     {t("opportunityHub.featured.apply")}
                     <ExternalLink className="h-3 w-3" />
-                  </Button>
+                  </OpportunityLinkButton>
                 </div>
               </div>
             </Card>

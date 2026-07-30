@@ -531,7 +531,7 @@ export function mapOpportunity(raw: unknown, index = 0) {
     workMode: firstString(pick(source, "workMode", "work_mode", "mode"), "remote").toLowerCase(),
     deadline: firstString(pick(source, "deadline", "closes_at", "application_deadline")) || undefined,
     postedAt: firstString(pick(source, "postedAt", "posted_at", "created_at")) || undefined,
-    url: firstString(pick(source, "url", "link", "apply_url", "application_url")) || undefined,
+    url: firstString(pick(source, "url", "link", "apply_url", "application_url", "external_url")) || undefined,
     logoPlaceholder: firstString(pick(source, "logoPlaceholder", "logo")) || undefined,
     tags: asStringArray(pick(source, "tags", "keywords", "categories")),
     isFeatured: asBoolean(pick(source, "isFeatured", "is_featured", "featured")),

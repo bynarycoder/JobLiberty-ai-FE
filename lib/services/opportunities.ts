@@ -193,7 +193,7 @@ function toLearning(item: Record<string, unknown>): LearningResource {
     id: firstString(pick(item, "id"), cryptoRandom()),
     title: firstString(pick(item, "title"), "Learning resource"),
     provider: firstString(pick(item, "provider", "organization"), "Provider"),
-    url: firstString(pick(item, "url"), "#"),
+    url: firstString(pick(item, "url", "link", "apply_url", "application_url", "external_url")) || undefined,
     duration: firstString(pick(item, "duration"), "—"),
     difficulty: (["Beginner", "Intermediate", "Advanced"].includes(firstString(pick(item, "difficulty")))
       ? firstString(pick(item, "difficulty"))
@@ -218,6 +218,7 @@ function toRecommendation(item: Record<string, unknown>): SmartRecommendation {
     icon: firstString(pick(item, "icon"), "sparkles"),
     location: firstString(pick(item, "location")) || undefined,
     salary: firstString(pick(item, "salary", "stipend")) || undefined,
+    url: firstString(pick(item, "url", "link", "apply_url", "application_url", "external_url")) || undefined,
     matchFactors: {
       resume: Boolean(pick(factors, "resume") ?? true),
       skills: asStringArray(pick(factors, "skills")),
