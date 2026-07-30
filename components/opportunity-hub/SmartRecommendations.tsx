@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import {
   Sparkles,
   MapPin,
@@ -17,6 +16,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { SkeletonCards } from "./SkeletonCards";
+import { OpportunityLinkButton } from "./OpportunityLinkButton";
 import { getIcon } from "./icons";
 import { useI18n } from "@/providers/I18nProvider";
 import type { SmartRecommendation } from "@/lib/types";
@@ -205,10 +205,10 @@ export function SmartRecommendations({
                             </div>
                           )}
                         </div>
-                        <Button size="sm" className="rounded-full gap-1 h-8 px-3 text-[12px]">
+                        <OpportunityLinkButton url={rec.url} size="sm" className="rounded-full gap-1 h-8 px-3 text-[12px]">
                           View
                           <ExternalLink className="h-3 w-3" />
-                        </Button>
+                        </OpportunityLinkButton>
                       </div>
                     </div>
                   </div>

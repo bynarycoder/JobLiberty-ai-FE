@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { MapPin, Bookmark, ExternalLink, Building2 } from "lucide-react";
 import { SkeletonCards } from "./SkeletonCards";
+import { OpportunityLinkButton } from "./OpportunityLinkButton";
 import type { NigeriaOpportunity, WorkMode } from "@/lib/types";
 
 interface NigeriaOpportunitiesProps {
@@ -90,9 +91,9 @@ export function NigeriaOpportunities({ opportunities, isLoading, city, workMode,
                   <Button variant="ghost" size="icon-sm" className="rounded-full h-7 w-7" onClick={() => onToggleBookmark(op.id)}>
                     <Bookmark className={`h-3.5 w-3.5 ${bookmarkedIds.has(op.id) ? "fill-[#2563EB] text-[#2563EB]" : ""}`} />
                   </Button>
-                  <Button size="sm" className="rounded-full h-7 px-3 text-[11px] gap-1">
+                  <OpportunityLinkButton url={op.url} size="sm" className="rounded-full h-7 px-3 text-[11px] gap-1">
                     Apply <ExternalLink className="h-3 w-3" />
-                  </Button>
+                  </OpportunityLinkButton>
                 </div>
               </div>
             </Card>

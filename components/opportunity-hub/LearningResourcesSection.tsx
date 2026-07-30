@@ -2,11 +2,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { BookOpen, Clock, ExternalLink } from "lucide-react";
 import { SkeletonCards } from "./SkeletonCards";
 import { EmptyState } from "./EmptyState";
+import { OpportunityLinkButton } from "./OpportunityLinkButton";
 import { useI18n } from "@/providers/I18nProvider";
 import type { LearningResource } from "@/lib/types";
 export function LearningResourcesSection({ resources, isLoading }: { resources: LearningResource[]; isLoading: boolean }) {
@@ -39,7 +39,7 @@ export function LearningResourcesSection({ resources, isLoading }: { resources: 
                 <Badge variant="outline" size="sm" className="text-[10px]">{item.difficulty}</Badge>
               </div>
               <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mb-3"><Clock className="h-3 w-3" />{item.duration}</div>
-              <Button size="sm" variant="outline" className="w-full rounded-full gap-1 text-[12px]">Start <ExternalLink className="h-3 w-3" /></Button>
+              <OpportunityLinkButton url={item.url} size="sm" variant="outline" className="w-full rounded-full gap-1 text-[12px]">Start <ExternalLink className="h-3 w-3" /></OpportunityLinkButton>
             </Card>
           </motion.div>
         ))}

@@ -9,6 +9,7 @@ import { SkeletonCards } from "./SkeletonCards";
 import { EmptyState } from "./EmptyState";
 import { formatDate } from "@/lib/utils";
 import { useI18n } from "@/providers/I18nProvider";
+import { OpportunityLinkButton } from "./OpportunityLinkButton";
 
 /** Fields the grid cards read — structurally satisfied by Scholarship | Fellowship | Hackathon */
 export interface GridSectionItem {
@@ -25,6 +26,7 @@ export interface GridSectionItem {
   duration?: string;
   prize?: string;
   deadline?: string;
+  url?: string;
 }
 
 export function GenericGridSection({
@@ -95,9 +97,9 @@ export function GenericGridSection({
                     <Bookmark className={`h-4 w-4 ${bookmarkedIds.has(item.id) ? "fill-[#2563EB] text-[#2563EB]" : ""}`} />
                   </Button>
                 ) : <span />}
-                <Button size="sm" className="rounded-full h-7 px-3 text-[11px] gap-1">
+                <OpportunityLinkButton url={item.url} size="sm" className="rounded-full h-7 px-3 text-[11px] gap-1">
                   Apply <ExternalLink className="h-3 w-3" />
-                </Button>
+                </OpportunityLinkButton>
               </div>
             </Card>
           </motion.div>

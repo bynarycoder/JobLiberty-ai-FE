@@ -330,7 +330,7 @@ export interface LearningResource {
   id: string;
   title: string;
   provider: string;
-  url: string;
+  url?: string;
   duration: string;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   free: boolean;
@@ -428,6 +428,7 @@ export interface SmartRecommendation {
   icon: string;
   location?: string;
   salary?: string;
+  url?: string;
   matchFactors: RecommendationMatchFactors;
   tags?: string[];
 }
