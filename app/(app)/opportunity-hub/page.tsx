@@ -14,6 +14,7 @@ import { FeaturedOpportunities } from "@/components/opportunity-hub/FeaturedOppo
 import { NigeriaOpportunities } from "@/components/opportunity-hub/NigeriaOpportunities";
 import { Community3MTT } from "@/components/opportunity-hub/Community3MTT";
 import { ScholarshipsSection } from "@/components/opportunity-hub/ScholarshipsSection";
+import { InternshipsSection } from "@/components/opportunity-hub/InternshipsSection";
 import { FellowshipsSection } from "@/components/opportunity-hub/FellowshipsSection";
 import { HackathonsSection } from "@/components/opportunity-hub/HackathonsSection";
 import { LearningResourcesSection } from "@/components/opportunity-hub/LearningResourcesSection";
@@ -78,6 +79,11 @@ export default function OpportunityHubPage() {
   const { data: hackathons, isLoading: hackathonsLoading } = useQuery({
     queryKey: ["opportunity-hackathons"],
     queryFn: () => opportunitiesApi.fetchHackathons(),
+  });
+
+  const { data: internships, isLoading: internshipsLoading } = useQuery({
+    queryKey: ["opportunity-internships"],
+    queryFn: () => opportunitiesApi.fetchInternships(),
   });
 
   const { data: learningResources, isLoading: learningLoading } = useQuery({
@@ -158,7 +164,7 @@ export default function OpportunityHubPage() {
   return (
     <div className="space-y-10">
       <OpportunityHubHeader />
-      <OpportunityHero stats={stats} />
+      <OpportunityHero stats={stats} isLoading={statsLoading} error={statsError} />
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <OpportunitySearch />
@@ -229,6 +235,13 @@ export default function OpportunityHubPage() {
           <ScholarshipsSection
             scholarships={scholarships ?? []}
             isLoading={scholarshipsLoading}
+            bookmarkedIds={bookmarks}
+            onToggleBookmark={toggleBookmark}
+          />
+
+          <InternshipsSection
+            internships={internships ?? []}
+            isLoading={internshipsLoading}
             bookmarkedIds={bookmarks}
             onToggleBookmark={toggleBookmark}
           />

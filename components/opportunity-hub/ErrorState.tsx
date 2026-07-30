@@ -5,13 +5,19 @@ import { motion } from "framer-motion";
 import { useI18n } from "@/providers/I18nProvider";
 import { Button } from "@/components/ui/Button";
 import { AlertTriangle } from "lucide-react";
+import { getApiError } from "@/lib/api/client";
 
 interface ErrorStateProps {
   onRetry?: () => void;
+  title?: string;
+  error?: unknown;
+  message?: string;
 }
 
-export function ErrorState({ onRetry }: ErrorStateProps) {
+export function ErrorState({ onRetry, title, error, message }: ErrorStateProps) {
   const { t } = useI18n();
+  const resolvedMessage =
+    message || (error ? getApiError(error).message : t("opportunityHub.errorState.description"));
 
   return (
     <motion.div
@@ -24,9 +30,9 @@ export function ErrorState({ onRetry }: ErrorStateProps) {
       <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-red-100 dark:bg-red-900/40">
         <AlertTriangle className="h-7 w-7 text-red-600 dark:text-red-400" aria-hidden="true" />
       </div>
-      <h3 className="text-lg font-semibold">{t("common.error")}</h3>
+      <h3 className="text-lg font-semibold">{title || t("common.error")}</h3>
       <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-        {t("opportunityHub.errorState.description")}
+        {resolvedMessage}
       </p>
       {onRetry && (
         <Button onClick={onRetry} className="mt-5" variant="outline">

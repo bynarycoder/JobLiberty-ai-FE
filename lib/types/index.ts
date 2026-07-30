@@ -239,12 +239,17 @@ export interface Translation {
 // Opportunity Hub Types
 export type OpportunityType =
   | 'job'
+  | 'jobs'
   | 'scholarship'
+  | 'scholarships'
   | 'fellowship'
   | 'internship'
+  | 'internships'
   | 'competition'
   | 'hackathon'
+  | 'hackathons'
   | 'learning'
+  | 'learning_resources'
   | 'networking'
   | 'volunteer'
   | 'opensource';

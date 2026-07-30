@@ -10,18 +10,20 @@ import type { OpportunityStats } from "@/lib/types";
 
 interface OpportunityHeroProps {
   stats: OpportunityStats | undefined;
+  isLoading?: boolean;
+  error?: unknown;
 }
 
-export function OpportunityHero({ stats }: OpportunityHeroProps) {
+export function OpportunityHero({ stats, isLoading, error }: OpportunityHeroProps) {
   const { t } = useI18n();
 
   const statItems = [
-    { key: "today", value: stats?.totalOpportunities ?? 0, labelKey: "opportunityHub.hero.todayOpportunities", icon: Sparkles, color: "blue", accent: "from-[#EFF6FF] to-[#DBEAFE] dark:from-[#1E3A8A]/20 dark:to-[#1E40AF]/10" },
-    { key: "jobs", value: stats?.availableJobs ?? 0, labelKey: "opportunityHub.hero.availableJobs", icon: Briefcase, color: "emerald", accent: "from-[#ECFDF5] to-[#D1FAE5] dark:from-[#064E3B]/20 dark:to-[#065F46]/10" },
-    { key: "scholarships", value: stats?.scholarships ?? 0, labelKey: "opportunityHub.hero.scholarships", icon: GraduationCap, color: "indigo", accent: "from-[#F5F3FF] to-[#EDE9FE] dark:from-[#4C1D95]/20 dark:to-[#5B21B6]/10" },
-    { key: "internships", value: stats?.internships ?? 0, labelKey: "opportunityHub.hero.internships", icon: Laptop, color: "amber", accent: "from-[#FFFBEB] to-[#FEF3C7] dark:from-[#78350F]/20 dark:to-[#92400E]/10" },
-    { key: "hackathons", value: stats?.hackathons ?? 0, labelKey: "opportunityHub.hero.hackathons", icon: Trophy, color: "sky", accent: "from-[#F0F9FF] to-[#E0F2FE] dark:from-[#0C4A6E]/20 dark:to-[#075985]/10" },
-    { key: "learning", value: stats?.learningResources ?? 0, labelKey: "opportunityHub.hero.learningResources", icon: BookOpen, color: "rose", accent: "from-[#FFF1F2] to-[#FFE4E6] dark:from-[#881337]/20 dark:to-[#9F1239]/10" },
+    { key: "today", value: stats?.totalOpportunities, labelKey: "opportunityHub.hero.todayOpportunities", icon: Sparkles, color: "blue", accent: "from-[#EFF6FF] to-[#DBEAFE] dark:from-[#1E3A8A]/20 dark:to-[#1E40AF]/10" },
+    { key: "jobs", value: stats?.availableJobs, labelKey: "opportunityHub.hero.availableJobs", icon: Briefcase, color: "emerald", accent: "from-[#ECFDF5] to-[#D1FAE5] dark:from-[#064E3B]/20 dark:to-[#065F46]/10" },
+    { key: "scholarships", value: stats?.scholarships, labelKey: "opportunityHub.hero.scholarships", icon: GraduationCap, color: "indigo", accent: "from-[#F5F3FF] to-[#EDE9FE] dark:from-[#4C1D95]/20 dark:to-[#5B21B6]/10" },
+    { key: "internships", value: stats?.internships, labelKey: "opportunityHub.hero.internships", icon: Laptop, color: "amber", accent: "from-[#FFFBEB] to-[#FEF3C7] dark:from-[#78350F]/20 dark:to-[#92400E]/10" },
+    { key: "hackathons", value: stats?.hackathons, labelKey: "opportunityHub.hero.hackathons", icon: Trophy, color: "sky", accent: "from-[#F0F9FF] to-[#E0F2FE] dark:from-[#0C4A6E]/20 dark:to-[#075985]/10" },
+    { key: "learning", value: stats?.learningResources, labelKey: "opportunityHub.hero.learningResources", icon: BookOpen, color: "rose", accent: "from-[#FFF1F2] to-[#FFE4E6] dark:from-[#881337]/20 dark:to-[#9F1239]/10" },
   ];
 
   const colorMap: Record<string, { iconBg: string; icon: string; border: string }> = {
@@ -64,7 +66,7 @@ export function OpportunityHero({ stats }: OpportunityHeroProps) {
               <h2 className="text-[24px] lg:text-[28px] font-[800] tracking-[-0.03em] leading-[1.1] text-white">{t("opportunityHub.hero.title")}</h2>
               <p className="mt-2 text-[14px] leading-[1.6] text-white/80 max-w-[52ch]">{t("opportunityHub.hero.description")}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <Badge className="bg-white/15 border-white/20 text-white backdrop-blur-sm">🔥 {stats?.totalOpportunities ? `${stats.totalOpportunities.toLocaleString()} opportunities` : "Loading opportunities..."}</Badge>
+                <Badge className="bg-white/15 border-white/20 text-white backdrop-blur-sm">🔥 {isLoading ? "Loading opportunities..." : error ? "Could not load count" : `${(stats?.totalOpportunities ?? 0).toLocaleString()} opportunities`}</Badge>
                 <Badge className="bg-[#10B981] border-[#10B981] text-white">✓ Verified by Liberty AI</Badge>
               </div>
             </div>
@@ -109,7 +111,15 @@ export function OpportunityHero({ stats }: OpportunityHeroProps) {
                       <ArrowUpRight className="h-3 w-3" />
                     </span>
                   </div>
-                  <div className="text-[22px] font-[800] tracking-[-0.03em] leading-none text-slate-900 dark:text-white tabular-nums">{stat.value.toLocaleString()}</div>
+                  <div className="text-[22px] font-[800] tracking-[-0.03em] leading-none text-slate-900 dark:text-white tabular-nums">
+                    {isLoading ? (
+                      <div className="my-0.5 h-6 w-16 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
+                    ) : error ? (
+                      <span className="text-xs font-semibold text-red-500">Error</span>
+                    ) : (
+                      (stat.value ?? 0).toLocaleString()
+                    )}
+                  </div>
                   <div className="mt-1 text-[11px] font-semibold tracking-[0.04em] uppercase text-slate-500 dark:text-slate-400 leading-[1.2]">{t(stat.labelKey)}</div>
                   <div className="mt-2 h-1 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     <div className="h-full w-[68%] rounded-full bg-slate-900 dark:bg-white" />

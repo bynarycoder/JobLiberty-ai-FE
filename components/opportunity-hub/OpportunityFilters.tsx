@@ -60,6 +60,11 @@ const TOGGLE_FILTERS: { key: keyof OpportunityFiltersState; label: string }[] = 
 
 function formatLabel(value: string): string {
   if (value === "all") return "All";
+  if (value === "jobs") return "Jobs";
+  if (value === "scholarships") return "Scholarships";
+  if (value === "internships") return "Internships";
+  if (value === "hackathons") return "Hackathons";
+  if (value === "learning_resources") return "Learning Resources";
   if (value === "onsite") return "On-site";
   if (value === "full-time") return "Full-time";
   if (value === "part-time") return "Part-time";
@@ -92,7 +97,7 @@ export function OpportunityFilters({ filters, onChange }: OpportunityFiltersProp
   const clearFilters = () => onChange({ ...DEFAULT_FILTERS });
 
   const activeCount =
-    Object.entries(filters).filter(([k, v]) => {
+    Object.entries(filters).filter(([, v]) => {
       if (typeof v === "boolean") return v === true;
       return v !== "all";
     }).length;
