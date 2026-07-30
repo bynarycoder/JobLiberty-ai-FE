@@ -19,12 +19,14 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  Phone,
   Rocket,
   Server,
   ShieldCheck,
   Sparkles,
   Target,
   TrendingUp,
+  User,
   Zap,
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
@@ -477,6 +479,69 @@ export default function AboutPage() {
             </blockquote>
           </div>
         </motion.div>
+      </motion.section>
+
+      {/* Contact Section */}
+      <motion.section id="contact" variants={fadeUp} className="relative overflow-hidden rounded-[28px] border bg-card p-6 shadow-sm sm:p-8">
+        <div className="pointer-events-none absolute inset-0 gradient-mesh opacity-[0.14] dark:opacity-[0.12]" />
+        <div className="pointer-events-none absolute inset-0 dot-pattern opacity-[0.06]" />
+        <div className="relative">
+          <SectionHeading
+            eyebrow="Reach Out"
+            title="Get in Touch"
+            subtitle="Have questions, feedback, or collaboration ideas? We'd love to hear from you."
+          />
+
+          <div className="mx-auto mt-2 max-w-2xl">
+            <div className="rounded-[22px] border bg-background/60 p-6 shadow-sm backdrop-blur-sm sm:p-8">
+              <div className="space-y-5 text-[15px] font-medium">
+                <a
+                  href="mailto:abdulwahababdulyekeen1@gmail.com"
+                  className="group flex items-center gap-4 rounded-[16px] border border-border/60 bg-card px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-[#2563EB]/40 hover:bg-[#2563EB]/5 hover:shadow-sm active:scale-[0.985]"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-gradient-to-br from-[#2563EB] to-[#4F46E5] text-white shadow-sm">
+                    <Mail className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[12px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Email</div>
+                    <div className="truncate font-semibold text-foreground group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]">
+                      abdulwahababdulyekeen1@gmail.com
+                    </div>
+                  </div>
+                </a>
+
+                <a
+                  href="tel:09044115526"
+                  className="group flex items-center gap-4 rounded-[16px] border border-border/60 bg-card px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-[#2563EB]/40 hover:bg-[#2563EB]/5 hover:shadow-sm active:scale-[0.985]"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-gradient-to-br from-[#10B981] to-[#059669] text-white shadow-sm">
+                    <Phone className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[12px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Phone</div>
+                    <div className="font-semibold text-foreground group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD]">
+                      09044115526
+                    </div>
+                  </div>
+                </a>
+
+                <div className="group flex items-center gap-4 rounded-[16px] border border-border/60 bg-card px-5 py-4 transition-all">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-gradient-to-br from-[#7C3AED] to-[#4F46E5] text-white shadow-sm">
+                    <User className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[12px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Name</div>
+                    <div className="font-semibold text-foreground">Abdulwahab Abdulyekeen</div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-7 text-center text-[13.5px] font-medium leading-7 text-muted-foreground">
+                Feel free to reach out if you&apos;d like to collaborate, provide feedback, or discuss opportunities related to JobLiberty.
+              </p>
+            </div>
+          </div>
+        </div>
       </motion.section>
     </motion.div>
   );
